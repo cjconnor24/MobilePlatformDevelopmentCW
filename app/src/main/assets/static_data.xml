@@ -1,0 +1,699 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Recent UK earthquakes</title>
+        <link>http://earthquakes.bgs.ac.uk/</link>
+        <description>Recent UK seismic events recorded by the BGS Seismology team</description>
+        <language>en-gb</language>
+        <lastBuildDate>Sat, 09 Feb 2019 08:40:00</lastBuildDate>
+        <image>
+            <title>BGS Logo</title>
+            <url>http://www.bgs.ac.uk/images/logos/bgs_c_w_227x50.gif</url>
+            <link>http://earthquakes.bgs.ac.uk/</link>
+        </image>
+        <item>
+            <title>UK Earthquake alert : M  1.0 :KINGSTONE,HEREFORDSHIRE, Wed, 30 Jan 2019 11:53:15</title>
+            <description>Origin date/time: Wed, 30 Jan 2019 11:53:15 ; Location: KINGSTONE,HEREFORDSHIRE ; Lat/long: 52.015,-2.861 ; Depth: 8 km ; Magnitude:  1.0</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190130115002.html</link>
+            <pubDate>Wed, 30 Jan 2019 11:53:15</pubDate>
+            <category>EQUK</category>
+            <geo:lat>52.015</geo:lat>
+            <geo:long>-2.861</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  2.2 :BUCKNALL,LINCOLNSHIRE, Sun, 27 Jan 2019 23:48:19</title>
+            <description>Origin date/time: Sun, 27 Jan 2019 23:48:19 ; Location: BUCKNALL,LINCOLNSHIRE ; Lat/long: 53.202,-0.250 ; Depth: 26 km ; Magnitude:  2.2</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190127234817.html</link>
+            <pubDate>Sun, 27 Jan 2019 23:48:19</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.202</geo:lat>
+            <geo:long>-0.250</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.1 :LONGTOWN,CUMBRIA, Sat, 26 Jan 2019 07:19:10</title>
+            <description>Origin date/time: Sat, 26 Jan 2019 07:19:10 ; Location: LONGTOWN,CUMBRIA ; Lat/long: 55.019,-2.887 ; Depth: 7 km ; Magnitude:  1.1</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190126071748.html</link>
+            <pubDate>Sat, 26 Jan 2019 07:19:10</pubDate>
+            <category>EQUK</category>
+            <geo:lat>55.019</geo:lat>
+            <geo:long>-2.887</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.0 :GLENLYON,PERTH/KINROSS, Sat, 26 Jan 2019 07:16:37</title>
+            <description>Origin date/time: Sat, 26 Jan 2019 07:16:37 ; Location: GLENLYON,PERTH/KINROSS ; Lat/long: 56.597,-4.130 ; Depth: 2 km ; Magnitude:  1.0</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190126071559.html</link>
+            <pubDate>Sat, 26 Jan 2019 07:16:37</pubDate>
+            <category>EQUK</category>
+            <geo:lat>56.597</geo:lat>
+            <geo:long>-4.130</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.2 :ENDON,STAFFORDSHIRE, Sat, 26 Jan 2019 02:50:32</title>
+            <description>Origin date/time: Sat, 26 Jan 2019 02:50:32 ; Location: ENDON,STAFFORDSHIRE ; Lat/long: 53.080,-2.112 ; Depth: 14 km ; Magnitude:  1.2</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190126025032.html</link>
+            <pubDate>Sat, 26 Jan 2019 02:50:32</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.080</geo:lat>
+            <geo:long>-2.112</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.0 :LONGTOWN,CUMBRIA, Fri, 25 Jan 2019 20:00:12</title>
+            <description>Origin date/time: Fri, 25 Jan 2019 20:00:12 ; Location: LONGTOWN,CUMBRIA ; Lat/long: 55.023,-2.879 ; Depth: 8 km ; Magnitude:  1.0</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190125195846.html</link>
+            <pubDate>Fri, 25 Jan 2019 20:00:12</pubDate>
+            <category>EQUK</category>
+            <geo:lat>55.023</geo:lat>
+            <geo:long>-2.879</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.5 :LOCHGAIR,ARGYLL AND BUTE, Thu, 24 Jan 2019 02:20:20</title>
+            <description>Origin date/time: Thu, 24 Jan 2019 02:20:20 ; Location: LOCHGAIR,ARGYLL AND BUTE ; Lat/long: 56.087,-5.352 ; Depth: 10 km ; Magnitude:  1.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190124022020.html</link>
+            <pubDate>Thu, 24 Jan 2019 02:20:20</pubDate>
+            <category>EQUK</category>
+            <geo:lat>56.087</geo:lat>
+            <geo:long>-5.352</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.7 :LLANGWM,CONWY, Wed, 23 Jan 2019 07:10:33</title>
+            <description>Origin date/time: Wed, 23 Jan 2019 07:10:33 ; Location: LLANGWM,CONWY ; Lat/long: 52.990,-3.531 ; Depth: 12 km ; Magnitude:  0.7</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190123070920.html</link>
+            <pubDate>Wed, 23 Jan 2019 07:10:33</pubDate>
+            <category>EQUK</category>
+            <geo:lat>52.990</geo:lat>
+            <geo:long>-3.531</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.0 :CHESTER,CHESHIRE, Sun, 20 Jan 2019 02:13:52</title>
+            <description>Origin date/time: Sun, 20 Jan 2019 02:13:52 ; Location: CHESTER,CHESHIRE ; Lat/long: 53.160,-2.801 ; Depth: 7 km ; Magnitude:  1.0</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190120021250.html</link>
+            <pubDate>Sun, 20 Jan 2019 02:13:52</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.160</geo:lat>
+            <geo:long>-2.801</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.5 :IRISH SEA, Sat, 19 Jan 2019 00:00:03</title>
+            <description>Origin date/time: Sat, 19 Jan 2019 00:00:03 ; Location: IRISH SEA ; Lat/long: 54.637,-3.868 ; Depth: 4 km ; Magnitude:  0.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190118235900.html</link>
+            <pubDate>Sat, 19 Jan 2019 00:00:03</pubDate>
+            <category>EQUK</category>
+            <geo:lat>54.637</geo:lat>
+            <geo:long>-3.868</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.4 :WHITSTONE,CORNWALL, Fri, 18 Jan 2019 02:33:37</title>
+            <description>Origin date/time: Fri, 18 Jan 2019 02:33:37 ; Location: WHITSTONE,CORNWALL ; Lat/long: 50.725,-4.460 ; Depth: 3 km ; Magnitude:  1.4</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190118023222.html</link>
+            <pubDate>Fri, 18 Jan 2019 02:33:37</pubDate>
+            <category>EQUK</category>
+            <geo:lat>50.725</geo:lat>
+            <geo:long>-4.460</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.4 :MOIDART,HIGHLAND, Wed, 16 Jan 2019 17:01:47</title>
+            <description>Origin date/time: Wed, 16 Jan 2019 17:01:47 ; Location: MOIDART,HIGHLAND ; Lat/long: 56.801,-5.691 ; Depth: 7 km ; Magnitude:  1.4</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190116170101.html</link>
+            <pubDate>Wed, 16 Jan 2019 17:01:47</pubDate>
+            <category>EQUK</category>
+            <geo:lat>56.801</geo:lat>
+            <geo:long>-5.691</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.7 :BEATTOCK,D AND G, Mon, 14 Jan 2019 17:58:12</title>
+            <description>Origin date/time: Mon, 14 Jan 2019 17:58:12 ; Location: BEATTOCK,D AND G ; Lat/long: 55.271,-3.515 ; Depth: 7 km ; Magnitude:  0.7</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190114175651.html</link>
+            <pubDate>Mon, 14 Jan 2019 17:58:12</pubDate>
+            <category>EQUK</category>
+            <geo:lat>55.271</geo:lat>
+            <geo:long>-3.515</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  2.6 :SOUTHERN NORTH SEA, Fri, 11 Jan 2019 22:51:23</title>
+            <description>Origin date/time: Fri, 11 Jan 2019 22:51:23 ; Location: SOUTHERN NORTH SEA ; Lat/long: 53.733,1.089 ; Depth: 6 km ; Magnitude:  2.6</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190111225122.html</link>
+            <pubDate>Fri, 11 Jan 2019 22:51:23</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.733</geo:lat>
+            <geo:long>1.089</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.8 :KINLOCHEWE,HIGHLAND, Thu, 10 Jan 2019 01:13:53</title>
+            <description>Origin date/time: Thu, 10 Jan 2019 01:13:53 ; Location: KINLOCHEWE,HIGHLAND ; Lat/long: 57.584,-5.377 ; Depth: 4 km ; Magnitude:  0.8</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190110011317.html</link>
+            <pubDate>Thu, 10 Jan 2019 01:13:53</pubDate>
+            <category>EQUK</category>
+            <geo:lat>57.584</geo:lat>
+            <geo:long>-5.377</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.9 :ST CLEARS,CARMARTHS, Thu, 10 Jan 2019 00:42:21</title>
+            <description>Origin date/time: Thu, 10 Jan 2019 00:42:21 ; Location: ST CLEARS,CARMARTHS ; Lat/long: 51.804,-4.456 ; Depth: 4 km ; Magnitude:  0.9</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190110004129.html</link>
+            <pubDate>Thu, 10 Jan 2019 00:42:21</pubDate>
+            <category>EQUK</category>
+            <geo:lat>51.804</geo:lat>
+            <geo:long>-4.456</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.7 :LYMPSHAM,SOMERSET, Sun, 06 Jan 2019 22:09:46</title>
+            <description>Origin date/time: Sun, 06 Jan 2019 22:09:46 ; Location: LYMPSHAM,SOMERSET ; Lat/long: 51.272,-2.959 ; Depth: 9 km ; Magnitude:  1.7</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190106220930.html</link>
+            <pubDate>Sun, 06 Jan 2019 22:09:46</pubDate>
+            <category>EQUK</category>
+            <geo:lat>51.272</geo:lat>
+            <geo:long>-2.959</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.4 :MULL,ARGYLL AND BUTE, Sun, 06 Jan 2019 18:07:44</title>
+            <description>Origin date/time: Sun, 06 Jan 2019 18:07:44 ; Location: MULL,ARGYLL AND BUTE ; Lat/long: 56.653,-6.256 ; Depth: 8 km ; Magnitude:  1.4</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190106180639.html</link>
+            <pubDate>Sun, 06 Jan 2019 18:07:44</pubDate>
+            <category>EQUK</category>
+            <geo:lat>56.653</geo:lat>
+            <geo:long>-6.256</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  2.2 :MORVEN,HIGHLAND, Thu, 03 Jan 2019 02:20:54</title>
+            <description>Origin date/time: Thu, 03 Jan 2019 02:20:54 ; Location: MORVEN,HIGHLAND ; Lat/long: 56.584,-5.924 ; Depth: 8 km ; Magnitude:  2.2</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190103022053.html</link>
+            <pubDate>Thu, 03 Jan 2019 02:20:54</pubDate>
+            <category>EQUK</category>
+            <geo:lat>56.584</geo:lat>
+            <geo:long>-5.924</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.5 :CAVERSHAM,READING, Wed, 02 Jan 2019 23:44:07</title>
+            <description>Origin date/time: Wed, 02 Jan 2019 23:44:07 ; Location: CAVERSHAM,READING ; Lat/long: 51.492,-0.970 ; Depth: 8 km ; Magnitude:  1.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190102234255.html</link>
+            <pubDate>Wed, 02 Jan 2019 23:44:07</pubDate>
+            <category>EQUK</category>
+            <geo:lat>51.492</geo:lat>
+            <geo:long>-0.970</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.9 :SOUND OF JURA, Wed, 02 Jan 2019 04:44:25</title>
+            <description>Origin date/time: Wed, 02 Jan 2019 04:44:25 ; Location: SOUND OF JURA ; Lat/long: 55.787,-5.762 ; Depth: 9 km ; Magnitude:  0.9</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190102044332.html</link>
+            <pubDate>Wed, 02 Jan 2019 04:44:25</pubDate>
+            <category>EQUK</category>
+            <geo:lat>55.787</geo:lat>
+            <geo:long>-5.762</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.6 :QUABBS,SHROPSHIRE, Tue, 01 Jan 2019 01:18:31</title>
+            <description>Origin date/time: Tue, 01 Jan 2019 01:18:31 ; Location: QUABBS,SHROPSHIRE ; Lat/long: 52.412,-3.139 ; Depth: 7 km ; Magnitude:  1.6</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20190101011830.html</link>
+            <pubDate>Tue, 01 Jan 2019 01:18:31</pubDate>
+            <category>EQUK</category>
+            <geo:lat>52.412</geo:lat>
+            <geo:long>-3.139</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.6 :SEABURN,TYNE AND WEAR, Wed, 26 Dec 2018 13:06:01</title>
+            <description>Origin date/time: Wed, 26 Dec 2018 13:06:01 ; Location: SEABURN,TYNE AND WEAR ; Lat/long: 54.932,-1.353 ; Depth: 8 km ; Magnitude:  1.6</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181226130449.html</link>
+            <pubDate>Wed, 26 Dec 2018 13:06:01</pubDate>
+            <category>EQUK</category>
+            <geo:lat>54.932</geo:lat>
+            <geo:long>-1.353</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.8 :BICESTER,OXFORDSHIRE, Mon, 24 Dec 2018 13:36:18</title>
+            <description>Origin date/time: Mon, 24 Dec 2018 13:36:18 ; Location: BICESTER,OXFORDSHIRE ; Lat/long: 51.886,-1.075 ; Depth: 14 km ; Magnitude:  0.8</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181224133601.html</link>
+            <pubDate>Mon, 24 Dec 2018 13:36:18</pubDate>
+            <category>EQUK</category>
+            <geo:lat>51.886</geo:lat>
+            <geo:long>-1.075</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.7 :LAGA,HIGHLAND, Sat, 22 Dec 2018 17:13:37</title>
+            <description>Origin date/time: Sat, 22 Dec 2018 17:13:37 ; Location: LAGA,HIGHLAND ; Lat/long: 56.704,-5.886 ; Depth: 7 km ; Magnitude:  0.7</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181222171300.html</link>
+            <pubDate>Sat, 22 Dec 2018 17:13:37</pubDate>
+            <category>EQUK</category>
+            <geo:lat>56.704</geo:lat>
+            <geo:long>-5.886</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.0 :LLEYN PENINSULA, Wed, 19 Dec 2018 15:47:54</title>
+            <description>Origin date/time: Wed, 19 Dec 2018 15:47:54 ; Location: LLEYN PENINSULA ; Lat/long: 52.963,-4.389 ; Depth: 20 km ; Magnitude:  1.0</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181219154637.html</link>
+            <pubDate>Wed, 19 Dec 2018 15:47:54</pubDate>
+            <category>EQUK</category>
+            <geo:lat>52.963</geo:lat>
+            <geo:long>-4.389</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.6 :LLEYN PENINSULA, Sun, 16 Dec 2018 20:23:00</title>
+            <description>Origin date/time: Sun, 16 Dec 2018 20:23:00 ; Location: LLEYN PENINSULA ; Lat/long: 52.947,-4.557 ; Depth: 10 km ; Magnitude:  0.6</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181216202132.html</link>
+            <pubDate>Sun, 16 Dec 2018 20:23:00</pubDate>
+            <category>EQUK</category>
+            <geo:lat>52.947</geo:lat>
+            <geo:long>-4.557</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.1 :BLACKPOOL,LANCASHIRE, Fri, 14 Dec 2018 14:51:56</title>
+            <description>Origin date/time: Fri, 14 Dec 2018 14:51:56 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.961 ; Depth: 2 km ; Magnitude:  0.1</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181214145029.html</link>
+            <pubDate>Fri, 14 Dec 2018 14:51:56</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.961</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.9 :BLACKPOOL,LANCASHIRE, Fri, 14 Dec 2018 13:41:05</title>
+            <description>Origin date/time: Fri, 14 Dec 2018 13:41:05 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.959 ; Depth: 2 km ; Magnitude:  0.9</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181214133937.html</link>
+            <pubDate>Fri, 14 Dec 2018 13:41:05</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.959</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.5 :BLACKPOOL,LANCASHIRE, Fri, 14 Dec 2018 13:35:50</title>
+            <description>Origin date/time: Fri, 14 Dec 2018 13:35:50 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.790,-2.963 ; Depth: 1 km ; Magnitude: -0.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181214133512.html</link>
+            <pubDate>Fri, 14 Dec 2018 13:35:50</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.790</geo:lat>
+            <geo:long>-2.963</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.3 :BLACKPOOL,LANCASHIRE, Fri, 14 Dec 2018 13:34:42</title>
+            <description>Origin date/time: Fri, 14 Dec 2018 13:34:42 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.962 ; Depth: 1 km ; Magnitude: -0.3</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181214133401.html</link>
+            <pubDate>Fri, 14 Dec 2018 13:34:42</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.962</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.1 :BLACKPOOL,LANCASHIRE, Fri, 14 Dec 2018 13:18:30</title>
+            <description>Origin date/time: Fri, 14 Dec 2018 13:18:30 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.962 ; Depth: 1 km ; Magnitude: -0.1</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181214131702.html</link>
+            <pubDate>Fri, 14 Dec 2018 13:18:30</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.962</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.1 :BLACKPOOL,LANCASHIRE, Fri, 14 Dec 2018 13:09:51</title>
+            <description>Origin date/time: Fri, 14 Dec 2018 13:09:51 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.960 ; Depth: 1 km ; Magnitude:  0.1</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181214130823.html</link>
+            <pubDate>Fri, 14 Dec 2018 13:09:51</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.960</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.5 :BLACKPOOL,LANCASHIRE, Fri, 14 Dec 2018 13:06:36</title>
+            <description>Origin date/time: Fri, 14 Dec 2018 13:06:36 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.962 ; Depth: 1 km ; Magnitude: -0.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181214130612.html</link>
+            <pubDate>Fri, 14 Dec 2018 13:06:36</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.962</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.6 :BLACKPOOL,LANCASHIRE, Fri, 14 Dec 2018 13:05:50</title>
+            <description>Origin date/time: Fri, 14 Dec 2018 13:05:50 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.963 ; Depth: 1 km ; Magnitude: -0.6</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181214130549.html</link>
+            <pubDate>Fri, 14 Dec 2018 13:05:50</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.963</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.2 :BLACKPOOL,LANCASHIRE, Fri, 14 Dec 2018 13:06:05</title>
+            <description>Origin date/time: Fri, 14 Dec 2018 13:06:05 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.962 ; Depth: 1 km ; Magnitude: -0.2</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181214130438.html</link>
+            <pubDate>Fri, 14 Dec 2018 13:06:05</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.962</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.3 :LLANGWM,CONWY, Fri, 14 Dec 2018 05:26:17</title>
+            <description>Origin date/time: Fri, 14 Dec 2018 05:26:17 ; Location: LLANGWM,CONWY ; Lat/long: 52.987,-3.574 ; Depth: 10 km ; Magnitude:  0.3</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181214052600.html</link>
+            <pubDate>Fri, 14 Dec 2018 05:26:17</pubDate>
+            <category>EQUK</category>
+            <geo:lat>52.987</geo:lat>
+            <geo:long>-3.574</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.0 :BLACKPOOL,LANCASHIRE, Thu, 13 Dec 2018 13:25:16</title>
+            <description>Origin date/time: Thu, 13 Dec 2018 13:25:16 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.961 ; Depth: 2 km ; Magnitude:  0.0</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181213132349.html</link>
+            <pubDate>Thu, 13 Dec 2018 13:25:16</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.961</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.4 :PEN-Y-BONT,CARMARTHS, Wed, 12 Dec 2018 16:45:46</title>
+            <description>Origin date/time: Wed, 12 Dec 2018 16:45:46 ; Location: PEN-Y-BONT,CARMARTHS ; Lat/long: 51.924,-4.447 ; Depth: 6 km ; Magnitude:  1.4</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181212164409.html</link>
+            <pubDate>Wed, 12 Dec 2018 16:45:46</pubDate>
+            <category>EQUK</category>
+            <geo:lat>51.924</geo:lat>
+            <geo:long>-4.447</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.5 :BLACKPOOL,LANCASHIRE, Tue, 11 Dec 2018 11:21:15</title>
+            <description>Origin date/time: Tue, 11 Dec 2018 11:21:15 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.962 ; Depth: 1 km ; Magnitude:  1.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181211111946.html</link>
+            <pubDate>Tue, 11 Dec 2018 11:21:15</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.962</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.0 :BLACKPOOL,LANCASHIRE, Tue, 11 Dec 2018 10:34:35</title>
+            <description>Origin date/time: Tue, 11 Dec 2018 10:34:35 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.790,-2.963 ; Depth: 1 km ; Magnitude:  0.0</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181211103307.html</link>
+            <pubDate>Tue, 11 Dec 2018 10:34:35</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.790</geo:lat>
+            <geo:long>-2.963</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.5 :BLACKPOOL,LANCASHIRE, Tue, 11 Dec 2018 10:24:26</title>
+            <description>Origin date/time: Tue, 11 Dec 2018 10:24:26 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.790,-2.962 ; Depth: 1 km ; Magnitude: -0.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181211102229.html</link>
+            <pubDate>Tue, 11 Dec 2018 10:24:26</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.790</geo:lat>
+            <geo:long>-2.962</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.4 :BLACKPOOL.LANCASHIRE, Tue, 11 Dec 2018 10:20:27</title>
+            <description>Origin date/time: Tue, 11 Dec 2018 10:20:27 ; Location: BLACKPOOL.LANCASHIRE ; Lat/long: 53.789,-2.963 ; Depth: 1 km ; Magnitude: -0.4</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181211101906.html</link>
+            <pubDate>Tue, 11 Dec 2018 10:20:27</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.963</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.0 :BLACKPOOL,LANCASHIRE, Tue, 11 Dec 2018 10:18:46</title>
+            <description>Origin date/time: Tue, 11 Dec 2018 10:18:46 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.790,-2.962 ; Depth: 2 km ; Magnitude:  0.0</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181211101718.html</link>
+            <pubDate>Tue, 11 Dec 2018 10:18:46</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.790</geo:lat>
+            <geo:long>-2.962</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.1 :BLACKPOOL,LANCASHIRE, Tue, 11 Dec 2018 10:06:44</title>
+            <description>Origin date/time: Tue, 11 Dec 2018 10:06:44 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.788,-2.962 ; Depth: 1 km ; Magnitude: -0.1</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181211100517.html</link>
+            <pubDate>Tue, 11 Dec 2018 10:06:44</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.788</geo:lat>
+            <geo:long>-2.962</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.1 :BLACKPOOL,LANCASHIRE, Tue, 11 Dec 2018 09:53:31</title>
+            <description>Origin date/time: Tue, 11 Dec 2018 09:53:31 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.961 ; Depth: 1 km ; Magnitude:  0.1</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181211095203.html</link>
+            <pubDate>Tue, 11 Dec 2018 09:53:31</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.961</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.4 :BLACKPOOL,LANCASHIRE, Tue, 11 Dec 2018 09:51:36</title>
+            <description>Origin date/time: Tue, 11 Dec 2018 09:51:36 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.790,-2.964 ; Depth: 1 km ; Magnitude: -0.4</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181211095008.html</link>
+            <pubDate>Tue, 11 Dec 2018 09:51:36</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.790</geo:lat>
+            <geo:long>-2.964</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.2 :BLACKPOOL,LANCASHIRE, Tue, 11 Dec 2018 09:34:03</title>
+            <description>Origin date/time: Tue, 11 Dec 2018 09:34:03 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.963 ; Depth: 1 km ; Magnitude: -0.2</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181211093236.html</link>
+            <pubDate>Tue, 11 Dec 2018 09:34:03</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.963</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.1 :BLACKPOOL,LANCASHIRE, Tue, 11 Dec 2018 09:35:01</title>
+            <description>Origin date/time: Tue, 11 Dec 2018 09:35:01 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.789,-2.963 ; Depth: 1 km ; Magnitude: -0.1</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181211093235.html</link>
+            <pubDate>Tue, 11 Dec 2018 09:35:01</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.789</geo:lat>
+            <geo:long>-2.963</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.3 :BLACKPOOL,LANCASHIRE, Mon, 10 Dec 2018 10:30:57</title>
+            <description>Origin date/time: Mon, 10 Dec 2018 10:30:57 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.788,-2.960 ; Depth: 2 km ; Magnitude: -0.3</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181210102901.html</link>
+            <pubDate>Mon, 10 Dec 2018 10:30:57</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.788</geo:lat>
+            <geo:long>-2.960</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.7 :JOHNSTONEBRIDGE,D AND G, Sun, 09 Dec 2018 05:59:15</title>
+            <description>Origin date/time: Sun, 09 Dec 2018 05:59:15 ; Location: JOHNSTONEBRIDGE,D AND G ; Lat/long: 55.250,-3.533 ; Depth: 2 km ; Magnitude:  0.7</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181209055817.html</link>
+            <pubDate>Sun, 09 Dec 2018 05:59:15</pubDate>
+            <category>EQUK</category>
+            <geo:lat>55.250</geo:lat>
+            <geo:long>-3.533</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.0 :SOULBURY,BUCKS, Wed, 05 Dec 2018 19:45:31</title>
+            <description>Origin date/time: Wed, 05 Dec 2018 19:45:31 ; Location: SOULBURY,BUCKS ; Lat/long: 51.941,-0.692 ; Depth: 5 km ; Magnitude:  1.0</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181205194500.html</link>
+            <pubDate>Wed, 05 Dec 2018 19:45:31</pubDate>
+            <category>EQUK</category>
+            <geo:lat>51.941</geo:lat>
+            <geo:long>-0.692</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.5 :SOULBURY,BUCKS, Wed, 05 Dec 2018 19:14:32</title>
+            <description>Origin date/time: Wed, 05 Dec 2018 19:14:32 ; Location: SOULBURY,BUCKS ; Lat/long: 51.933,-0.690 ; Depth: 6 km ; Magnitude:  1.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181205191410.html</link>
+            <pubDate>Wed, 05 Dec 2018 19:14:32</pubDate>
+            <category>EQUK</category>
+            <geo:lat>51.933</geo:lat>
+            <geo:long>-0.690</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.8 :LONG EATON,DERBYSHIRE, Mon, 03 Dec 2018 20:13:53</title>
+            <description>Origin date/time: Mon, 03 Dec 2018 20:13:53 ; Location: LONG EATON,DERBYSHIRE ; Lat/long: 52.904,-1.270 ; Depth: 5 km ; Magnitude:  0.8</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181203201330.html</link>
+            <pubDate>Mon, 03 Dec 2018 20:13:53</pubDate>
+            <category>EQUK</category>
+            <geo:lat>52.904</geo:lat>
+            <geo:long>-1.270</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.3 :OFF HARTLAND PT,DEVON, Mon, 26 Nov 2018 14:06:01</title>
+            <description>Origin date/time: Mon, 26 Nov 2018 14:06:01 ; Location: OFF HARTLAND PT,DEVON ; Lat/long: 51.020,-4.644 ; Depth: 31 km ; Magnitude:  1.3</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181126140330.html</link>
+            <pubDate>Mon, 26 Nov 2018 14:06:01</pubDate>
+            <category>EQUK</category>
+            <geo:lat>51.020</geo:lat>
+            <geo:long>-4.644</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.0 :INVERARAY,ARGYLL/BUTE, Sun, 25 Nov 2018 20:14:23</title>
+            <description>Origin date/time: Sun, 25 Nov 2018 20:14:23 ; Location: INVERARAY,ARGYLL/BUTE ; Lat/long: 56.187,-5.156 ; Depth: 3 km ; Magnitude:  1.0</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181125201330.html</link>
+            <pubDate>Sun, 25 Nov 2018 20:14:23</pubDate>
+            <category>EQUK</category>
+            <geo:lat>56.187</geo:lat>
+            <geo:long>-5.156</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.5 :KILLIN,STIRLING, Sun, 25 Nov 2018 19:29:19</title>
+            <description>Origin date/time: Sun, 25 Nov 2018 19:29:19 ; Location: KILLIN,STIRLING ; Lat/long: 56.522,-4.366 ; Depth: 3 km ; Magnitude:  0.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181125192900.html</link>
+            <pubDate>Sun, 25 Nov 2018 19:29:19</pubDate>
+            <category>EQUK</category>
+            <geo:lat>56.522</geo:lat>
+            <geo:long>-4.366</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.9 :IRISH SEA, Sat, 24 Nov 2018 13:15:27</title>
+            <description>Origin date/time: Sat, 24 Nov 2018 13:15:27 ; Location: IRISH SEA ; Lat/long: 53.745,-3.281 ; Depth: 13 km ; Magnitude:  0.9</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181124131328.html</link>
+            <pubDate>Sat, 24 Nov 2018 13:15:27</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.745</geo:lat>
+            <geo:long>-3.281</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  2.1 :FILEY,NORTH YORKSHIRE, Thu, 22 Nov 2018 18:05:02</title>
+            <description>Origin date/time: Thu, 22 Nov 2018 18:05:02 ; Location: FILEY,NORTH YORKSHIRE ; Lat/long: 54.250,-0.230 ; Depth: 1 km ; Magnitude:  2.1</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181122180319.html</link>
+            <pubDate>Thu, 22 Nov 2018 18:05:02</pubDate>
+            <category>EQUK</category>
+            <geo:lat>54.250</geo:lat>
+            <geo:long>-0.230</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.8 :RENWICK,CUMBRIA, Thu, 22 Nov 2018 08:43:46</title>
+            <description>Origin date/time: Thu, 22 Nov 2018 08:43:46 ; Location: RENWICK,CUMBRIA ; Lat/long: 54.771,-2.607 ; Depth: 10 km ; Magnitude:  0.8</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181122084208.html</link>
+            <pubDate>Thu, 22 Nov 2018 08:43:46</pubDate>
+            <category>EQUK</category>
+            <geo:lat>54.771</geo:lat>
+            <geo:long>-2.607</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.9 :HEIGHINGTON,LINCS, Thu, 22 Nov 2018 02:03:02</title>
+            <description>Origin date/time: Thu, 22 Nov 2018 02:03:02 ; Location: HEIGHINGTON,LINCS ; Lat/long: 53.209,-0.444 ; Depth: 9 km ; Magnitude:  0.9</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181122020220.html</link>
+            <pubDate>Thu, 22 Nov 2018 02:03:02</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.209</geo:lat>
+            <geo:long>-0.444</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.5 :CLACHAN,ARGYLL AND BUTE, Wed, 21 Nov 2018 20:36:47</title>
+            <description>Origin date/time: Wed, 21 Nov 2018 20:36:47 ; Location: CLACHAN,ARGYLL AND BUTE ; Lat/long: 55.747,-5.472 ; Depth: 7 km ; Magnitude:  0.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181121203600.html</link>
+            <pubDate>Wed, 21 Nov 2018 20:36:47</pubDate>
+            <category>EQUK</category>
+            <geo:lat>55.747</geo:lat>
+            <geo:long>-5.472</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.9 :STRACHUR,ARGYLL AND BUTE, Tue, 20 Nov 2018 22:44:58</title>
+            <description>Origin date/time: Tue, 20 Nov 2018 22:44:58 ; Location: STRACHUR,ARGYLL AND BUTE ; Lat/long: 56.151,-4.987 ; Depth: 2 km ; Magnitude:  0.9</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181120224430.html</link>
+            <pubDate>Tue, 20 Nov 2018 22:44:58</pubDate>
+            <category>EQUK</category>
+            <geo:lat>56.151</geo:lat>
+            <geo:long>-4.987</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.7 :BARNARD CASTLE,DURHAM, Mon, 19 Nov 2018 05:23:44</title>
+            <description>Origin date/time: Mon, 19 Nov 2018 05:23:44 ; Location: BARNARD CASTLE,DURHAM ; Lat/long: 54.562,-1.892 ; Depth: 11 km ; Magnitude:  1.7</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181119052221.html</link>
+            <pubDate>Mon, 19 Nov 2018 05:23:44</pubDate>
+            <category>EQUK</category>
+            <geo:lat>54.562</geo:lat>
+            <geo:long>-1.892</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.8 :MULL,ARGYLL AND BUTE, Thu, 15 Nov 2018 16:46:14</title>
+            <description>Origin date/time: Thu, 15 Nov 2018 16:46:14 ; Location: MULL,ARGYLL AND BUTE ; Lat/long: 56.417,-5.611 ; Depth: 2 km ; Magnitude:  0.8</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181115164550.html</link>
+            <pubDate>Thu, 15 Nov 2018 16:46:14</pubDate>
+            <category>EQUK</category>
+            <geo:lat>56.417</geo:lat>
+            <geo:long>-5.611</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.1 :TELFORD,SHROPSHIRE, Thu, 15 Nov 2018 05:43:28</title>
+            <description>Origin date/time: Thu, 15 Nov 2018 05:43:28 ; Location: TELFORD,SHROPSHIRE ; Lat/long: 52.644,-2.438 ; Depth: 7 km ; Magnitude:  1.1</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181115054217.html</link>
+            <pubDate>Thu, 15 Nov 2018 05:43:28</pubDate>
+            <category>EQUK</category>
+            <geo:lat>52.644</geo:lat>
+            <geo:long>-2.438</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  2.3 :LEOMINSTER,HEREF, Mon, 12 Nov 2018 23:05:59</title>
+            <description>Origin date/time: Mon, 12 Nov 2018 23:05:59 ; Location: LEOMINSTER,HEREF ; Lat/long: 52.229,-2.717 ; Depth: 14 km ; Magnitude:  2.3</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181112230338.html</link>
+            <pubDate>Mon, 12 Nov 2018 23:05:59</pubDate>
+            <category>EQUK</category>
+            <geo:lat>52.229</geo:lat>
+            <geo:long>-2.717</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.4 :CRIEFF,PERTH AND KINROSS, Mon, 12 Nov 2018 18:58:06</title>
+            <description>Origin date/time: Mon, 12 Nov 2018 18:58:06 ; Location: CRIEFF,PERTH AND KINROSS ; Lat/long: 56.475,-3.907 ; Depth: 2 km ; Magnitude:  1.4</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181112185730.html</link>
+            <pubDate>Mon, 12 Nov 2018 18:58:06</pubDate>
+            <category>EQUK</category>
+            <geo:lat>56.475</geo:lat>
+            <geo:long>-3.907</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.5 :TREUDDYN,FLINTSHIRE, Fri, 09 Nov 2018 22:05:24</title>
+            <description>Origin date/time: Fri, 09 Nov 2018 22:05:24 ; Location: TREUDDYN,FLINTSHIRE ; Lat/long: 53.114,-3.129 ; Depth: 9 km ; Magnitude:  1.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181109220440.html</link>
+            <pubDate>Fri, 09 Nov 2018 22:05:24</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.114</geo:lat>
+            <geo:long>-3.129</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.9 :LOCHBROOM,HIGHLAND, Fri, 09 Nov 2018 01:37:13</title>
+            <description>Origin date/time: Fri, 09 Nov 2018 01:37:13 ; Location: LOCHBROOM,HIGHLAND ; Lat/long: 57.730,-5.193 ; Depth: 2 km ; Magnitude:  0.9</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181109013645.html</link>
+            <pubDate>Fri, 09 Nov 2018 01:37:13</pubDate>
+            <category>EQUK</category>
+            <geo:lat>57.730</geo:lat>
+            <geo:long>-5.193</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  0.7 :BLACKPOOL,LANCASHIRE, Sun, 04 Nov 2018 16:24:06</title>
+            <description>Origin date/time: Sun, 04 Nov 2018 16:24:06 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.787,-2.958 ; Depth: 2 km ; Magnitude:  0.7</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181104162220.html</link>
+            <pubDate>Sun, 04 Nov 2018 16:24:06</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.787</geo:lat>
+            <geo:long>-2.958</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.4 :ISLAY,ARGYLL AND BUTE, Sat, 03 Nov 2018 06:09:33</title>
+            <description>Origin date/time: Sat, 03 Nov 2018 06:09:33 ; Location: ISLAY,ARGYLL AND BUTE ; Lat/long: 55.837,-6.388 ; Depth: 6 km ; Magnitude:  1.4</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181103060830.html</link>
+            <pubDate>Sat, 03 Nov 2018 06:09:33</pubDate>
+            <category>EQUK</category>
+            <geo:lat>55.837</geo:lat>
+            <geo:long>-6.388</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.5 :BLACKPOOL,LANCASHIRE, Fri, 02 Nov 2018 22:59:27</title>
+            <description>Origin date/time: Fri, 02 Nov 2018 22:59:27 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.788,-2.962 ; Depth: 2 km ; Magnitude: -0.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181102225759.html</link>
+            <pubDate>Fri, 02 Nov 2018 22:59:27</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.788</geo:lat>
+            <geo:long>-2.962</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.5 :BLACKPOOL,LANCASHIRE, Fri, 02 Nov 2018 17:44:58</title>
+            <description>Origin date/time: Fri, 02 Nov 2018 17:44:58 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.788,-2.963 ; Depth: 2 km ; Magnitude: -0.5</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181102174456.html</link>
+            <pubDate>Fri, 02 Nov 2018 17:44:58</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.788</geo:lat>
+            <geo:long>-2.963</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M  1.1 :BRIDGNORTH,SHROPSHIRE, Fri, 02 Nov 2018 00:08:56</title>
+            <description>Origin date/time: Fri, 02 Nov 2018 00:08:56 ; Location: BRIDGNORTH,SHROPSHIRE ; Lat/long: 52.531,-2.343 ; Depth: 10 km ; Magnitude:  1.1</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181102000830.html</link>
+            <pubDate>Fri, 02 Nov 2018 00:08:56</pubDate>
+            <category>EQUK</category>
+            <geo:lat>52.531</geo:lat>
+            <geo:long>-2.343</geo:long>
+        </item>
+        <item>
+            <title>UK Earthquake alert : M -0.3 :BLACKPOOL,LANCASHIRE, Thu, 01 Nov 2018 06:50:58</title>
+            <description>Origin date/time: Thu, 01 Nov 2018 06:50:58 ; Location: BLACKPOOL,LANCASHIRE ; Lat/long: 53.788,-2.964 ; Depth: 2 km ; Magnitude: -0.3</description>
+            <link>http://earthquakes.bgs.ac.uk/earthquakes/recent_events/20181101064931.html</link>
+            <pubDate>Thu, 01 Nov 2018 06:50:58</pubDate>
+            <category>EQUK</category>
+            <geo:lat>53.788</geo:lat>
+            <geo:long>-2.964</geo:long>
+        </item>
+    </channel>
+</rss>
