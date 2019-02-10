@@ -16,14 +16,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements OnClickListener
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
     private String result;
     private String url1="";
     private String urlSource="http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
+    private ListView earthquakeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,7 +49,27 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         startButton = (Button)findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
 
+        // EARTHQUAKE LIST
+        earthquakeList = (ListView)findViewById(R.id.earthquakeList);
+
         // More Code goes here
+
+        List<Earthquake> earthquakes = null;
+
+        try {
+
+            XMLParser parser = new XMLParser();
+            InputStream is=getAssets().open("static_data.xml");
+            earthquakes = parser.parse(is);
+//
+//            ArrayAdapter<Earthquake> adapter =new ArrayAdapter<Earthquake>
+//                    (this,android.R.layout.simple_list_item_1, earthquakes);
+//            earthquakeList.setAdapter(adapter);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void onClick(View aview)
