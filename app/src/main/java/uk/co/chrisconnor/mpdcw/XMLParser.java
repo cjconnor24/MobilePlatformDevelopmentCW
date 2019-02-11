@@ -37,8 +37,8 @@ public class XMLParser {
 
                 if (eventType == XmlPullParser.START_TAG) {
 
-                    if (parser.getName().equals("item")) {
-                        System.out.println("CREATING NEW EARTHQUAKE");
+                    if (tagname.equals("item")) {
+                        // INITIALISE THE EARTHQUAKE
                         earthquake = new Earthquake();
                     }
 
@@ -51,47 +51,44 @@ public class XMLParser {
 
                     // REACHED THE END OF THE TAG
 
-                    if (parser.getName().equals("item")) {
+                    if (tagname.equals("item")) {
 
                         earthquakes.add(earthquake);
-                    } else if (parser.getName().equals("link")){
-                        if(earthquake != null){
+                    } else if (tagname.equals("link")) {
+                        if (earthquake != null) {
 
-                        earthquake.setLink(text);
+                            earthquake.setLink(text);
                         }
-                    } else if (parser.getName().equals("description")){
+                    } else if (tagname.equals("description") && earthquake != null) {
 
-                        if(earthquake != null){
-                        String[] elements;
-                        elements = text.split("([A-Za-z\\/ ]+?):");
+                            // PARSE THE DESCRIPTION STRING TO GET ALL THE TAGS
+                            String[] elements;
+                            elements = text.split("([A-Za-z\\/ ]+?):");
 
-                        try {
+                            try {
 
-                            // 0 BLANK
-                            // 1 DATE
-                            // 2 LOCATION NAME
-                            Location loc = new Location();
-                            loc.setName(elements[2].replace(" ;","").trim());
-                            // 3 LAT LONG
-                            loc.setLat(Double.parseDouble(elements[3].split(",")[0].replace(" ;","").trim()));
-                            loc.setLon(Double.parseDouble(elements[3].split(",")[1].replace(" ;","").trim()));
-                            earthquake.setLocation(loc);
+                                // 0 BLANK
+                                // 1 DATE
+                                earthquake.setDateTime(elements[1].replace(" ;", "").trim());
 
-                            // 4 DEPTH
-                            earthquake.setDepth(Integer.parseInt(elements[4].replace(" km ;","").trim()));
-                            // 5 Magnitude
-                            earthquake.setMagnitude(Double.parseDouble(elements[5].trim()));
+                                // 2 LOCATION NAME
+                                Location loc = parseLocation(elements[2],elements[3]);
+                                earthquake.setLocation(loc);
 
-                        } catch (Exception e){
-                            Log.e("x",e.toString());
-                        }
+                                // 4 DEPTH
+                                earthquake.setDepth(Integer.parseInt(elements[4].replace(" km ;", "").trim()));
+                                // 5 Magnitude
+                                earthquake.setMagnitude(Double.parseDouble(elements[5].trim()));
 
-                        }
-                    } else if (parser.getName().equals("category")){
-                        if(earthquake != null){
+                            } catch (Exception e) {
+                                Log.e("x", e.toString());
+                            }
+
+
+                    } else if (parser.getName().equals("category") && earthquake != null) {
 
                             earthquake.setCategory(text);
-                        }
+
                     }
 
                 }
@@ -106,6 +103,30 @@ public class XMLParser {
         }
 
         return earthquakes;
+    }
+
+    /**
+     * Create location object from passed strings
+     * @param name Name String
+     * @param latlong LatLong String
+     * @return
+     */
+    private Location parseLocation(String name, String latlong) {
+
+        Location loc = new Location();
+        loc.setName(name.replace(" ;", "").trim());
+
+        try {
+
+            loc.setLat(Double.parseDouble(latlong.split(",")[0].replace(" ;", "").trim()));
+            loc.setLon(Double.parseDouble(latlong.split(",")[1].replace(" ;", "").trim()));
+
+        } catch (Exception e) {
+            Log.e("ERROR", e.toString());
+        }
+
+        return loc;
+
     }
 
 }

@@ -71,4 +71,16 @@ public class Earthquake {
     public void setLink(String link) {
         this.link = link;
     }
+
+    @Override
+    public String toString() {
+        return "Earthquake{" +
+                "location=" + location +
+                ", dateTime='" + dateTime + '\'' +
+                ", depth=" + depth + this.location.toString() +
+                ", magnitude=" + magnitude +
+                ", category='" + category + '\'' +
+                ", link='" + link + '\'' +
+                '}';
+    }
 }
