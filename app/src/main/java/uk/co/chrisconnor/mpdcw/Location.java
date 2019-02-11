@@ -9,11 +9,11 @@ public class Location {
     private double lat;
     private double lon;
 
-    public Location(String name, double lat, double lon) {
-        this.name = name;
-        this.lat = lat;
-        this.lon = lon;
-    }
+//    public Location(String name, double lat, double lon) {
+//        this.name = name;
+//        this.lat = lat;
+//        this.lon = lon;
+//    }
 
     public String getName() {
         return name;

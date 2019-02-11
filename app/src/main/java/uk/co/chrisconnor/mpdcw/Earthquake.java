@@ -3,10 +3,8 @@ package uk.co.chrisconnor.mpdcw;
 public class Earthquake {
 
     // GENERAL DATA
-    private String description;
     private Location location;
     private String dateTime;
-    private String publishedDateTime;
 
     // STAT DATA
     private int depth;
@@ -16,13 +14,15 @@ public class Earthquake {
     private String category;
     private String link;
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//    X Location
+//    X DateTime
+//    X Position
+//    X Depth
+//    X Magnitude
+//    Category
+    // Link
+
 
     public Location getLocation() {
         return location;
@@ -38,14 +38,6 @@ public class Earthquake {
 
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public String getPublishedDateTime() {
-        return publishedDateTime;
-    }
-
-    public void setPublishedDateTime(String publishedDateTime) {
-        this.publishedDateTime = publishedDateTime;
     }
 
     public int getDepth() {
