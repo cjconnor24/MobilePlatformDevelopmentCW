@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
             InputStream is=getAssets().open("static_data.xml");
             earthquakes = parser.parse(is);
 //
-//            ArrayAdapter<Earthquake> adapter =new ArrayAdapter<Earthquake>
-//                    (this,android.R.layout.simple_list_item_1, earthquakes);
-//            earthquakeList.setAdapter(adapter);
+            ArrayAdapter<Earthquake> adapter =new ArrayAdapter<Earthquake>
+                    (this,android.R.layout.simple_list_item_1, earthquakes);
+            earthquakeList.setAdapter(adapter);
 
         } catch (IOException e) {
             e.printStackTrace();

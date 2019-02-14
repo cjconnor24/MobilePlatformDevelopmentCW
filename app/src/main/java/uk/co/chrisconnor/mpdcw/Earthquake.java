@@ -77,10 +77,12 @@ public class Earthquake {
         return "Earthquake{" +
                 "location=" + location +
                 ", dateTime='" + dateTime + '\'' +
-                ", depth=" + depth + this.location.toString() +
+                ", depth=" + depth +
                 ", magnitude=" + magnitude +
                 ", category='" + category + '\'' +
                 ", link='" + link + '\'' +
                 '}';
     }
+
+    //
 }
