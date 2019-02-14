@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class XMLParser {
@@ -28,7 +29,7 @@ public class XMLParser {
             factory.setNamespaceAware(true);
             XmlPullParser parser = factory.newPullParser();
 
-            parser.setInput(is, null);
+//            parser.setInput(is, null);
 
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -65,11 +66,13 @@ public class XMLParser {
                             String[] elements;
                             elements = text.split("([A-Za-z\\/ ]+?):");
 
-                            try {
+//                            try {
 
                                 // 0 BLANK
                                 // 1 DATE
                                 earthquake.setDateTime(elements[1].replace(" ;", "").trim());
+                                // TODO: MAKE THIS AN ACTUAL DATETIME OBJECT
+
 
                                 // 2 LOCATION NAME
                                 Location loc = parseLocation(elements[2],elements[3]);
@@ -80,9 +83,9 @@ public class XMLParser {
                                 // 5 Magnitude
                                 earthquake.setMagnitude(Double.parseDouble(elements[5].trim()));
 
-                            } catch (Exception e) {
-                                Log.e("x", e.toString());
-                            }
+//                            } catch (Exception e) {
+//                                Log.e("x", e.toString());
+//                            }
 
 
                     } else if (parser.getName().equals("category") && earthquake != null) {

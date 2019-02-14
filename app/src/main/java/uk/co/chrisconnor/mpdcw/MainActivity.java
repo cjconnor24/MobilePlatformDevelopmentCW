@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
     private String url1="";
     private String urlSource="http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     private ListView earthquakeList;
+    List<Earthquake> earthquakes = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,17 +55,20 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 
         // More Code goes here
 
-        List<Earthquake> earthquakes = null;
+
 
         try {
 
             XMLParser parser = new XMLParser();
             InputStream is=getAssets().open("static_data.xml");
+//            InputStream is=getAssets().open(result);
             earthquakes = parser.parse(is);
-//
+
             ArrayAdapter<Earthquake> adapter =new ArrayAdapter<Earthquake>
                     (this,android.R.layout.simple_list_item_1, earthquakes);
             earthquakeList.setAdapter(adapter);
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
