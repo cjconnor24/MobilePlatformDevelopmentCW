@@ -30,27 +30,26 @@ import java.net.URLConnection;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements OnClickListener
-{
+public class MainActivity extends AppCompatActivity implements OnClickListener {
+    private static final String TAG = "MainActivity";
     private TextView rawDataDisplay;
     private Button startButton;
     private String result;
-    private String url1="";
-    private String urlSource="http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
+    private String url1 = "";
+    private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     private ListView earthquakeList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Set up the raw links to the graphical components
-        rawDataDisplay = (TextView)findViewById(R.id.rawDataDisplay);
-        startButton = (Button)findViewById(R.id.startButton);
+        rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
+        startButton = (Button) findViewById(R.id.startButton);
         startButton.setOnClickListener(this);
 
         // EARTHQUAKE LIST
-        earthquakeList = (ListView)findViewById(R.id.earthquakeList);
+        earthquakeList = (ListView) findViewById(R.id.earthquakeList);
 
         // More Code goes here
 
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
         try {
 
             XMLParser parser = new XMLParser();
-            InputStream is=getAssets().open("static_data.xml");
+            InputStream is = getAssets().open("static_data.xml");
             earthquakes = parser.parse(is);
 //
 //            ArrayAdapter<Earthquake> adapter =new ArrayAdapter<Earthquake>
@@ -72,30 +71,26 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
 
     }
 
-    public void onClick(View aview)
-    {
+    public void onClick(View aview) {
         startProgress();
     }
 
-    public void startProgress()
-    {
+    public void startProgress() {
         // Run network access on a separate thread;
         new Thread(new Task(urlSource)).start();
     } //
 
     // Need separate thread to access the internet resource over network
     // Other neater solutions should be adopted in later iterations.
-    private class Task implements Runnable
-    {
+    private class Task implements Runnable {
         private String url;
 
-        public Task(String aurl)
-        {
-            url = aurl;
+        public Task(String url) {
+            this.url = url;
         }
+
         @Override
-        public void run()
-        {
+        public void run() {
 
             URL aurl;
             URLConnection yc;
@@ -103,11 +98,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
             String inputLine = "";
 
 
-            Log.e("MyTag","in run");
 
-            try
-            {
-                Log.e("MyTag","in try");
+            Log.e("MyTag", "in run");
+
+            try {
+                Log.e("MyTag", "in try");
                 aurl = new URL(url);
                 yc = aurl.openConnection();
                 in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
@@ -116,16 +111,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
                 //
                 //
                 //
-                while ((inputLine = in.readLine()) != null)
-                {
+                while ((inputLine = in.readLine()) != null) {
                     result = result + inputLine;
-                    Log.e("MyTag",inputLine);
+                    Log.e("MyTag", inputLine);
 
                 }
                 in.close();
-            }
-            catch (IOException ae)
-            {
+            } catch (IOException ae) {
                 Log.e("MyTag", "ioexception");
             }
 
@@ -137,8 +129,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
             // Probably not the best way to update TextView
             // but we are just getting started !
 
-            MainActivity.this.runOnUiThread(new Runnable()
-            {
+            MainActivity.this.runOnUiThread(new Runnable() {
                 public void run() {
                     Log.d("UI thread", "I am the UI thread");
                     rawDataDisplay.setText(result);
