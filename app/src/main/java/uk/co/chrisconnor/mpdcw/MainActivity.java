@@ -59,17 +59,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         try {
 
             XMLParser parser = new XMLParser();
-<<<<<<< HEAD
-            InputStream is = getAssets().open("static_data.xml");
-=======
             InputStream is=getAssets().open("static_data.xml");
-//            InputStream is=getAssets().open(result);
->>>>>>> 569d4fc55c414d0c0c48dbee93ff9d004e4548c0
-            earthquakes = parser.parse(is);
 
-            ArrayAdapter<Earthquake> adapter =new ArrayAdapter<Earthquake>
-                    (this,android.R.layout.simple_list_item_1, earthquakes);
-            earthquakeList.setAdapter(adapter);
+            //TODO: FIX XML TO PARSE LIVE DATA
+            // BELOW WONT WORK OTHERWISE
+
+//            ArrayAdapter<Earthquake> adapter =new ArrayAdapter<Earthquake>
+//                    (this,android.R.layout.simple_list_item_1, earthquakes);
+//            earthquakeList.setAdapter(adapter);
 
 
 
