@@ -12,24 +12,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class XMLParser {
+public class ParseEarthquakes {
 
-    private List<Earthquake> earthquakes = new ArrayList<Earthquake>();
+    private ArrayList<Earthquake> earthquakes;
     private Earthquake earthquake;
     private String text = "";
+
+    public ParseEarthquakes() {
+        this.earthquakes = new ArrayList<>();
+    }
 
     public List<Earthquake> getEarthquakes() {
         return earthquakes;
     }
 
-    public List<Earthquake> parse(InputStream is) {
+    public List<Earthquake> parse(String xml) {
 
         try {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             XmlPullParser parser = factory.newPullParser();
-
-//            parser.setInput(is, null);
 
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -62,26 +64,26 @@ public class XMLParser {
                         }
                     } else if (tagname.equals("description") && earthquake != null) {
 
-                            // PARSE THE DESCRIPTION STRING TO GET ALL THE TAGS
-                            String[] elements;
-                            elements = text.split("([A-Za-z\\/ ]+?):");
+                        // PARSE THE DESCRIPTION STRING TO GET ALL THE TAGS
+                        String[] elements;
+                        elements = text.split("([A-Za-z\\/ ]+?):");
 
 //                            try {
 
-                                // 0 BLANK
-                                // 1 DATE
-                                earthquake.setDateTime(elements[1].replace(" ;", "").trim());
-                                // TODO: MAKE THIS AN ACTUAL DATETIME OBJECT
+                        // 0 BLANK
+                        // 1 DATE
+                        earthquake.setDateTime(elements[1].replace(" ;", "").trim());
+                        // TODO: MAKE THIS AN ACTUAL DATETIME OBJECT
 
 
-                                // 2 LOCATION NAME
-                                Location loc = parseLocation(elements[2],elements[3]);
-                                earthquake.setLocation(loc);
+                        // 2 LOCATION NAME
+                        Location loc = parseLocation(elements[2], elements[3]);
+                        earthquake.setLocation(loc);
 
-                                // 4 DEPTH
-                                earthquake.setDepth(Integer.parseInt(elements[4].replace(" km ;", "").trim()));
-                                // 5 Magnitude
-                                earthquake.setMagnitude(Double.parseDouble(elements[5].trim()));
+                        // 4 DEPTH
+                        earthquake.setDepth(Integer.parseInt(elements[4].replace(" km ;", "").trim()));
+                        // 5 Magnitude
+                        earthquake.setMagnitude(Double.parseDouble(elements[5].trim()));
 
 //                            } catch (Exception e) {
 //                                Log.e("x", e.toString());
@@ -90,7 +92,7 @@ public class XMLParser {
 
                     } else if (parser.getName().equals("category") && earthquake != null) {
 
-                            earthquake.setCategory(text);
+                        earthquake.setCategory(text);
 
                     }
 
@@ -110,7 +112,8 @@ public class XMLParser {
 
     /**
      * Create location object from passed strings
-     * @param name Name String
+     *
+     * @param name    Name String
      * @param latlong LatLong String
      * @return
      */

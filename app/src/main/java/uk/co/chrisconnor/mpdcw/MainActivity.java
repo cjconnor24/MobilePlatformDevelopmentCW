@@ -11,30 +11,31 @@
 //
 package uk.co.chrisconnor.mpdcw;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
+
     private static final String TAG = "MainActivity";
     private TextView rawDataDisplay;
     private Button startButton;
-    private String result;
+
     private String url1 = "";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     private ListView earthquakeList;
@@ -44,41 +45,31 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Set up the raw links to the graphical components
         rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
         startButton = (Button) findViewById(R.id.startButton);
+
+        // POINTLESS 😂
         startButton.setOnClickListener(this);
 
         // EARTHQUAKE LIST
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
 
-        // More Code goes here
+        // TODO: DOWNLOAD THE XML
 
+        // TODO: PARSE THE XML
 
-
-        try {
-
-            XMLParser parser = new XMLParser();
-            InputStream is=getAssets().open("static_data.xml");
-
-            //TODO: FIX XML TO PARSE LIVE DATA
-            // BELOW WONT WORK OTHERWISE
-
-//            ArrayAdapter<Earthquake> adapter =new ArrayAdapter<Earthquake>
-//                    (this,android.R.layout.simple_list_item_1, earthquakes);
-//            earthquakeList.setAdapter(adapter);
-
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // TODO: DISPLAY THE LISTVIEW
 
     }
+
 
     public void onClick(View aview) {
         startProgress();
     }
+
+
 
     public void startProgress() {
         // Run network access on a separate thread;
@@ -87,10 +78,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     // Need separate thread to access the internet resource over network
     // Other neater solutions should be adopted in later iterations.
+    // TODO: MAYBE CHANGE THESE FOR ASYNC TASK - WAITING ON IAIN TO REPLY TO MAIL
     private class Task implements Runnable {
+
         private String url;
 
-        public Task(String url) {
+        private Task(String url) {
             this.url = url;
         }
 
@@ -98,38 +91,55 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         public void run() {
 
             URL aurl;
-            URLConnection yc;
-            BufferedReader in = null;
+            URLConnection connection;
+
             String inputLine = "";
-
-
-
-            Log.e("MyTag", "in run");
+            StringBuilder xmlResult = new StringBuilder();
 
             try {
-                Log.e("MyTag", "in try");
+
+                BufferedReader reader = null;
                 aurl = new URL(url);
-                yc = aurl.openConnection();
-                in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-                //
-                // Throw away the first 2 header lines before parsing
-                //
-                //
-                //
-                while ((inputLine = in.readLine()) != null) {
-                    result = result + inputLine;
-                    Log.e("MyTag", inputLine);
+                connection = aurl.openConnection();
+
+                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                int charsRead;
+                char[] inputBuffer = new char[500];
+
+                while(true){
+
+                    charsRead = reader.read();
+                    if(charsRead < 0){
+                        break;
+                    }
+                    if(charsRead > 0){
+                        xmlResult.append(String.copyValueOf(inputBuffer, 0, charsRead));
+                    }
 
                 }
-                in.close();
-            } catch (IOException ae) {
-                Log.e("MyTag", "ioexception");
+
+                // Throw away the first 2 header lines before parsing
+//                while ((inputLine = reader.readLine()) != null) {
+//
+//                    xmlResult.append(inputLine);
+//
+//                }
+
+                reader.close();
+
+                Log.d(TAG, "XML DOWNLOAD: " + xmlResult.toString());
+
+
+            } catch (MalformedURLException e) {
+                Log.d(TAG, "run: Malformed URL Exception " + e.getMessage());
+            }
+            catch (IOException e){
+                Log.e(TAG, "run: IO Exception ERROR" + e.getMessage());
             }
 
             //
             // Now that you have the xml data you can parse it
             //
-
             // Now update the TextView to display raw XML data
             // Probably not the best way to update TextView
             // but we are just getting started !
@@ -137,11 +147,28 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             MainActivity.this.runOnUiThread(new Runnable() {
                 public void run() {
                     Log.d("UI thread", "I am the UI thread");
+
+                    // TODO: PARSE DATA HERE INSTEAD MAYBE
                     rawDataDisplay.setText(result);
                 }
             });
         }
 
+    }
+
+    // IGNORE BELOW FOR NOW
+
+    private class DownloadData extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            return null;
+        }
     }
 
 }
