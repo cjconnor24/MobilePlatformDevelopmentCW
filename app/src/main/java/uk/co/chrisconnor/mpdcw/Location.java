@@ -1,5 +1,7 @@
 package uk.co.chrisconnor.mpdcw;
 
+import android.util.Log;
+
 /**
  * Represents Earthquake Location
  */
@@ -9,11 +11,26 @@ public class Location {
     private double lat;
     private double lon;
 
-//    public Location(String name, double lat, double lon) {
-//        this.name = name;
-//        this.lat = lat;
-//        this.lon = lon;
-//    }
+    public Location() {
+        this.name = "";
+        this.lat = 9999d;
+        this.lon = 9999d;
+    }
+
+    public Location(String name, double lat, double lon) {
+        this.setName(name);
+        this.setLat(lat);
+        this.setLon(lon);
+    }
+
+    /**
+     * Overloaded constructor to parse lat and long
+     * @param name
+     * @param latlon
+     */
+    public Location(String name, String latlon) {
+        this.parseLocation(name, latlon);
+    }
 
     public String getName() {
         return name;
@@ -46,5 +63,25 @@ public class Location {
                 ", lat=" + lat +
                 ", lon=" + lon +
                 '}';
+    }
+
+    /**
+     * Set the name and location from strings
+     * @param name
+     * @param latlong
+     */
+    private void parseLocation(String name, String latlong){
+
+        this.setName(name.replace(" ;", "").trim());
+
+        try {
+//53.080,-2.112 ;
+            this.setLat(Double.parseDouble(latlong.split(",")[0].replace(" ;", "").trim()));
+            this.setLon(Double.parseDouble(latlong.split(",")[1].replace(" ;", "").trim()));
+
+        } catch (Exception e) {
+            Log.e("ERROR", e.toString());
+        }
+
     }
 }

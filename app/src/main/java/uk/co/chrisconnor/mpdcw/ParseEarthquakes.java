@@ -80,7 +80,8 @@ public class ParseEarthquakes {
 
 
                         // 2 LOCATION NAME
-                        Location loc = parseLocation(elements[2], elements[3]);
+//                        Location loc = parseLocation(elements[2], elements[3]);
+                        Location loc = new Location(elements[2], elements[3]);
                         earthquake.setLocation(loc);
 
                         // 4 DEPTH
@@ -111,31 +112,6 @@ public class ParseEarthquakes {
         }
 
         return earthquakes;
-    }
-
-    /**
-     * Create location object from passed strings
-     *
-     * @param name    Name String
-     * @param latlong LatLong String
-     * @return
-     */
-    private Location parseLocation(String name, String latlong) {
-
-        Location loc = new Location();
-        loc.setName(name.replace(" ;", "").trim());
-
-        try {
-
-            loc.setLat(Double.parseDouble(latlong.split(",")[0].replace(" ;", "").trim()));
-            loc.setLon(Double.parseDouble(latlong.split(",")[1].replace(" ;", "").trim()));
-
-        } catch (Exception e) {
-            Log.e("ERROR", e.toString());
-        }
-
-        return loc;
-
     }
 
 }
