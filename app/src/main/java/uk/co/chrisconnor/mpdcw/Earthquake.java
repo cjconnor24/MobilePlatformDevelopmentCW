@@ -1,10 +1,17 @@
 package uk.co.chrisconnor.mpdcw;
 
+import java.util.Date;
+
 public class Earthquake {
 
     // GENERAL DATA
     private Location location;
     private String dateTime;
+
+    // TODO: THIS NEEDS FIXED
+    // Wed, 30 Jan 2019 11:53:15
+    // DD, DD MM YYYY HH:MM:SS
+    private Date date;
 
     // STAT DATA
     private int depth;
@@ -23,6 +30,17 @@ public class Earthquake {
 //    Category
     // Link
 
+
+    // BLANK CONSTRUCTOR
+    public Earthquake() {
+        this.location = new Location();
+        this.dateTime = "";
+        this.date = new Date();
+        this.depth = -1;
+        this.magnitude = 99d;
+        this.category = "";
+        this.link = "";
+    }
 
     public Location getLocation() {
         return location;

@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                     Log.d("UI thread", "I am the UI thread");
 
                     // TODO: PARSE DATA HERE INSTEAD MAYBE
-                    rawDataDisplay.setText(result);
+//                    rawDataDisplay.setText(result);
                 }
             });
         }
