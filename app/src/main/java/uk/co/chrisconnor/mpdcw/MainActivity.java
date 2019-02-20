@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
                 List<Earthquake> list = parseEarthquakes.parse(xmlResult.toString().trim());
 
-                EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, list);
+//                EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, list);
 //                earthquakeList.setAdapter(earthquakeListAdapter);
 
                 Log.d(TAG, "run: There are" + list.size() + " earthquakes in the xml");
@@ -165,9 +165,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     }
 
-    // IGNORE BELOW FOR NOW
+    private void downloadUrl(String url){
 
+    }
+
+    // IGNORE BELOW FOR NOW
     private class DownloadData extends AsyncTask<String, Void, String> {
+
+        private static final String TAG = "DownloadData";
 
         @Override
         protected void onPostExecute(String s) {
