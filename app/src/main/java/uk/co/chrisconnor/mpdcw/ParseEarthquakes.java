@@ -17,8 +17,8 @@ public class ParseEarthquakes {
 
     private static final String TAG = "ParseEarthquakes";
     private ArrayList<Earthquake> earthquakes;
-    private Earthquake earthquake;
-    private String text = "";
+
+
 
     public ParseEarthquakes() {
         this.earthquakes = new ArrayList<>();
@@ -28,15 +28,20 @@ public class ParseEarthquakes {
         return earthquakes;
     }
 
-    public List<Earthquake> parse(String xml) {
+    public boolean parse(String xml) {
+
+        boolean status = true;
+        Earthquake currentEarthquake = null;
+        String text = "";
 
         try {
+
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(new StringReader(xml));
-
             int eventType = parser.getEventType();
+
             while (eventType != XmlPullParser.END_DOCUMENT) {
 
                 String tagname = parser.getName();
@@ -45,7 +50,7 @@ public class ParseEarthquakes {
 
                     if (tagname.equals("item")) {
                         // INITIALISE THE EARTHQUAKE
-                        earthquake = new Earthquake();
+                        currentEarthquake = new Earthquake();
                     }
 
                 } else if (eventType == XmlPullParser.TEXT) {
@@ -59,13 +64,13 @@ public class ParseEarthquakes {
 
                     if (tagname.equals("item")) {
 
-                        earthquakes.add(earthquake);
+                        earthquakes.add(currentEarthquake);
                     } else if (tagname.equals("link")) {
-                        if (earthquake != null) {
+                        if (currentEarthquake != null) {
 
-                            earthquake.setLink(text);
+                            currentEarthquake.setLink(text);
                         }
-                    } else if (tagname.equals("description") && earthquake != null) {
+                    } else if (tagname.equals("description") && currentEarthquake != null) {
 
                         // PARSE THE DESCRIPTION STRING TO GET ALL THE TAGS
                         String[] elements;
@@ -75,28 +80,28 @@ public class ParseEarthquakes {
 
                         // 0 BLANK
                         // 1 DATE
-                        earthquake.setDateTime(elements[1].replace(" ;", "").trim());
+                        currentEarthquake.setDateTime(elements[1].replace(" ;", "").trim());
                         // TODO: MAKE THIS AN ACTUAL DATETIME OBJECT
 
 
                         // 2 LOCATION NAME
 //                        Location loc = parseLocation(elements[2], elements[3]);
                         Location loc = new Location(elements[2], elements[3]);
-                        earthquake.setLocation(loc);
+                        currentEarthquake.setLocation(loc);
 
                         // 4 DEPTH
-                        earthquake.setDepth(Integer.parseInt(elements[4].replace(" km ;", "").trim()));
+                        currentEarthquake.setDepth(Integer.parseInt(elements[4].replace(" km ;", "").trim()));
                         // 5 Magnitude
-                        earthquake.setMagnitude(Double.parseDouble(elements[5].trim()));
+                        currentEarthquake.setMagnitude(Double.parseDouble(elements[5].trim()));
 
 //                            } catch (Exception e) {
 //                                Log.e("x", e.toString());
 //                            }
 
 
-                    } else if (parser.getName().equals("category") && earthquake != null) {
+                    } else if (parser.getName().equals("category") && currentEarthquake != null) {
 
-                        earthquake.setCategory(text);
+                        currentEarthquake.setCategory(text);
 
                     }
 
@@ -106,12 +111,14 @@ public class ParseEarthquakes {
             }
 
         } catch (XmlPullParserException e) {
+            status = false;
             e.printStackTrace();
         } catch (IOException e) {
+            status = false;
             e.printStackTrace();
         }
 
-        return earthquakes;
+        return status;
     }
 
 }

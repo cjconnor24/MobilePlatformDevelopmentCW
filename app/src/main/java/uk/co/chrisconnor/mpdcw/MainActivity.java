@@ -25,13 +25,14 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private TextView rawDataDisplay;
@@ -48,141 +49,107 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         setContentView(R.layout.activity_main);
 
         // Set up the raw links to the graphical components
-        rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
-        startButton = (Button) findViewById(R.id.startButton);
-
-        // POINTLESS 😂
-        startButton.setOnClickListener(this);
+//        rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
+//        startButton = (Button) findViewById(R.id.startButton);
 
         // EARTHQUAKE LIST
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
 
-        // AUTODOWNLOAD
-        startProgress();
-
-        // TODO: DOWNLOAD THE XML
-
-        // TODO: PARSE THE XML
-
-        // TODO: DISPLAY THE LISTVIEW
+        // DOWNLOAD THE DATA THEN DISPLAY FURTHER DOWN INTO THE VIEW
+        downloadUrl(urlSource);
 
     }
 
 
-    public void onClick(View aview) {
-        startProgress();
-    }
+    // DOWNLOAD THE XML DATA FROM THE PASSED URL
+    private void downloadUrl(String feedUrl) {
 
-
-
-    public void startProgress() {
-        // Run network access on a separate thread;
-        new Thread(new Task(urlSource)).start();
-    } //
-
-    // Need separate thread to access the internet resource over network
-    // Other neater solutions should be adopted in later iterations.
-    // TODO: MAYBE CHANGE THESE FOR ASYNC TASK - WAITING ON IAIN TO REPLY TO MAIL
-    private class Task implements Runnable {
-
-        private String url;
-
-        private Task(String url) {
-            this.url = url;
-        }
-
-        @Override
-        public void run() {
-
-            URL aurl;
-            URLConnection connection;
-
-            String inputLine = "";
-            StringBuilder xmlResult = new StringBuilder();
-
-            Log.d(TAG, "run: RUNNING HERE");
-
-            try {
-
-                BufferedReader reader = null;
-                aurl = new URL(url);
-                connection = aurl.openConnection();
-
-                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                int charsRead;
-                char[] inputBuffer = new char[500];
-
-                while(true){
-
-                    charsRead = reader.read(inputBuffer);
-                    if(charsRead < 0){
-                        break;
-                    }
-                    if(charsRead > 0){
-                        xmlResult.append(String.copyValueOf(inputBuffer, 0, charsRead));
-                    }
-
-                }
-
-                reader.close();
-
-                ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
-
-                List<Earthquake> list = parseEarthquakes.parse(xmlResult.toString().trim());
-
-//                EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, list);
-//                earthquakeList.setAdapter(earthquakeListAdapter);
-
-                Log.d(TAG, "run: There are" + list.size() + " earthquakes in the xml");
-                for(Earthquake e : list){
-                    Log.d(TAG, "Earthquake" + e.toString());
-                }
-
-
-            } catch (MalformedURLException e) {
-                Log.d(TAG, "run: Malformed URL Exception " + e.getMessage());
-            }
-            catch (IOException e){
-                Log.e(TAG, "run: IO Exception ERROR " + e.getMessage());
-            }
-
-            //
-            // Now that you have the xml data you can parse it
-            //
-            // Now update the TextView to display raw XML data
-            // Probably not the best way to update TextView
-            // but we are just getting started !
-
-            MainActivity.this.runOnUiThread(new Runnable() {
-                public void run() {
-                    Log.d("UI thread", "I am the UI thread");
-
-                    // TODO: PARSE DATA HERE INSTEAD MAYBE
-//                    rawDataDisplay.setText(result);
-                }
-            });
-        }
+        Log.d(TAG, "downloadUrl: starting Async Task");
+        DownloadData downloadData = new DownloadData();
+        downloadData.execute(feedUrl);
+        Log.d(TAG, "downloadUrl: done");
 
     }
 
-    private void downloadUrl(String url){
-
-    }
-
-    // IGNORE BELOW FOR NOW
+    // ASYNC CLASS TASK TO DOWNLOAD DATA ON SEPARATE THREAD
     private class DownloadData extends AsyncTask<String, Void, String> {
 
         private static final String TAG = "DownloadData";
 
         @Override
         protected void onPostExecute(String s) {
+
             super.onPostExecute(s);
+
+            // GET THE XML DATA PARSED TO OBJECTS
+            ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
+            parseEarthquakes.parse(s);
+
+            // CREATE AN INSTANCE OF THE NEW CUSTOM FEED ADAPTER AND SET THE SOURCE
+            EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, parseEarthquakes.getEarthquakes());
+            earthquakeList.setAdapter(earthquakeListAdapter);
+
         }
 
         @Override
         protected String doInBackground(String... strings) {
-            return null;
+            Log.d(TAG, "doInBackground: starts with " + strings[0]);
+            String rssFeed = downloadXML(strings[0]);
+            if (rssFeed == null) {
+                Log.e(TAG, "doInBackground: Error downloading");
+            }
+            return rssFeed;
         }
+
+        /**
+         * Open up the connection
+         *
+         * @param urlPath
+         * @return
+         */
+        private String downloadXML(String urlPath) {
+            StringBuilder xmlResult = new StringBuilder();
+
+            try {
+                URL url = new URL(urlPath);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                int response = connection.getResponseCode();
+                Log.d(TAG, "downloadXML: The response code was " + response);
+
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                int charsRead;
+                char[] inputBuffer = new char[500]; // CREATE A BUFFER
+
+                // START TO LOOP
+                while (true) {
+
+                    // ADD TO BUFFER
+                    charsRead = reader.read(inputBuffer);
+                    if (charsRead < 0) {
+                        break; // BREAK IF COMPLETE
+                    }
+                    if (charsRead > 0) {
+                        xmlResult.append(String.copyValueOf(inputBuffer, 0, charsRead));
+                    }
+                }
+                reader.close();
+
+                return xmlResult.toString();
+
+            } catch (MalformedURLException e) {
+                Log.e(TAG, "downloadXML: Invalid URL" + e.getMessage());
+            } catch (IOException e) {
+                Log.e(TAG, "downloadXML: IO Exception reading data:" + e.getMessage());
+            } catch (SecurityException e) {
+                Log.e(TAG, "downloadXML: cannot access internet: Needs permission? " + e.getMessage());
+            }
+
+
+            return null;
+
+        }
+
     }
 
 }
