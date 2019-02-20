@@ -130,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
                 List<Earthquake> list = parseEarthquakes.parse(xmlResult.toString().trim());
 
+                EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, list);
+//                earthquakeList.setAdapter(earthquakeListAdapter);
+
                 Log.d(TAG, "run: There are" + list.size() + " earthquakes in the xml");
                 for(Earthquake e : list){
                     Log.d(TAG, "Earthquake" + e.toString());
