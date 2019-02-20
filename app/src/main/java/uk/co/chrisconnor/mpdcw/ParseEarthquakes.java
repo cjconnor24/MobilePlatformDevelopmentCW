@@ -8,12 +8,14 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ParseEarthquakes {
 
+    private static final String TAG = "ParseEarthquakes";
     private ArrayList<Earthquake> earthquakes;
     private Earthquake earthquake;
     private String text = "";
@@ -32,6 +34,7 @@ public class ParseEarthquakes {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             XmlPullParser parser = factory.newPullParser();
+            parser.setInput(new StringReader(xml));
 
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {

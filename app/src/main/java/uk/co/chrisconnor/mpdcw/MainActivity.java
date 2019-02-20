@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         // EARTHQUAKE LIST
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
+
+        // AUTODOWNLOAD
+        startProgress();
 
         // TODO: DOWNLOAD THE XML
 
@@ -96,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             String inputLine = "";
             StringBuilder xmlResult = new StringBuilder();
 
+            Log.d(TAG, "run: RUNNING HERE");
+
             try {
 
                 BufferedReader reader = null;
@@ -108,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
                 while(true){
 
-                    charsRead = reader.read();
+                    charsRead = reader.read(inputBuffer);
                     if(charsRead < 0){
                         break;
                     }
@@ -118,23 +124,23 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
                 }
 
-                // Throw away the first 2 header lines before parsing
-//                while ((inputLine = reader.readLine()) != null) {
-//
-//                    xmlResult.append(inputLine);
-//
-//                }
-
                 reader.close();
 
-                Log.d(TAG, "XML DOWNLOAD: " + xmlResult.toString());
+                ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
+
+                List<Earthquake> list = parseEarthquakes.parse(xmlResult.toString().trim());
+
+                Log.d(TAG, "run: There are" + list.size() + " earthquakes in the xml");
+                for(Earthquake e : list){
+                    Log.d(TAG, "Earthquake" + e.toString());
+                }
 
 
             } catch (MalformedURLException e) {
                 Log.d(TAG, "run: Malformed URL Exception " + e.getMessage());
             }
             catch (IOException e){
-                Log.e(TAG, "run: IO Exception ERROR" + e.getMessage());
+                Log.e(TAG, "run: IO Exception ERROR " + e.getMessage());
             }
 
             //
