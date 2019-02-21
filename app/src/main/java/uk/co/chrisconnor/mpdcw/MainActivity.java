@@ -30,6 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 import java.util.List;
 
 
@@ -62,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        // CHECK TO SEE IF THERE ARE EARTHWUAKES AND SAVE
+        // TODO: FIND A WAY TO PUT OBJECTS INTO THE BUNDLE
+        super.onSaveInstanceState(outState);
+    }
 
     // DOWNLOAD THE XML DATA FROM THE PASSED URL
     private void downloadUrl(String feedUrl) {
@@ -72,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "downloadUrl: done");
 
     }
+
+
 
     // ASYNC CLASS TASK TO DOWNLOAD DATA ON SEPARATE THREAD
     private class DownloadData extends AsyncTask<String, Void, String> {
@@ -86,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
             // GET THE XML DATA PARSED TO OBJECTS
             final ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
             parseEarthquakes.parse(s);
+
+            earthquakes = parseEarthquakes.getEarthquakes();
 
             // CREATE AN INSTANCE OF THE NEW CUSTOM FEED ADAPTER AND SET THE SOURCE
             EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, parseEarthquakes.getEarthquakes());
@@ -124,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
                 URL url = new URL(urlPath);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 int response = connection.getResponseCode();
+
+                Log.d(TAG, "downloadXML: ** Downloaded the XML DATA from URL ** " + new Date().toString());
                 Log.d(TAG, "downloadXML: The response code was " + response);
 
 
