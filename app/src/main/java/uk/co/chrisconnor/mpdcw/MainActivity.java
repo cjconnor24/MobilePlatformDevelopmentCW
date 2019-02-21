@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // EARTHQUAKE LIST
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
 
+
         // DOWNLOAD THE DATA THEN DISPLAY FURTHER DOWN INTO THE VIEW
         downloadUrl(urlSource);
 
@@ -82,12 +84,20 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(s);
 
             // GET THE XML DATA PARSED TO OBJECTS
-            ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
+            final ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
             parseEarthquakes.parse(s);
 
             // CREATE AN INSTANCE OF THE NEW CUSTOM FEED ADAPTER AND SET THE SOURCE
             EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, parseEarthquakes.getEarthquakes());
             earthquakeList.setAdapter(earthquakeListAdapter);
+
+            // CREATE A DUMMY TOAST ITEM WHEN SOMEONE CLICKS
+            earthquakeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(MainActivity.this, "The depth for Earthquake " + position + " was " + parseEarthquakes.getEarthquakes().get(position).getDepth() + "km", Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
 
