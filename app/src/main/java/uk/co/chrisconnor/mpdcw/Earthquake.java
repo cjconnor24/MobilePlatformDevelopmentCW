@@ -21,16 +21,6 @@ public class Earthquake {
     private String category;
     private String link;
 
-
-//    X Location
-//    X DateTime
-//    X Position
-//    X Depth
-//    X Magnitude
-//    Category
-    // Link
-
-
     // BLANK CONSTRUCTOR
     public Earthquake() {
         this.location = new Location();
