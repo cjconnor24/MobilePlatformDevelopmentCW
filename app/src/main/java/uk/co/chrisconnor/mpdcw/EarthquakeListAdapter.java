@@ -47,7 +47,7 @@ public class EarthquakeListAdapter extends ArrayAdapter {
         Earthquake currentEarthquake = earthquakes.get(position);
 
         viewHolder.eLocation.setText(currentEarthquake.getLocation().getName());
-        viewHolder.eDate.setText(currentEarthquake.getDate().toString());
+        viewHolder.eDate.setText(PrettyDate.getTimeAgo(currentEarthquake.getDate()));
         viewHolder.eMagnitude.setText(String.valueOf(currentEarthquake.getMagnitude()));
 
         return convertView;
