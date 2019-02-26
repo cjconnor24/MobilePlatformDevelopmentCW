@@ -9,6 +9,8 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +20,6 @@ public class ParseEarthquakes {
     private static final String TAG = "ParseEarthquakes";
     private ArrayList<Earthquake> earthquakes;
 
-
-
     public ParseEarthquakes() {
         this.earthquakes = new ArrayList<>();
     }
@@ -28,6 +28,11 @@ public class ParseEarthquakes {
         return earthquakes;
     }
 
+    /**
+     * Parse the xml data
+     * @param xml XML String of data to be parsed
+     * @return boolean
+     */
     public boolean parse(String xml) {
 
         boolean status = true;
@@ -36,16 +41,22 @@ public class ParseEarthquakes {
 
         try {
 
+            // SETUP PULL PARSER AND PLACEHOLDERS
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(new StringReader(xml));
             int eventType = parser.getEventType();
 
+            // TODO: TIDYUP THE WAY ITS CHECKING FOR NULLS
+            // TODO: SET A BOOLEAN FOR WHEN WE HIT THE MAIN ITEMS
+
+            // LOOP UNTIL END OF DOC
             while (eventType != XmlPullParser.END_DOCUMENT) {
 
                 String tagname = parser.getName();
 
+                // IF START OF TAG, CHECK IF ITEM
                 if (eventType == XmlPullParser.START_TAG) {
 
                     if (tagname.equals("item")) {
@@ -60,32 +71,35 @@ public class ParseEarthquakes {
 
                 } else if (eventType == XmlPullParser.END_TAG) {
 
-                    // REACHED THE END OF THE TAG
+                    // REACHED THE END OF THE TAG - ADD THE PROPERTIES
 
-                    if (tagname.equals("item")) {
+
+                    if (tagname.equalsIgnoreCase("item")) {
 
                         earthquakes.add(currentEarthquake);
-                    } else if (tagname.equals("link")) {
+
+                    } else if (tagname.equalsIgnoreCase("link")) {
+
                         if (currentEarthquake != null) {
 
+                            // SET LINK
                             currentEarthquake.setLink(text);
                         }
-                    } else if (tagname.equals("description") && currentEarthquake != null) {
+
+                    } else if (tagname.equalsIgnoreCase("description") && currentEarthquake != null) {
 
                         // PARSE THE DESCRIPTION STRING TO GET ALL THE TAGS
                         String[] elements;
                         elements = text.split("([A-Za-z\\/ ]+?):");
 
-//                            try {
-
                         // 0 BLANK
                         // 1 DATE
-                        currentEarthquake.setDateTime(elements[1].replace(" ;", "").trim());
-                        // TODO: MAKE THIS AN ACTUAL DATETIME OBJECT
+                        String pattern = "EEE, dd MMM yyyy kk:mm:ss";
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+                        String dateString = elements[1].replace(" ;", "").trim();
+                        currentEarthquake.setDate(simpleDateFormat.parse(dateString));
 
-
-                        // 2 LOCATION NAME
-//                        Location loc = parseLocation(elements[2], elements[3]);
+                        // 2 LOCATION
                         Location loc = new Location(elements[2], elements[3]);
                         currentEarthquake.setLocation(loc);
 
@@ -93,10 +107,6 @@ public class ParseEarthquakes {
                         currentEarthquake.setDepth(Integer.parseInt(elements[4].replace(" km ;", "").trim()));
                         // 5 Magnitude
                         currentEarthquake.setMagnitude(Double.parseDouble(elements[5].trim()));
-
-//                            } catch (Exception e) {
-//                                Log.e("x", e.toString());
-//                            }
 
 
                     } else if (parser.getName().equals("category") && currentEarthquake != null) {
@@ -113,7 +123,11 @@ public class ParseEarthquakes {
         } catch (XmlPullParserException e) {
             status = false;
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ParseException e) {
+            status = false;
+            Log.e(TAG, "Error Parsing Date: "+e.getMessage());
+        }
+        catch (IOException e) {
             status = false;
             e.printStackTrace();
         }
