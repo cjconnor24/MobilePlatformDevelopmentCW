@@ -39,4 +39,5 @@
         android:background="#FF0000"
         app:layout_constraintBaseline_toBaselineOf="@+id/eLocation"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

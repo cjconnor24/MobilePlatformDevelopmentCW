@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,13 +26,15 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements OnClickListener {
+public class MainActivity extends AppCompatActivity implements DownloadData.OnDownloadComplete {
 
     private static final String TAG = "MainActivity";
     private TextView rawDataDisplay;
@@ -48,141 +51,67 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         setContentView(R.layout.activity_main);
 
         // Set up the raw links to the graphical components
-        rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
-        startButton = (Button) findViewById(R.id.startButton);
-
-        // POINTLESS 😂
-        startButton.setOnClickListener(this);
+//        rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
+//        startButton = (Button) findViewById(R.id.startButton);
 
         // EARTHQUAKE LIST
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
 
-        // AUTODOWNLOAD
-        startProgress();
 
-        // TODO: DOWNLOAD THE XML
-
-        // TODO: PARSE THE XML
-
-        // TODO: DISPLAY THE LISTVIEW
+        // DOWNLOAD THE DATA THEN DISPLAY FURTHER DOWN INTO THE VIEW
+//        downloadUrl(urlSource);
 
     }
 
-
-    public void onClick(View aview) {
-        startProgress();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        DownloadData downloadData = new DownloadData(this);
+        downloadData.execute("http://quakes.bgs.ac.uk/feeds/MhSeismology.xml");
     }
 
+    /**
+     * When download completes, send it across to the parser to return the Earthquakes
+     * @param data XML data coming back from DataDownloader
+     * @param status status of the responses
+     */
+    @Override
+    public void onDownloadComplete(String data, DownloadStatus status) {
 
+        if (status == DownloadStatus.OK) {
 
-    public void startProgress() {
-        // Run network access on a separate thread;
-        new Thread(new Task(urlSource)).start();
-    } //
+            Log.d(TAG, "onDownloadComplete: STATUS IS " + status.toString());
 
-    // Need separate thread to access the internet resource over network
-    // Other neater solutions should be adopted in later iterations.
-    // TODO: MAYBE CHANGE THESE FOR ASYNC TASK - WAITING ON IAIN TO REPLY TO MAIL
-    private class Task implements Runnable {
+            ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
+            parseEarthquakes.parse(data);
+            earthquakes = parseEarthquakes.getEarthquakes();
+            Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
 
-        private String url;
+            // CREATE AN INSTANCE OF THE NEW CUSTOM FEED ADAPTER AND SET THE SOURCE
+            EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, parseEarthquakes.getEarthquakes());
+            earthquakeList.setAdapter(earthquakeListAdapter);
 
-        private Task(String url) {
-            this.url = url;
-        }
-
-        @Override
-        public void run() {
-
-            URL aurl;
-            URLConnection connection;
-
-            String inputLine = "";
-            StringBuilder xmlResult = new StringBuilder();
-
-            Log.d(TAG, "run: RUNNING HERE");
-
-            try {
-
-                BufferedReader reader = null;
-                aurl = new URL(url);
-                connection = aurl.openConnection();
-
-                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                int charsRead;
-                char[] inputBuffer = new char[500];
-
-                while(true){
-
-                    charsRead = reader.read(inputBuffer);
-                    if(charsRead < 0){
-                        break;
-                    }
-                    if(charsRead > 0){
-                        xmlResult.append(String.copyValueOf(inputBuffer, 0, charsRead));
-                    }
-
-                }
-
-                reader.close();
-
-                ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
-
-                List<Earthquake> list = parseEarthquakes.parse(xmlResult.toString().trim());
-
-//                EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, list);
-//                earthquakeList.setAdapter(earthquakeListAdapter);
-
-                Log.d(TAG, "run: There are" + list.size() + " earthquakes in the xml");
-                for(Earthquake e : list){
-                    Log.d(TAG, "Earthquake" + e.toString());
-                }
-
-
-            } catch (MalformedURLException e) {
-                Log.d(TAG, "run: Malformed URL Exception " + e.getMessage());
-            }
-            catch (IOException e){
-                Log.e(TAG, "run: IO Exception ERROR " + e.getMessage());
-            }
-
-            //
-            // Now that you have the xml data you can parse it
-            //
-            // Now update the TextView to display raw XML data
-            // Probably not the best way to update TextView
-            // but we are just getting started !
-
-            MainActivity.this.runOnUiThread(new Runnable() {
-                public void run() {
-                    Log.d("UI thread", "I am the UI thread");
-
-                    // TODO: PARSE DATA HERE INSTEAD MAYBE
-//                    rawDataDisplay.setText(result);
+            // CREATE A DUMMY TOAST ITEM WHEN SOMEONE CLICKS
+            earthquakeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(MainActivity.this, "The depth for Earthquake " + position + " was " + earthquakes.get(position).getDepth() + "km", Toast.LENGTH_SHORT).show();
                 }
             });
+
+
+        } else {
+            Log.e(TAG, "onDownloadComplete: Something went wrong" + status.toString());
         }
 
     }
 
-    private void downloadUrl(String url){
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
 
-    }
-
-    // IGNORE BELOW FOR NOW
-    private class DownloadData extends AsyncTask<String, Void, String> {
-
-        private static final String TAG = "DownloadData";
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            return null;
-        }
+        // CHECK TO SEE IF THERE ARE EARTHWUAKES AND SAVE
+        // TODO: FIND A WAY TO PUT OBJECTS INTO THE BUNDLE
+        super.onSaveInstanceState(outState);
     }
 
 }

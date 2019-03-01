@@ -1,43 +1,17 @@
-<!--  MPD XML Starter code Semester B Session 2018 2019  -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+    <TextView
+        android:id="@+id/titleLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Latest Earthquakes" />
 
-        <TextView
-            android:id="@+id/salutation"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Welcome to Mobile Platform Development"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/startButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Press to get data" />
-
-        <TextView
-            android:id="@+id/acknowledgement"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Contains British Geological Survey materials ©NERC 2019"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/rawDataDisplay"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Raw Data is Displayed here"
-            android:textSize="20sp" />
-
-        <ListView
-            android:id="@+id/earthquakeList"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"></ListView>
-    </LinearLayout>
-</ScrollView>
+    <!--TODO: GREAT SCOTSSSSS THIS ABOMINATION NEED RAFACTOOOORED-->
+    <ListView
+        android:id="@+id/earthquakeList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+</LinearLayout>

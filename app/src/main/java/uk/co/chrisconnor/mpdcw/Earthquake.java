@@ -4,37 +4,17 @@ import java.util.Date;
 
 public class Earthquake {
 
-    // GENERAL DATA
+    // PRIVATE PROPERTIES
     private Location location;
-    private String dateTime;
-
-    // TODO: THIS NEEDS FIXED
-    // Wed, 30 Jan 2019 11:53:15
-    // DD, DD MM YYYY HH:MM:SS
     private Date date;
-
-    // STAT DATA
     private int depth;
     private double magnitude;
-
-    // META
     private String category;
     private String link;
-
-
-//    X Location
-//    X DateTime
-//    X Position
-//    X Depth
-//    X Magnitude
-//    Category
-    // Link
-
 
     // BLANK CONSTRUCTOR
     public Earthquake() {
         this.location = new Location();
-        this.dateTime = "";
         this.date = new Date();
         this.depth = -1;
         this.magnitude = 99d;
@@ -50,12 +30,12 @@ public class Earthquake {
         this.location = location;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public int getDepth() {
@@ -94,13 +74,11 @@ public class Earthquake {
     public String toString() {
         return "Earthquake{" +
                 "location=" + location +
-                ", dateTime='" + dateTime + '\'' +
+                ", date=" + date +
                 ", depth=" + depth +
                 ", magnitude=" + magnitude +
                 ", category='" + category + '\'' +
                 ", link='" + link + '\'' +
                 '}';
     }
-
-    //
 }
