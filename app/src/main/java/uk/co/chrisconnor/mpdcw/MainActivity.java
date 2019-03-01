@@ -70,6 +70,11 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
         downloadData.execute("http://quakes.bgs.ac.uk/feeds/MhSeismology.xml");
     }
 
+    /**
+     * When download completes, send it across to the parser to return the Earthquakes
+     * @param data XML data coming back from DataDownloader
+     * @param status status of the responses
+     */
     @Override
     public void onDownloadComplete(String data, DownloadStatus status) {
 
