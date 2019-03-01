@@ -72,7 +72,7 @@ class DownloadData extends AsyncTask<String, Void, String> {
             connection.connect();
             int response = connection.getResponseCode();
 
-            Log.d(TAG, "doInBackground: The response code was" + response);
+            Log.d(TAG, "doInBackground: The response code was " + response);
 
             // SETUP NEW VALUE TO STORE THE STREAM
             StringBuilder result = new StringBuilder();
