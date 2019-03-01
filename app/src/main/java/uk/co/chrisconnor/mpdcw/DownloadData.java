@@ -35,6 +35,8 @@ class DownloadData extends AsyncTask<String, Void, String> {
         this.mCallback = callback;
     }
 
+
+
     @Override
     protected void onPostExecute(String data) {
 
@@ -79,7 +81,7 @@ class DownloadData extends AsyncTask<String, Void, String> {
 
             // LOOP THROUGH EACH LINE AND BUILD UP THE STREAM LOCALLY
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
-                result.append(line).append("\n");
+                result.append(line).append("\n"); // NEW LINES ARE GETTING STRIPPED SO NEED TO ADD THEM BACK IN
             }
 
             // SET STATUS TO OK AND RETURN THE STRING RESULT
