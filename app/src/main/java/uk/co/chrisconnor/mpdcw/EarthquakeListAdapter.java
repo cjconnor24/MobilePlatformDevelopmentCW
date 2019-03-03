@@ -56,7 +56,7 @@ public class EarthquakeListAdapter extends ArrayAdapter {
 
         // SET THE BACKGROUND COLOR OF MAGNITUDE
         Drawable d = viewHolder.eMagnitude.getBackground();
-        d.setColorFilter(getColor(currentEarthquake.getMagnitude()+2), PorterDuff.Mode.MULTIPLY);
+        d.setColorFilter(getColor(currentEarthquake.getMagnitude()), PorterDuff.Mode.MULTIPLY);
 
 
         return convertView;
