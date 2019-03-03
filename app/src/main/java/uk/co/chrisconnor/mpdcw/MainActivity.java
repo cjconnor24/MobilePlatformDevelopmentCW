@@ -11,26 +11,18 @@
 //
 package uk.co.chrisconnor.mpdcw;
 
-import android.os.AsyncTask;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
+
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.Date;
 import java.util.List;
 
 
@@ -55,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
 //        startButton = (Button) findViewById(R.id.startButton);
 
         // EARTHQUAKE LIST
+        TextView currentLocation = (TextView) findViewById(R.id.currentLocation);
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
 
 
@@ -72,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
 
     /**
      * When download completes, send it across to the parser to return the Earthquakes
-     * @param data XML data coming back from DataDownloader
+     *
+     * @param data   XML data coming back from DataDownloader
      * @param status status of the responses
      */
     @Override
