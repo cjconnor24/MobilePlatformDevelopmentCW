@@ -15,6 +15,9 @@
 *.apk
 *.ap_
 
+# IGNORE MAPS API KEY
+app/src/debug/res/values/google_maps_api.xml
+
 # files for the dex VM
 *.dex
 
