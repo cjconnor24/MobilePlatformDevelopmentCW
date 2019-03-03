@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ChrisConnorMobilePlatformCW</string>
+    <string name="title_activity_maps">Earthquake Map</string>
 </resources>
