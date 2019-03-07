@@ -22,7 +22,7 @@
         <!--android:layout_width="0dp"-->
         <!--android:layout_height="match_parent"-->
         <!--android:layout_weight="1"-->
-        <!--android:name="uk.co.chrisconnor.mpdcw.ui.earthquakedetail.EarthquakeDetailFragment"-->
+        <!--android:name="uk.co.chrisconnor.mpdcw.EarthquakeDetailFragment"-->
         <!--&gt;</fragment>-->
 
 </LinearLayout>

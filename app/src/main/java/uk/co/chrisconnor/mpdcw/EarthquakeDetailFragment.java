@@ -1,6 +1,5 @@
-package uk.co.chrisconnor.mpdcw.ui.earthquakedetail;
+package uk.co.chrisconnor.mpdcw;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,10 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import uk.co.chrisconnor.mpdcw.PrettyDate;
-import uk.co.chrisconnor.mpdcw.R;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 public class EarthquakeDetailFragment extends Fragment {

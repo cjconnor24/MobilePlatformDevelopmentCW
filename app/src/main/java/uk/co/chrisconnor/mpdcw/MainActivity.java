@@ -22,12 +22,10 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
-import uk.co.chrisconnor.mpdcw.ui.earthquakedetail.EarthquakeDetailFragment;
 
 
 public class MainActivity extends AppCompatActivity implements DownloadData.OnDownloadComplete {
