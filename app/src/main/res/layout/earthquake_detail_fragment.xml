@@ -24,7 +24,6 @@
                 style="@style/TextAppearance.AppCompat.Headline"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/hello_blank_fragment"
                 tools:text="Cumbernauld, North Lanarkshire" />
 
             <TextView
@@ -32,7 +31,6 @@
                 style="@style/Base.TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location"
                 tools:text="5 days ago" />
 
             <!--POSSIBLE MAP HERE-->
@@ -85,6 +83,7 @@
                         android:id="@+id/detail_depth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="@string/earthquake_detail_depth"
                         tools:text="23km depth" />
 
                 </TableRow>

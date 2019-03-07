@@ -20,25 +20,24 @@ public class EarthquakeDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_detail_activity);
 
-        Log.d(TAG, "onCreate: STARTS");
 
         Intent i = getIntent();
         Earthquake e = (Earthquake) getIntent().getSerializableExtra("earthquake");
 
-        if(e != null){
-            Log.d(TAG, "The Earthquake is: "+ e.toString());
 
-//            TextView title = (TextView)findViewById(R.id.location_heading);
-//            title.setText(e.getLocation().getName());
-//            TextView subtitle = (TextView)findViewById(R.id.datetime_heading);
-//            subtitle.setText(PrettyDate.getTimeAgo(e.getDate()));
-
-        }
 
 
         if (savedInstanceState == null) {
+
+            EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
+
+            Bundle b = new Bundle();
+            b.putSerializable("earthquake", e);
+
+            fragment.setArguments(b);
+
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, EarthquakeDetailFragment.newInstance())
+                    .replace(R.id.container, fragment)
                     .commitNow();
         }
     }
