@@ -15,14 +15,13 @@
         android:id="@+id/container"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="match_parent"/>
-
-    <!--<fragment-->
-        <!--android:id="@+id/detailFragment"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1"-->
-        <!--android:name="uk.co.chrisconnor.mpdcw.EarthquakeDetailFragment"-->
-        <!--&gt;</fragment>-->
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Please select an earthquake"
+            />
+    </FrameLayout>
 
 </LinearLayout>

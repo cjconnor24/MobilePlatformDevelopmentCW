@@ -32,12 +32,12 @@ public class PrettyDate {
 
         final long diff = now - then;
 
-        Log.d(TAG, "getTimeAgo: MINUTES " + diff / MINUTES);
-        Log.d(TAG, "getTimeAgo: HOURS " + diff / HOURS);
-        Log.d(TAG, "getTimeAgo: DAYS " + diff / DAYS);
-        Log.d(TAG, "getTimeAgo: WEEKS " + diff / WEEKS);
-        Log.d(TAG, "getTimeAgo: MONTHS " + (diff / WEEKS) /4);
-        Log.d(TAG, "getTimeAgo: --------");
+//        Log.d(TAG, "getTimeAgo: MINUTES " + diff / MINUTES);
+//        Log.d(TAG, "getTimeAgo: HOURS " + diff / HOURS);
+//        Log.d(TAG, "getTimeAgo: DAYS " + diff / DAYS);
+//        Log.d(TAG, "getTimeAgo: WEEKS " + diff / WEEKS);
+//        Log.d(TAG, "getTimeAgo: MONTHS " + (diff / WEEKS) /4);
+//        Log.d(TAG, "getTimeAgo: --------");
 
         // MONTHS
 //        if((diff / WEEKS) /4 > 1){

@@ -3,6 +3,7 @@ package uk.co.chrisconnor.mpdcw;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
@@ -16,10 +17,8 @@ public class EarthquakeDetailActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_detail_activity);
 
 
-        Intent i = getIntent();
+//        Intent i = getIntent();
         Earthquake e = (Earthquake) getIntent().getSerializableExtra("earthquake");
-
-
 
 
         if (savedInstanceState == null) {
@@ -35,5 +34,7 @@ public class EarthquakeDetailActivity extends AppCompatActivity {
                     .replace(R.id.container, fragment)
                     .commitNow();
         }
+
     }
+
 }

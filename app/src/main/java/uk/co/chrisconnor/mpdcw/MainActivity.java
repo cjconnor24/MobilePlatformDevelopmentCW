@@ -13,6 +13,7 @@ package uk.co.chrisconnor.mpdcw;
 
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.Serializable;
 import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
@@ -41,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
     List<Earthquake> earthquakes = null;
 
     private boolean landscapeMode = false;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +61,27 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
 //        rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
 //        startButton = (Button) findViewById(R.id.startButton);
 
+
+
         // EARTHQUAKE LIST
-        TextView currentLocation = (TextView) findViewById(R.id.currentLocation);
+//        TextView currentLocation = (TextView) findViewById(R.id.currentLocation);
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
 
         if(findViewById(R.id.container) != null){
 
             landscapeMode = true;
+
+        } else {
+
+            Button viewMap = (Button)findViewById(R.id.viewMap);
+            viewMap.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(), EarthquakeMap.class);
+                    i.putExtra("earthquakes",(Serializable)earthquakes);
+                    startActivity(i);
+                }
+            });
 
         }
 
@@ -87,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
 
             Log.d(TAG, "onDownloadComplete: STATUS IS " + status.toString());
 
+            // TODO: MAYBE MAKE THE PARSER ASYNC?
             ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
             parseEarthquakes.parse(data);
             earthquakes = parseEarthquakes.getEarthquakes();
@@ -100,16 +125,13 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
             earthquakeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    Toast.makeText(MainActivity.this, "The depth for Earthquake " + position + " was " + earthquakes.get(position).getDepth() + "km", Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(this, EarthquakeDetailActivity.class);
-//                    Intent i = new Intent(getCallingActivity(), EarthquakeDetailActivity.class);
-//                    Intent i = new Intent(this, EarthquakeDetailActivity.class);
 
                     Earthquake e = earthquakes.get(position);
 
                     if(landscapeMode){
 
                         EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
+
                         Bundle b = new Bundle();
                         b.putSerializable("earthquake",e);
                         fragment.setArguments(b);
@@ -125,9 +147,6 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
                         startActivity(i);
 
                     }
-
-
-
 
                 }
             });
