@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
 
     private String url1 = "";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
+//    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private ListView earthquakeList;
     List<Earthquake> earthquakes = null;
 
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
     protected void onResume() {
         super.onResume();
         DownloadData downloadData = new DownloadData(this);
-        downloadData.execute("http://quakes.bgs.ac.uk/feeds/MhSeismology.xml");
+        downloadData.execute(urlSource);
     }
 
     /**
