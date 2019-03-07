@@ -11,12 +11,18 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="25dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location_24dp"/>
 
 
             <TextView
@@ -41,11 +47,21 @@
 
                 <TableRow>
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_date_24dp"/>
+
                     <TextView
                         android:id="@+id/detail_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="21st February 2018" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_distance_24dp"/>
 
                     <TextView
                         android:id="@+id/detail_distance"
@@ -56,6 +72,11 @@
                 </TableRow>
 
                 <TableRow>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_location_24dp"/>
 
                     <TextView
                         android:id="@+id/detail_lat"
@@ -73,11 +94,21 @@
 
                 <TableRow>
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_richter_24dp"/>
+
                     <TextView
                         android:id="@+id/detail_magnitude"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="5.0 Magniture" />
+                        tools:text="5.0 Magnitude" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_depth_24dp"/>
 
                     <TextView
                         android:id="@+id/detail_depth"
