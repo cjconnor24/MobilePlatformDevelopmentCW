@@ -55,6 +55,6 @@
         android:paddingRight="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_map" />
+        app:srcCompat="@drawable/ic_location_24dp" />
 
 </android.support.constraint.ConstraintLayout>

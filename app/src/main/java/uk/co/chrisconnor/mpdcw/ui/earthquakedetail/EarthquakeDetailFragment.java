@@ -77,14 +77,6 @@ public class EarthquakeDetailFragment extends Fragment {
         }
 
         return view;
-//        return inflater.inflate(R.layout.earthquake_detail_fragment, container, false);
     }
-
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        mViewModel = ViewModelProviders.of(this).get(EarthquakeDetailViewModel.class);
-//        // TODO: Use the ViewModel
-//    }
 
 }

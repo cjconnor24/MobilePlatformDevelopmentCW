@@ -27,6 +27,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
+import uk.co.chrisconnor.mpdcw.ui.earthquakedetail.EarthquakeDetailFragment;
 
 
 public class MainActivity extends AppCompatActivity implements DownloadData.OnDownloadComplete {
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
     private ListView earthquakeList;
     List<Earthquake> earthquakes = null;
 
+    private boolean landscapeMode = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +56,12 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
         // EARTHQUAKE LIST
         TextView currentLocation = (TextView) findViewById(R.id.currentLocation);
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
+
+        if(findViewById(R.id.container) != null){
+
+            landscapeMode = true;
+
+        }
 
 
         // DOWNLOAD THE DATA THEN DISPLAY FURTHER DOWN INTO THE VIEW
@@ -97,9 +106,29 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
 //                    Intent intent = new Intent(this, EarthquakeDetailActivity.class);
 //                    Intent i = new Intent(getCallingActivity(), EarthquakeDetailActivity.class);
 //                    Intent i = new Intent(this, EarthquakeDetailActivity.class);
-                    Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
-                    i.putExtra("earthquake",earthquakes.get(position));
-                    startActivity(i);
+
+                    Earthquake e = earthquakes.get(position);
+
+                    if(landscapeMode){
+
+                        EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
+                        Bundle b = new Bundle();
+                        b.putSerializable("earthquake",e);
+                        fragment.setArguments(b);
+
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.container, fragment)
+                                .commit();
+
+                    } else {
+
+                        Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
+                        i.putExtra("earthquake",e);
+                        startActivity(i);
+
+                    }
+
+
 
 
                 }
