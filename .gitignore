@@ -15,6 +15,9 @@
 *.apk
 *.ap_
 
+# API KESY
+/app/src/debug/res/values/
+
 # files for the dex VM
 *.dex
 
