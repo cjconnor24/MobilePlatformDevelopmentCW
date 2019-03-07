@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import uk.co.chrisconnor.mpdcw.models.Earthquake;
+
 
 public class MainActivity extends AppCompatActivity implements DownloadData.OnDownloadComplete {
 

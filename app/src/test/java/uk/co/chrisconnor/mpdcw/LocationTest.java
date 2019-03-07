@@ -2,6 +2,8 @@ package uk.co.chrisconnor.mpdcw;
 
 import org.junit.Test;
 
+import uk.co.chrisconnor.mpdcw.models.Location;
+
 import static org.junit.Assert.*;
 
 public class LocationTest {

@@ -7,13 +7,14 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import uk.co.chrisconnor.mpdcw.models.Earthquake;
+import uk.co.chrisconnor.mpdcw.models.Location;
 
 public class ParseEarthquakes {
 

@@ -1,4 +1,4 @@
-package uk.co.chrisconnor.mpdcw;
+package uk.co.chrisconnor.mpdcw.models;
 
 import java.util.Date;
 
