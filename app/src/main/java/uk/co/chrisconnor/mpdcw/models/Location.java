@@ -2,10 +2,12 @@ package uk.co.chrisconnor.mpdcw.models;
 
 import android.util.Log;
 
+import java.io.Serializable;
+
 /**
  * Represents Earthquake Location
  */
-public class Location {
+public class Location implements Serializable {
 
     private String name;
     private double lat;

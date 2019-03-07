@@ -12,6 +12,7 @@
 package uk.co.chrisconnor.mpdcw;
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -92,7 +93,15 @@ public class MainActivity extends AppCompatActivity implements DownloadData.OnDo
             earthquakeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(MainActivity.this, "The depth for Earthquake " + position + " was " + earthquakes.get(position).getDepth() + "km", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, "The depth for Earthquake " + position + " was " + earthquakes.get(position).getDepth() + "km", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(this, EarthquakeDetailActivity.class);
+//                    Intent i = new Intent(getCallingActivity(), EarthquakeDetailActivity.class);
+//                    Intent i = new Intent(this, EarthquakeDetailActivity.class);
+                    Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
+                    i.putExtra("earthquake",earthquakes.get(position));
+                    startActivity(i);
+
+
                 }
             });
 

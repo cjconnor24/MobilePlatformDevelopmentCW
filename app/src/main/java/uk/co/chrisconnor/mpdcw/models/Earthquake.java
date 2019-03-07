@@ -1,8 +1,9 @@
 package uk.co.chrisconnor.mpdcw.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Earthquake {
+public class Earthquake implements Serializable {
 
     // PRIVATE PROPERTIES
     private Location location;

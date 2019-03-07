@@ -36,13 +36,13 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/circle"
         android:padding="10dp"
-        android:text="TextView"
         android:textAlignment="center"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/eLocation"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="5.5" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -50,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription="Map Icon"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         app:layout_constraintStart_toStartOf="parent"
