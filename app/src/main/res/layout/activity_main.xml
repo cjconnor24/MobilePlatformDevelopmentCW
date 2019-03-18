@@ -4,28 +4,41 @@
     android:orientation="vertical">
 
     <!--<TextView-->
-        <!--android:id="@+id/currentLocation"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Latest Earthquakes" />-->
+    <!--android:id="@+id/currentLocation"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Latest Earthquakes" />-->
 
-    <Button
-        android:id="@+id/viewMap"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View Map"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/viewMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Map" />
+
+        <Button
+            android:id="@+id/viewBottomNav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Bottom Nav" />
+
+    </LinearLayout>
 
     <!--<fragment-->
-        <!--android:id="@+id/map"-->
-        <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"/>-->
+    <!--android:id="@+id/map"-->
+    <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"/>-->
 
     <!--TODO: GREAT SCOTSSSSS THIS ABOMINATION NEED RAFACTOOOORED-->
     <ListView
         android:id="@+id/earthquakeList"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"></ListView>
+        android:layout_height="0dp"
+        android:layout_weight="1"></ListView>
 </LinearLayout>
