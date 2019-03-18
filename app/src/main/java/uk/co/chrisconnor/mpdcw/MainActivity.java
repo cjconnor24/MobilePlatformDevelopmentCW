@@ -40,6 +40,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     private TextView rawDataDisplay;
     private Button startButton;
 
+
+
     private String url1 = "";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
 //    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
@@ -58,6 +60,14 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 //        rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
 //        startButton = (Button) findViewById(R.id.startButton);
 
+        Button bottomMenu = (Button)findViewById(R.id.viewBottomNav);
+        bottomMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(v.getContext(), MainNavigation.class);
+                startActivity(i);
+            }
+        });
 
 
         // EARTHQUAKE LIST
