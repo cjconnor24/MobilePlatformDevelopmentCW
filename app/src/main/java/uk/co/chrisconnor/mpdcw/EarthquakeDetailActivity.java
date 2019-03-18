@@ -9,7 +9,7 @@ import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 public class EarthquakeDetailActivity extends BaseActivity {
 
-    private static final String TAG = "EarthquakeDetailActivit";
+    private static final String TAG = "EarthquakeDetailActiv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class EarthquakeDetailActivity extends BaseActivity {
 
 
 //        Intent i = getIntent();
-        Earthquake e = (Earthquake) getIntent().getSerializableExtra("earthquake");
+        Earthquake e = (Earthquake) getIntent().getSerializableExtra(EARTHQUAKE_TRANSFER);
 
 
         if (savedInstanceState == null) {
@@ -26,7 +26,7 @@ public class EarthquakeDetailActivity extends BaseActivity {
             EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
 
             Bundle b = new Bundle();
-            b.putSerializable("earthquake", e);
+            b.putSerializable(EARTHQUAKE_TRANSFER, e);
 
             fragment.setArguments(b);
 

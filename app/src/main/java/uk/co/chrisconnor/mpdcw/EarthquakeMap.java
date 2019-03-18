@@ -40,7 +40,7 @@ public class EarthquakeMap extends FragmentActivity implements OnMapReadyCallbac
         Log.d(TAG, "onCreate: IS RUNNING");
 
         Intent i = getIntent();
-        mEarthquakes = (List<Earthquake>) getIntent().getSerializableExtra("earthquakes");
+        mEarthquakes = (List<Earthquake>) getIntent().getSerializableExtra(BaseActivity.EARTHQUAKE_TRANSFER);
         if (mEarthquakes != null) {
             Log.d(TAG, "onCreate: THERE ARE EARTHQIAKES" + mEarthquakes.size());
         }

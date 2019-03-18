@@ -26,12 +26,11 @@ public class EarthquakeDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d(TAG, "onCreate: starts");
-
+        // GET THE EARTHQUAKES FROM THE ARGS
         Bundle b = getArguments();
-        if (b != null && b.containsKey("earthquake")) {
+        if (b != null && b.containsKey(BaseActivity.EARTHQUAKE_TRANSFER)) {
 
-            earthquake = (Earthquake) b.getSerializable("earthquake");
+            earthquake = (Earthquake) b.getSerializable(BaseActivity.EARTHQUAKE_TRANSFER);
 
         }
     }

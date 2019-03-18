@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getApplicationContext(), EarthquakeMap.class);
-                    i.putExtra("earthquakes",(Serializable)earthquakes);
+                    i.putExtra(EARTHQUAKE_TRANSFER,(Serializable)earthquakes);
                     startActivity(i);
                 }
             });
@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                         EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
 
                         Bundle b = new Bundle();
-                        b.putSerializable("earthquake",e);
+                        b.putSerializable(EARTHQUAKE_TRANSFER,e);
                         fragment.setArguments(b);
 
                         getSupportFragmentManager().beginTransaction()
@@ -140,7 +140,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                     } else {
 
                         Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
-                        i.putExtra("earthquake",e);
+                        i.putExtra(EARTHQUAKE_TRANSFER,e);
                         startActivity(i);
 
                     }
