@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -81,6 +82,18 @@ public class EarthquakeMap extends FragmentActivity implements OnMapReadyCallbac
             }
 
         }
+
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                Log.d(TAG, "onMarkerClick: " + marker.toString());
+
+                Log.d(TAG, "onMarkerClick: " + marker.getId());
+                Toast.makeText(EarthquakeMap.this, "You clicked on " + marker.getTitle(), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
         LatLngBounds bounds = builder.build();
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(markers.get(0).getPosition()));
