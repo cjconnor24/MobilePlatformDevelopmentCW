@@ -3,12 +3,13 @@ package uk.co.chrisconnor.mpdcw;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
-public class EarthquakeDetailActivity extends AppCompatActivity {
+public class EarthquakeDetailActivity extends BaseActivity {
 
-    private static final String TAG = "EarthquakeDetailActivit";
+    private static final String TAG = "EarthquakeDetailActiv";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,10 +17,8 @@ public class EarthquakeDetailActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_detail_activity);
 
 
-        Intent i = getIntent();
-        Earthquake e = (Earthquake) getIntent().getSerializableExtra("earthquake");
-
-
+//        Intent i = getIntent();
+        Earthquake e = (Earthquake) getIntent().getSerializableExtra(EARTHQUAKE_TRANSFER);
 
 
         if (savedInstanceState == null) {
@@ -27,7 +26,7 @@ public class EarthquakeDetailActivity extends AppCompatActivity {
             EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
 
             Bundle b = new Bundle();
-            b.putSerializable("earthquake", e);
+            b.putSerializable(EARTHQUAKE_TRANSFER, e);
 
             fragment.setArguments(b);
 
@@ -35,5 +34,7 @@ public class EarthquakeDetailActivity extends AppCompatActivity {
                     .replace(R.id.container, fragment)
                     .commitNow();
         }
+
     }
+
 }
