@@ -1,10 +1,6 @@
 package uk.co.chrisconnor.mpdcw;
 
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toolbar;
 
 public class BaseActivity extends AppCompatActivity {
 
