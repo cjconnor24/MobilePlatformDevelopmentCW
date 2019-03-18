@@ -13,7 +13,7 @@ package uk.co.chrisconnor.mpdcw;
 
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,12 +24,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
+
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
 
 import java.io.Serializable;
 import java.util.List;
@@ -37,7 +34,7 @@ import java.util.List;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 
-public class MainActivity extends AppCompatActivity implements DownloadData.OnDownloadComplete {
+public class MainActivity extends BaseActivity implements DownloadData.OnDownloadComplete {
 
     private static final String TAG = "MainActivity";
     private TextView rawDataDisplay;

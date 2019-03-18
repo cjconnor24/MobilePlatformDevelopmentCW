@@ -7,7 +7,7 @@ import android.util.Log;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
-public class EarthquakeDetailActivity extends AppCompatActivity {
+public class EarthquakeDetailActivity extends BaseActivity {
 
     private static final String TAG = "EarthquakeDetailActivit";
 
