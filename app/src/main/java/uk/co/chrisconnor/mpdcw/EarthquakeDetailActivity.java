@@ -15,17 +15,15 @@ public class EarthquakeDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_detail_activity);
 
-
-//        Intent i = getIntent();
         Earthquake e = (Earthquake) getIntent().getSerializableExtra(EARTHQUAKE_TRANSFER);
-
 
         if (savedInstanceState == null) {
 
-            XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
             FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.bottom, xEarthquakeDetailFragment).commit();
+
+            XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
+            FragmentTransaction detailTransaction = fragmentManager.beginTransaction();
+            detailTransaction.replace(R.id.bottom, xEarthquakeDetailFragment).commit();
 
             XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
             FragmentTransaction mapTransaction = fragmentManager.beginTransaction();
