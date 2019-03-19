@@ -35,6 +35,16 @@ class DownloadData extends AsyncTask<String, Void, String> {
         this.mCallback = callback;
     }
 
+    void runInSameThread(String url){
+
+        Log.d(TAG, "runInSameThread: STARTING");
+
+        if(mCallback != null){
+            mCallback.onDownloadComplete(doInBackground(url), mDownloadStatus);
+        }
+
+    }
+
 
 
     @Override

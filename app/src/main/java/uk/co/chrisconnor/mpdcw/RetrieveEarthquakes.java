@@ -1,5 +1,6 @@
 package uk.co.chrisconnor.mpdcw;
 
+import android.os.AsyncTask;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -16,13 +17,36 @@ import java.util.List;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 import uk.co.chrisconnor.mpdcw.models.Location;
 
-public class ParseEarthquakes {
+public class RetrieveEarthquakes extends AsyncTask<String, Void, List<Earthquake>> implements DownloadData.OnDownloadComplete {
 
-    private static final String TAG = "ParseEarthquakes";
-    private ArrayList<Earthquake> earthquakes;
+    private static final String TAG = "RetrieveEarthquakes";
+    private ArrayList<Earthquake> earthquakes = null;
+    private String mApiURL;
+    private final OnDataAvailable mCallback;
 
-    public ParseEarthquakes() {
-        this.earthquakes = new ArrayList<>();
+//    private OnDataAvailable mCallback;
+
+    interface OnDataAvailable {
+        void onDataAvailable(List<Earthquake> data, DownloadStatus status);
+    }
+
+    public RetrieveEarthquakes(OnDataAvailable callback, String apiURL) {
+        this.mCallback = callback;
+        this.mApiURL = apiURL;
+    }
+
+    @Override
+    protected List<Earthquake> doInBackground(String... strings) {
+        DownloadData downloadData = new DownloadData(this);
+        downloadData.runInSameThread(mApiURL);
+        return earthquakes;
+    }
+
+    @Override
+    protected void onPostExecute(List<Earthquake> earthquakes) {
+        if (mCallback != null) {
+            mCallback.onDataAvailable(earthquakes, DownloadStatus.OK);
+        }
     }
 
     public List<Earthquake> getEarthquakes() {
@@ -31,6 +55,7 @@ public class ParseEarthquakes {
 
     /**
      * Parse the xml data
+     *
      * @param xml XML String of data to be parsed
      * @return boolean
      */
@@ -39,6 +64,11 @@ public class ParseEarthquakes {
         boolean status = true;
         Earthquake currentEarthquake = null;
         String text = "";
+
+        // MAKE SURE TO INITIALISE THE LIST
+        if(earthquakes == null){
+            earthquakes = new ArrayList<Earthquake>();
+        }
 
         try {
 
@@ -126,14 +156,26 @@ public class ParseEarthquakes {
             e.printStackTrace();
         } catch (ParseException e) {
             status = false;
-            Log.e(TAG, "Error Parsing Date: "+e.getMessage());
-        }
-        catch (IOException e) {
+            Log.e(TAG, "Error Parsing Date: " + e.getMessage());
+        } catch (IOException e) {
             status = false;
             e.printStackTrace();
         }
 
         return status;
+    }
+
+    @Override
+    public void onDownloadComplete(String data, DownloadStatus status) {
+
+//        Log.d(TAG, "onDownloadComplete: " + data);
+
+        parse(data);
+
+        if(mCallback != null && earthquakes != null){
+            mCallback.onDataAvailable(earthquakes, status);
+        }
+
     }
 
 }

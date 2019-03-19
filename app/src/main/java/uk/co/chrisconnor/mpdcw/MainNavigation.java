@@ -6,14 +6,20 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainNavigation extends AppCompatActivity {
+import java.util.List;
 
+import uk.co.chrisconnor.mpdcw.models.Earthquake;
+
+public class MainNavigation extends BaseActivity implements DownloadData.OnDownloadComplete {
+
+    private static final String TAG = "MainNavigation";
     private TextView mTextMessage;
     private Fragment mFragment;
+    private List<Earthquake> earthquakes = null;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -51,4 +57,23 @@ public class MainNavigation extends AppCompatActivity {
         transaction.add(R.id.fragment_frame,mFragment,"BLANK_FRAGMENT").commit();
     }
 
+    @Override
+    public void onDownloadComplete(String data, DownloadStatus status) {
+
+        if (status == DownloadStatus.OK) {
+
+            Log.d(TAG, "onDownloadComplete: STATUS IS " + status.toString());
+
+            // TODO: MAYBE MAKE THE PARSER ASYNC?
+//            RetrieveEarthquakes retrieveEarthquakes = new RetrieveEarthquakes();
+//            retrieveEarthquakes.parse(data);
+//            earthquakes = retrieveEarthquakes.getEarthquakes();
+            Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
+
+
+        } else {
+            Log.e(TAG, "onDownloadComplete: Something went wrong" + status.toString());
+        }
+        
+    }
 }

@@ -26,24 +26,20 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 
-public class MainActivity extends BaseActivity implements DownloadData.OnDownloadComplete {
+public class MainActivity extends BaseActivity implements RetrieveEarthquakes.OnDataAvailable {
 
     private static final String TAG = "MainActivity";
-    private TextView rawDataDisplay;
-    private Button startButton;
-
-
-
-    private String url1 = "";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
-//    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
+    //    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private ListView earthquakeList;
     List<Earthquake> earthquakes = null;
+    EarthquakeListAdapter earthquakeListAdapter;
 
     private boolean landscapeMode = false;
     private GoogleMap mMap;
@@ -64,27 +60,29 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                     startActivity(i);
                 }
             });
-        } catch(NullPointerException e){
-            Log.e(TAG, "onCreate: "+ e.toString());
+        } catch (NullPointerException e) {
+            Log.e(TAG, "onCreate: " + e.toString());
         }
 
 
         // EARTHQUAKE LIST
 //        TextView currentLocation = (TextView) findViewById(R.id.currentLocation);
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
+        earthquakeListAdapter = new EarthquakeListAdapter(this,R.layout.list_earthquake, new ArrayList<Earthquake>());
+        earthquakeList.setAdapter(earthquakeListAdapter);
 
-        if(findViewById(R.id.container) != null){
+        if (findViewById(R.id.container) != null) {
 
             landscapeMode = true;
 
         } else {
 
-            Button viewMap = (Button)findViewById(R.id.viewMap);
+            Button viewMap = (Button) findViewById(R.id.viewMap);
             viewMap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getApplicationContext(), EarthquakeMap.class);
-                    i.putExtra(EARTHQUAKE_TRANSFER,(Serializable)earthquakes);
+                    i.putExtra(EARTHQUAKE_TRANSFER, (Serializable) earthquakes);
                     startActivity(i);
                 }
             });
@@ -100,78 +98,99 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     @Override
     protected void onResume() {
         super.onResume();
-        DownloadData downloadData = new DownloadData(this);
-        downloadData.execute(urlSource);
+//        DownloadData downloadData = new DownloadData(this);
+//        downloadData.execute(urlSource);
+        RetrieveEarthquakes retrieveEarthquakes = new RetrieveEarthquakes(this, urlSource);
+        retrieveEarthquakes.execute();
     }
 
-    /**
-     * When download completes, send it across to the parser to return the Earthquakes
-     *
-     * @param data   XML data coming back from DataDownloader
-     * @param status status of the responses
-     */
     @Override
-    public void onDownloadComplete(String data, DownloadStatus status) {
+    public void onDataAvailable(List<Earthquake> data, DownloadStatus status) {
 
-        if (status == DownloadStatus.OK) {
+        if(status == DownloadStatus.OK) {
 
-            Log.d(TAG, "onDownloadComplete: STATUS IS " + status.toString());
+            Log.d(TAG, "onDataAvailable: DATA IS AVAILABLE" + data.toString());
+            earthquakes = data;
+            earthquakeListAdapter.loadNewData(earthquakes);
 
-            // TODO: MAYBE MAKE THE PARSER ASYNC?
-            ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
-            parseEarthquakes.parse(data);
-            earthquakes = parseEarthquakes.getEarthquakes();
-            Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
-
-            // CREATE AN INSTANCE OF THE NEW CUSTOM FEED ADAPTER AND SET THE SOURCE
-            EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, parseEarthquakes.getEarthquakes());
-            earthquakeList.setAdapter(earthquakeListAdapter);
-
-            // CREATE A DUMMY TOAST ITEM WHEN SOMEONE CLICKS
-            earthquakeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    Earthquake e = earthquakes.get(position);
-
-                    if(landscapeMode){
-
-                        EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
-
-                        Bundle b = new Bundle();
-                        b.putSerializable(EARTHQUAKE_TRANSFER,e);
-                        fragment.setArguments(b);
-
-//                        XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
-//                        FragmentManager f = getSupportFragmentManager();
-//                        FragmentTransaction transaction = f.beginTransaction();
-//                        transaction.add(R.id.container, xEarthquakeDetailFragment).commit();
-                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
-                        FragmentManager f = getSupportFragmentManager();
-                        FragmentTransaction transaction = f.beginTransaction();
-                        transaction.replace(R.id.container, xEarthquakeMap).commit();
-
-//                        getSupportFragmentManager().beginTransaction()
-//                                .replace(R.id.container, fragment)
-//                                .commit();
-
-                    } else {
-
-                        Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
-                        i.putExtra(EARTHQUAKE_TRANSFER,e);
-                        startActivity(i);
-
-                    }
-
-                }
-            });
-
+//         CREATE AN INSTANCE OF THE NEW CUSTOM FEED ADAPTER AND SET THE SOURCE
+//            EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, earthquakes);
+//            earthquakeList.setAdapter(earthquakeListAdapter);
 
         } else {
-            Log.e(TAG, "onDownloadComplete: Something went wrong" + status.toString());
+            Log.e(TAG, "onDataAvailable FAILED with status" + status);
         }
 
     }
+
+//        /**
+//     * When download completes, send it across to the parser to return the Earthquakes
+//     *
+//     * @param data   XML data coming back from DataDownloader
+//     * @param status status of the responses
+//     */
+//    @Override
+//    public void onDownloadComplete(String data, DownloadStatus status) {
+//
+//        if (status == DownloadStatus.OK) {
+//
+//            Log.d(TAG, "onDownloadComplete: STATUS IS " + status.toString());
+//
+//            // TODO: MAYBE MAKE THE PARSER ASYNC?
+//            RetrieveEarthquakes retrieveEarthquakes = new RetrieveEarthquakes(this,urlSource);
+//            retrieveEarthquakes.parse(data);
+//            earthquakes = retrieveEarthquakes.getEarthquakes();
+//            Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
+//
+//            // CREATE AN INSTANCE OF THE NEW CUSTOM FEED ADAPTER AND SET THE SOURCE
+//            EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, retrieveEarthquakes.getEarthquakes());
+//            earthquakeList.setAdapter(earthquakeListAdapter);
+//
+//            // CREATE A DUMMY TOAST ITEM WHEN SOMEONE CLICKS
+//            earthquakeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                    Earthquake e = earthquakes.get(position);
+//
+//                    if(landscapeMode){
+//
+//                        EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
+//
+//                        Bundle b = new Bundle();
+//                        b.putSerializable(EARTHQUAKE_TRANSFER,e);
+//                        fragment.setArguments(b);
+//
+////                        XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
+////                        FragmentManager f = getSupportFragmentManager();
+////                        FragmentTransaction transaction = f.beginTransaction();
+////                        transaction.add(R.id.container, xEarthquakeDetailFragment).commit();
+//                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
+//                        FragmentManager f = getSupportFragmentManager();
+//                        FragmentTransaction transaction = f.beginTransaction();
+//                        transaction.replace(R.id.container, xEarthquakeMap).commit();
+//
+////                        getSupportFragmentManager().beginTransaction()
+////                                .replace(R.id.container, fragment)
+////                                .commit();
+//
+//                    } else {
+//
+//                        Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
+//                        i.putExtra(EARTHQUAKE_TRANSFER,e);
+//                        startActivity(i);
+//
+//                    }
+//
+//                }
+//            });
+//
+//
+//        } else {
+//            Log.e(TAG, "onDownloadComplete: Something went wrong" + status.toString());
+//        }
+//
+//    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

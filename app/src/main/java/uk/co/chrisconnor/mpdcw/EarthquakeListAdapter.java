@@ -63,6 +63,11 @@ public class EarthquakeListAdapter extends ArrayAdapter {
         return convertView;
     }
 
+    void loadNewData(List<Earthquake> earthquakes){
+        this.earthquakes = earthquakes;
+        notifyDataSetChanged();
+    }
+
     private int getColor(double magnitude){
 
         int color;
