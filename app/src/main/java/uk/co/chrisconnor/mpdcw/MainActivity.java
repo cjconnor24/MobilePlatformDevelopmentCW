@@ -38,8 +38,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
 
     private String url1 = "";
-    private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
-//    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
+//    private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
+    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private ListView earthquakeList;
     List<Earthquake> earthquakes = null;
 
@@ -51,18 +51,20 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Set up the raw links to the graphical components
-//        rawDataDisplay = (TextView) findViewById(R.id.rawDataDisplay);
-//        startButton = (Button) findViewById(R.id.startButton);
 
-        Button bottomMenu = (Button)findViewById(R.id.viewBottomNav);
-        bottomMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), MainNavigation.class);
-                startActivity(i);
-            }
-        });
+        // TODO: THIS WILL BE REMOVED - ONLY FOR TESTING
+        try {
+            Button bottomMenu = (Button) findViewById(R.id.viewBottomNav);
+            bottomMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), MainNavigation.class);
+                    startActivity(i);
+                }
+            });
+        } catch(NullPointerException e){
+            Log.e(TAG, "onCreate: "+ e.toString());
+        }
 
 
         // EARTHQUAKE LIST
