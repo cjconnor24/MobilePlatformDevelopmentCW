@@ -15,6 +15,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -99,7 +100,7 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
         Log.d(TAG, "onMapReady: Google Map is ready anyway 😂");
         LatLng location = new LatLng(mEarthquake.getLocation().getLat(), mEarthquake.getLocation().getLon());
-        mMap.addMarker(new MarkerOptions().position(location).title(mEarthquake.getLocation().getName()));
+        mMap.addMarker(new MarkerOptions().position(location).title(mEarthquake.getLocation().getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.location_marker)));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
 
