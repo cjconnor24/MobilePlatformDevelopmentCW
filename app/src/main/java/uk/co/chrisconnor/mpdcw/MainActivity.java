@@ -14,6 +14,8 @@ package uk.co.chrisconnor.mpdcw;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -140,9 +142,14 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                         b.putSerializable(EARTHQUAKE_TRANSFER,e);
                         fragment.setArguments(b);
 
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.container, fragment)
-                                .commit();
+                        XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
+                        FragmentManager f = getSupportFragmentManager();
+                        FragmentTransaction transaction = f.beginTransaction();
+                        transaction.add(R.id.container, xEarthquakeDetailFragment).commit();
+
+//                        getSupportFragmentManager().beginTransaction()
+//                                .replace(R.id.container, fragment)
+//                                .commit();
 
                     } else {
 
