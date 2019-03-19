@@ -10,7 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-public class MainNavigation extends AppCompatActivity {
+import java.util.ArrayList;
+
+import uk.co.chrisconnor.mpdcw.models.Earthquake;
+
+public class MainNavigation extends BaseActivity {
 
     private TextView mTextMessage;
     private Fragment mFragment;
@@ -30,6 +34,11 @@ public class MainNavigation extends AppCompatActivity {
                     return true;
                 case R.id.navigation_notifications:
 //                    mTextMessage.setText(R.string.title_notifications);
+
+//                    FragmentManager fragmentManager = getSupportFragmentManager();
+//                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+//                    transaction.addToBackStack(null);
+
                     return true;
             }
             return false;

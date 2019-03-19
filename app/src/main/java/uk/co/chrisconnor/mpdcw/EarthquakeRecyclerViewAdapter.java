@@ -1,6 +1,7 @@
 package uk.co.chrisconnor.mpdcw;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<EarthquakeRecyclerViewAdapter.EarthquakeViewHolder> {
 
+    private static final String TAG = "EarthquakeRecyclerViewA";
     private final List<Earthquake> mEarthquakes;
     private final OnListFragmentInteractionListener mCallback;
 
@@ -38,12 +40,15 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
         holder.mItem = mEarthquakes.get(position);
 
         Earthquake currentEarthquake = mEarthquakes.get(position);
+        Log.d(TAG, "onBindViewHolder: " + currentEarthquake.toString());
 
 //        holder.mIdView.setText(mEarthquakes.get(position).id);
 //        holder.mContentView.setText(mEarthquakes.get(position).content);
+
         holder.eLocation.setText(currentEarthquake.getLocation().getName());
         holder.eDate.setText(PrettyDate.getTimeAgo(currentEarthquake.getDate()));
         holder.eMagnitude.setText(String.valueOf(currentEarthquake.getMagnitude()));
+
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,12 +65,12 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
     @Override
     public int getItemCount() {
 
-        return ( (mEarthquakes != null) && (mEarthquakes.size() != 0) ? mEarthquakes.size() : 0);
+        return ((mEarthquakes != null) && (mEarthquakes.size() != 0) ? mEarthquakes.size() : 0);
     }
 
     public class EarthquakeViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-//        public final TextView mIdView;
+        //        public final TextView mIdView;
 //        public final TextView mContentView;
         public Earthquake mItem;
 

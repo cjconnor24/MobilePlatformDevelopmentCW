@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import uk.co.chrisconnor.mpdcw.models.Earthquake;
  */
 public class EarthquakeListFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
+    private static final String TAG = "EarthquakeListFragment";
     private static final String EARTHQUAKES = "earthquakes";
     // TODO: Customize parameters
     private ArrayList<Earthquake> mEarthquakes;
@@ -37,11 +38,13 @@ public class EarthquakeListFragment extends Fragment {
     }
 
     public static EarthquakeListFragment newInstance(ArrayList<Earthquake> earthquakes) {
+
         EarthquakeListFragment fragment = new EarthquakeListFragment();
         Bundle args = new Bundle();
         args.putSerializable(EARTHQUAKES, earthquakes);
         fragment.setArguments(args);
         return fragment;
+
     }
 
     @Override
@@ -49,7 +52,7 @@ public class EarthquakeListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mEarthquakes = (ArrayList<Earthquake>)getArguments().getSerializable(EARTHQUAKES);
+            mEarthquakes = (ArrayList<Earthquake>) getArguments().getSerializable(EARTHQUAKES);
         }
     }
 
@@ -61,13 +64,14 @@ public class EarthquakeListFragment extends Fragment {
         // Set the adapter
 //        if (view instanceof RecyclerView) {
 //            Context context = view.getContext();
-//            RecyclerView recyclerView = (RecyclerView) view;
+        RecyclerView recyclerView = (RecyclerView) view;
 //            if (mColumnCount <= 1) {
 //                recyclerView.setLayoutManager(new LinearLayoutManager(context));
 //            } else {
 //                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 //            }
-//            recyclerView.setAdapter(new EarthquakeRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerView.setAdapter(new EarthquakeRecyclerViewAdapter(mEarthquakes, mListener));
 //        }
 
         return view;
