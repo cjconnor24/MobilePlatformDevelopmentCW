@@ -33,7 +33,7 @@ import java.util.List;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 
-public class MainActivity extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements DownloadData.OnDownloadComplete {
 
     private static final String TAG = "MainActivity";
     private TextView rawDataDisplay;
@@ -41,9 +41,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
 
 
-    private String url1 = "";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
-//    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
+    //    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private ListView earthquakeList;
     List<Earthquake> earthquakes = null;
 
@@ -66,8 +65,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                     startActivity(i);
                 }
             });
-        } catch(NullPointerException e){
-            Log.e(TAG, "onCreate: "+ e.toString());
+        } catch (NullPointerException e) {
+            Log.e(TAG, "onCreate: " + e.toString());
         }
 
 
@@ -75,18 +74,18 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 //        TextView currentLocation = (TextView) findViewById(R.id.currentLocation);
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
 
-        if(findViewById(R.id.container) != null){
+        if (findViewById(R.id.container) != null) {
 
             landscapeMode = true;
 
         } else {
 
-            Button viewMap = (Button)findViewById(R.id.viewMap);
+            Button viewMap = (Button) findViewById(R.id.viewMap);
             viewMap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getApplicationContext(), EarthquakeMap.class);
-                    i.putExtra(EARTHQUAKE_TRANSFER,(Serializable)earthquakes);
+                    i.putExtra(EARTHQUAKE_TRANSFER, (Serializable) earthquakes);
                     startActivity(i);
                 }
             });
@@ -141,7 +140,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
                     Earthquake e = earthquakes.get(position);
 
-                    if(landscapeMode){
+                    if (landscapeMode) {
 
 //                        EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
 //
@@ -149,21 +148,21 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 //                        b.putSerializable(EARTHQUAKE_TRANSFER,e);
 //                        fragment.setArguments(b);
 
-//                        XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
-//                        FragmentManager f = getSupportFragmentManager();
-//                        FragmentTransaction transaction = f.beginTransaction();
-//                        transaction.add(R.id.container, xEarthquakeDetailFragment).commit();
+                        XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
+                        FragmentManager f = getSupportFragmentManager();
+                        FragmentTransaction transaction = f.beginTransaction();
+                        transaction.add(R.id.container, xEarthquakeDetailFragment).commit();
 
-//                        EarthquakeListFragment earthquakeListFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>)earthquakes);
+//                        EarthquakeListFragment earthquakeListFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
 //                        FragmentManager f = getSupportFragmentManager();
 //                        FragmentTransaction t = f.beginTransaction();
 //                        t.add(R.id.container, earthquakeListFragment).commit();
 
                         // JUST FOR TESTING
-                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
-                        FragmentManager f = getSupportFragmentManager();
-                        FragmentTransaction transaction = f.beginTransaction();
-                        transaction.replace(R.id.container, xEarthquakeMap).commit();
+//                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
+//                        FragmentManager f = getSupportFragmentManager();
+//                        FragmentTransaction transaction = f.beginTransaction();
+//                        transaction.replace(R.id.container, xEarthquakeMap).commit();
 
 //                        getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.container, fragment)
@@ -172,7 +171,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                     } else {
 
                         Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
-                        i.putExtra(EARTHQUAKE_TRANSFER,e);
+                        i.putExtra(EARTHQUAKE_TRANSFER, e);
                         startActivity(i);
 
                     }
@@ -195,9 +194,9 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    public void onListFragmentInteraction(Earthquake item) {
-        Toast.makeText(this, item.getLocation().getName(), Toast.LENGTH_SHORT).show();
-        Log.d(TAG, "onListFragmentInteraction: THIS WAS CLICKED" + item.toString());
-    }
+//    @Override
+//    public void onListFragmentInteraction(Earthquake item) {
+//        Toast.makeText(this, item.getLocation().getName(), Toast.LENGTH_SHORT).show();
+//        Log.d(TAG, "onListFragmentInteraction: THIS WAS CLICKED" + item.toString());
+//    }
 }

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import uk.co.chrisconnor.mpdcw.EarthquakeListFragment.OnListFragmentInteractionListener;
@@ -42,12 +43,16 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
         Earthquake currentEarthquake = mEarthquakes.get(position);
         Log.d(TAG, "onBindViewHolder: " + currentEarthquake.toString());
 
-//        holder.mIdView.setText(mEarthquakes.get(position).id);
-//        holder.mContentView.setText(mEarthquakes.get(position).content);
-
         holder.eLocation.setText(currentEarthquake.getLocation().getName());
         holder.eDate.setText(PrettyDate.getTimeAgo(currentEarthquake.getDate()));
         holder.eMagnitude.setText(String.valueOf(currentEarthquake.getMagnitude()));
+
+        holder.eIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: YOU CLICKED THE ICON FOR " + holder.mItem.getLocation().getName());
+            }
+        });
 
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +82,7 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
         final TextView eDate;
         final TextView eLocation;
         final TextView eMagnitude;
+        final ImageView eIcon;
 
         public EarthquakeViewHolder(View view) {
             super(view);
@@ -87,6 +93,7 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
             this.eDate = view.findViewById(R.id.eDate);
             this.eLocation = view.findViewById(R.id.eLocation);
             this.eMagnitude = view.findViewById(R.id.eMagnitude);
+            this.eIcon = view.findViewById(R.id.imageView);
         }
 
 //        @Override

@@ -1,6 +1,8 @@
 package uk.co.chrisconnor.mpdcw;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
@@ -20,16 +22,34 @@ public class EarthquakeDetailActivity extends BaseActivity {
 
         if (savedInstanceState == null) {
 
-            EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
 
-            Bundle b = new Bundle();
-            b.putSerializable(EARTHQUAKE_TRANSFER, e);
 
-            fragment.setArguments(b);
 
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, fragment)
-                    .commitNow();
+            XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.bottom, xEarthquakeDetailFragment).commit();
+
+
+
+
+            XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
+            FragmentTransaction mapTransaction = fragmentManager.beginTransaction();
+            mapTransaction.replace(R.id.top, xEarthquakeMap).commit();
+//            FragmentManager f = getSupportFragmentManager();
+//            FragmentTransaction transaction = f.beginTransaction();
+//            transaction.replace(R.id.container, xEarthquakeMap).commit();
+
+//            EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
+//
+//            Bundle b = new Bundle();
+//            b.putSerializable(EARTHQUAKE_TRANSFER, e);
+//
+//            fragment.setArguments(b);
+//
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.container, fragment)
+//                    .commitNow();
         }
 
     }

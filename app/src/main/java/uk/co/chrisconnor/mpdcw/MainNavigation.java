@@ -6,13 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-
-import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 public class MainNavigation extends BaseActivity {
 
@@ -56,7 +51,7 @@ public class MainNavigation extends BaseActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.addToBackStack(null);
+//        transaction.addToBackStack(null);
         transaction.add(R.id.fragment_frame,mFragment,"BLANK_FRAGMENT").commit();
     }
 
