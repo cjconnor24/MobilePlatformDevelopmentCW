@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 //        TextView currentLocation = (TextView) findViewById(R.id.currentLocation);
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
 
-        if (findViewById(R.id.container) != null) {
+        if (findViewById(R.id.top) != null) {
 
             landscapeMode = true;
 
@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                         XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
                         FragmentManager f = getSupportFragmentManager();
                         FragmentTransaction transaction = f.beginTransaction();
-                        transaction.add(R.id.container, xEarthquakeDetailFragment).commit();
+                        transaction.add(R.id.bottom, xEarthquakeDetailFragment).commit();
 
 //                        EarthquakeListFragment earthquakeListFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
 //                        FragmentManager f = getSupportFragmentManager();
@@ -159,10 +159,10 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 //                        t.add(R.id.container, earthquakeListFragment).commit();
 
                         // JUST FOR TESTING
-//                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
+                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
 //                        FragmentManager f = getSupportFragmentManager();
-//                        FragmentTransaction transaction = f.beginTransaction();
-//                        transaction.replace(R.id.container, xEarthquakeMap).commit();
+                        FragmentTransaction mapTransaction = f.beginTransaction();
+                        mapTransaction.replace(R.id.top, xEarthquakeMap).commit();
 
 //                        getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.container, fragment)
