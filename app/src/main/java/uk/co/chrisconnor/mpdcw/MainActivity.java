@@ -142,14 +142,15 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                         b.putSerializable(EARTHQUAKE_TRANSFER,e);
                         fragment.setArguments(b);
 
-//                        XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
-//                        FragmentManager f = getSupportFragmentManager();
-//                        FragmentTransaction transaction = f.beginTransaction();
-//                        transaction.add(R.id.container, xEarthquakeDetailFragment).commit();
-                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
+                        XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
                         FragmentManager f = getSupportFragmentManager();
                         FragmentTransaction transaction = f.beginTransaction();
-                        transaction.replace(R.id.container, xEarthquakeMap).commit();
+                        transaction.add(R.id.container, xEarthquakeDetailFragment).commit();
+                        // JUST FOR TESTING
+//                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
+//                        FragmentManager f = getSupportFragmentManager();
+//                        FragmentTransaction transaction = f.beginTransaction();
+//                        transaction.replace(R.id.container, xEarthquakeMap).commit();
 
 //                        getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.container, fragment)
