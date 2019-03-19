@@ -22,34 +22,15 @@ public class EarthquakeDetailActivity extends BaseActivity {
 
         if (savedInstanceState == null) {
 
-
-
-
             XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.bottom, xEarthquakeDetailFragment).commit();
 
-
-
-
             XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
             FragmentTransaction mapTransaction = fragmentManager.beginTransaction();
             mapTransaction.replace(R.id.top, xEarthquakeMap).commit();
-//            FragmentManager f = getSupportFragmentManager();
-//            FragmentTransaction transaction = f.beginTransaction();
-//            transaction.replace(R.id.container, xEarthquakeMap).commit();
 
-//            EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
-//
-//            Bundle b = new Bundle();
-//            b.putSerializable(EARTHQUAKE_TRANSFER, e);
-//
-//            fragment.setArguments(b);
-//
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.container, fragment)
-//                    .commitNow();
         }
 
     }
