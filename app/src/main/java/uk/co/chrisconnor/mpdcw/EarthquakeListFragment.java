@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 /**
@@ -21,9 +24,9 @@ import uk.co.chrisconnor.mpdcw.models.Earthquake;
 public class EarthquakeListFragment extends Fragment {
 
     // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String EARTHQUAKES = "earthquakes";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private ArrayList<Earthquake> mEarthquakes;
     private OnListFragmentInteractionListener mListener;
 
     /**
@@ -33,12 +36,10 @@ public class EarthquakeListFragment extends Fragment {
     public EarthquakeListFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static EarthquakeListFragment newInstance(int columnCount) {
+    public static EarthquakeListFragment newInstance(ArrayList<Earthquake> earthquakes) {
         EarthquakeListFragment fragment = new EarthquakeListFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putSerializable(EARTHQUAKES, earthquakes);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,7 +49,7 @@ public class EarthquakeListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            mEarthquakes = (ArrayList<Earthquake>)getArguments().getSerializable(EARTHQUAKES);
         }
     }
 
@@ -58,16 +59,17 @@ public class EarthquakeListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_earthquake_list, container, false);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new EarthquakeRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
+//        if (view instanceof RecyclerView) {
+//            Context context = view.getContext();
+//            RecyclerView recyclerView = (RecyclerView) view;
+//            if (mColumnCount <= 1) {
+//                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+//            } else {
+//                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+//            }
+//            recyclerView.setAdapter(new EarthquakeRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+//        }
+
         return view;
     }
 
