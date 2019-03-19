@@ -40,8 +40,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
 
     private String url1 = "";
-//    private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
-    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
+    private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
+//    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private ListView earthquakeList;
     List<Earthquake> earthquakes = null;
 
@@ -142,10 +142,14 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                         b.putSerializable(EARTHQUAKE_TRANSFER,e);
                         fragment.setArguments(b);
 
-                        XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
+//                        XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
+//                        FragmentManager f = getSupportFragmentManager();
+//                        FragmentTransaction transaction = f.beginTransaction();
+//                        transaction.add(R.id.container, xEarthquakeDetailFragment).commit();
+                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
                         FragmentManager f = getSupportFragmentManager();
                         FragmentTransaction transaction = f.beginTransaction();
-                        transaction.add(R.id.container, xEarthquakeDetailFragment).commit();
+                        transaction.replace(R.id.container, xEarthquakeMap).commit();
 
 //                        getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.container, fragment)
