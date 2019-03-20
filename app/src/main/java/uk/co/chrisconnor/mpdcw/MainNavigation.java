@@ -55,7 +55,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
                     if(mFragment.getClass() != XEarthquakeMap.class) {
 
-                        mFragment = XEarthquakeMap.newInstance(earthquakes.get(0));
+                        mFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>)earthquakes);
                         FragmentTransaction mapTransaction = mFragmentManager.beginTransaction();
                         mapTransaction.addToBackStack(null);
                         mapTransaction.replace(R.id.fragment_frame, mFragment).commit();
@@ -88,6 +88,8 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
+
+
 
     @Override
     protected void onResume() {

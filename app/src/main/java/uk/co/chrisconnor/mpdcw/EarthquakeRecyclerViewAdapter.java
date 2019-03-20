@@ -1,5 +1,7 @@
 package uk.co.chrisconnor.mpdcw;
 
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,9 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import uk.co.chrisconnor.mpdcw.EarthquakeListFragment.OnListFragmentInteractionListener;
+import uk.co.chrisconnor.mpdcw.helpers.ColorHelper;
+import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 import java.util.List;
+
+import static uk.co.chrisconnor.mpdcw.helpers.ColorHelper.getColor;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Earthquake} and makes a call to the
@@ -45,6 +51,10 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
         holder.eLocation.setText(currentEarthquake.getLocation().getName());
         holder.eDate.setText(PrettyDate.getTimeAgo(currentEarthquake.getDate()));
         holder.eMagnitude.setText(String.valueOf(currentEarthquake.getMagnitude()));
+
+        // SET THE BACKGROUND COLOR OF MAGNITUDE
+        Drawable d = holder.eMagnitude.getBackground();
+        d.setColorFilter(ColorHelper.getColor(currentEarthquake.getMagnitude()), PorterDuff.Mode.MULTIPLY);
 
         holder.eIcon.setOnClickListener(new View.OnClickListener() {
             @Override
