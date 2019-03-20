@@ -191,6 +191,13 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
     @Override
     public void onListFragmentInteraction(Earthquake item) {
+
         Toast.makeText(this, "Something clicked..." + item.getLocation().getName(), Toast.LENGTH_SHORT).show();
+
+        Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
+        i.putExtra(EARTHQUAKE_TRANSFER, item);
+        startActivity(i);
+
+
     }
 }
