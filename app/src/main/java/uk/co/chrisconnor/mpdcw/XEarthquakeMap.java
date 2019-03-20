@@ -17,6 +17,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
@@ -97,7 +98,14 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        boolean success = googleMap.setMapStyle(new MapStyleOptions(getResources().getString(R.string.style_json)));
+        if(success){
+            Log.d(TAG, "onMapReady: SHOULD HAVE STYLES");
+        } else {
+            Log.e(TAG, "onMapReady: STRING STYLES DID NOT WORK");
+        }
         mMap = googleMap;
+
         Log.d(TAG, "onMapReady: Google Map is ready anyway 😂");
         LatLng location = new LatLng(mEarthquake.getLocation().getLat(), mEarthquake.getLocation().getLon());
         mMap.addMarker(new MarkerOptions().position(location).title(mEarthquake.getLocation().getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.location_marker)));

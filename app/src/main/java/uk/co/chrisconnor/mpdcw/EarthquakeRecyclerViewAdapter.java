@@ -41,7 +41,6 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
         holder.mItem = mEarthquakes.get(position);
 
         Earthquake currentEarthquake = mEarthquakes.get(position);
-        Log.d(TAG, "onBindViewHolder: " + currentEarthquake.toString());
 
         holder.eLocation.setText(currentEarthquake.getLocation().getName());
         holder.eDate.setText(PrettyDate.getTimeAgo(currentEarthquake.getDate()));

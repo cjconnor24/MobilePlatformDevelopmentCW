@@ -80,10 +80,32 @@ public class EarthquakeListFragment extends Fragment {
         }
     }
 
+//    BELOW IS EXPERIMENTING WITH FRAGMENT LIFECYCLE
+
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+
+        Log.d(TAG, "onDetach: This was detached");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: This was destroyed");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: This was paused?");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: This was resumed?");
     }
 
     /**
