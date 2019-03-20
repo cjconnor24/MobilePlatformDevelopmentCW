@@ -1,6 +1,7 @@
 package uk.co.chrisconnor.mpdcw;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,10 +25,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
+
+import static uk.co.chrisconnor.mpdcw.BaseActivity.EARTHQUAKE_TRANSFER;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,10 +44,16 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
     private static final String EARTHQUAKE = "earthquake";
     private static final String EARTHQUAKE_LIST = "earthquake_list";
 
+    // TWO WAYS THE EARTHQUAKES WILL COME THROUGH
     private Earthquake mEarthquake;
     private ArrayList<Earthquake> mEarthquakeList;
+    private HashMap<Marker, Integer> mHashMap = new HashMap<Marker, Integer>();
+
+    // MAP SPECIFIC VARIABLES
     private SupportMapFragment mMapFragment;
     private GoogleMap mMap;
+
+    // STATE
     private boolean multipleMarkers = false;
 
 
@@ -150,15 +160,20 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
 
         if (mEarthquakeList != null && mEarthquakeList.size() > 0) {
 
+            int i = 0;
             for (Earthquake e : mEarthquakeList) {
 
                 // ADD MARKER TO THE MAP
-                markers.add(mMap.addMarker(
-                        createMarker(e)
-                ));
+//                markers.add(mMap.addMarker(
+//                        createMarker(e)
+//                ));
+
+                Marker m = mMap.addMarker(createMarker(e));
+                mHashMap.put(m,i);
 
                 builder.include(new LatLng(e.getLocation().getLat(), e.getLocation().getLon()));
 
+                i++;
             }
 
         }
@@ -214,8 +229,37 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
             @Override
             public void onInfoWindowClick(Marker marker) {
 
-                Log.d(TAG, "onInfoWindowClick: You clicked this marker window" + marker.getTitle());
+                if(mHashMap.get(marker) != null) {
+                    int pos = mHashMap.get(marker);
 
+                    Intent i = new Intent(getContext(), EarthquakeDetailActivity.class);
+                    i.putExtra(EARTHQUAKE_TRANSFER, mEarthquakeList.get(pos));
+                    startActivity(i);
+
+                }
+
+
+
+            }
+        });
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+
+                Log.d(TAG, "onMarkerClick: ");
+
+
+                if(mHashMap.get(marker) != null) {
+                    int pos = mHashMap.get(marker);
+                    Log.d(TAG, "onMarkerClick: " + mEarthquakeList.get(pos).toString());
+                }
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 8f));
+                marker.showInfoWindow();
+
+
+                return true;
             }
         });
 

@@ -29,7 +29,6 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     private FragmentManager mFragmentManager = getSupportFragmentManager();
 
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -41,7 +40,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 //                    return true;
                 case R.id.navigation_list:
 
-                    if(mFragment.getClass() != EarthquakeListFragment.class) {
+                    if (mFragment.getClass() != EarthquakeListFragment.class) {
                         mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
                         FragmentTransaction listTransaction = mFragmentManager.beginTransaction();
                         listTransaction.addToBackStack(null);
@@ -53,9 +52,9 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
                     return false;
                 case R.id.navigation_map:
 
-                    if(mFragment.getClass() != XEarthquakeMap.class) {
+                    if (mFragment.getClass() != XEarthquakeMap.class) {
 
-                        mFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>)earthquakes);
+                        mFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
                         FragmentTransaction mapTransaction = mFragmentManager.beginTransaction();
                         mapTransaction.addToBackStack(null);
                         mapTransaction.replace(R.id.fragment_frame, mFragment).commit();
@@ -90,11 +89,10 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     }
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        if(earthquakes == null) {
+        if (earthquakes == null) {
             DownloadData downloadData = new DownloadData(this);
             downloadData.execute(urlSource);
         } else {
@@ -120,13 +118,9 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
             parseEarthquakes.parse(data);
             earthquakes = parseEarthquakes.getEarthquakes();
             Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
-            Toast.makeText(this, "THEY DOWNLOADED" + earthquakes.size(), Toast.LENGTH_SHORT).show();
 
-            // CREATE AN INSTANCE OF THE NEW CUSTOM FEED ADAPTER AND SET THE SOURCE
-//            EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, parseEarthquakes.getEarthquakes());
-//            earthquakeList.setAdapter(earthquakeListAdapter);
 
-            if(mFragment == null) {
+            if (mFragment == null) {
                 mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
                 mFragmentManager = getSupportFragmentManager();
                 FragmentTransaction t = mFragmentManager.beginTransaction();
@@ -135,54 +129,6 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
                 Log.d(TAG, "onDownloadComplete: onResume...?");
             }
 
-
-            // CREATE A DUMMY TOAST ITEM WHEN SOMEONE CLICKS
-//            earthquakeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-//                    Earthquake e = earthquakes.get(position);
-//
-//                    if (landscapeMode) {
-
-//                        EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
-//
-//                        Bundle b = new Bundle();
-//                        b.putSerializable(EARTHQUAKE_TRANSFER,e);
-//                        fragment.setArguments(b);
-//
-//                        XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
-//                        FragmentManager f = getSupportFragmentManager();
-//                        FragmentTransaction transaction = f.beginTransaction();
-//                        transaction.add(R.id.bottom, xEarthquakeDetailFragment).commit();
-
-//                        EarthquakeListFragment earthquakeListFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
-//                        FragmentManager f = getSupportFragmentManager();
-//                        FragmentTransaction t = f.beginTransaction();
-//                        t.add(R.id.container, earthquakeListFragment).commit();
-
-                        // JUST FOR TESTING
-//                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
-//                        FragmentManager f = getSupportFragmentManager();
-//                        FragmentTransaction mapTransaction = f.beginTransaction();
-//                        mapTransaction.replace(R.id.top, xEarthquakeMap).commit();
-
-//                        getSupportFragmentManager().beginTransaction()
-//                                .replace(R.id.container, fragment)
-//                                .commit();
-
-//                    } else {
-//
-//                        Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
-//                        i.putExtra(EARTHQUAKE_TRANSFER, e);
-//                        startActivity(i);
-//
-//                    }
-//
-//                }
-//            });
-
-
         } else {
             Log.e(TAG, "onDownloadComplete: Something went wrong" + status.toString());
         }
@@ -190,7 +136,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     }
 
     @Override
-    public void onListFragmentInteraction(Earthquake item) {
+    public void onListEarthquakeListItemClick(Earthquake item) {
 
         Toast.makeText(this, "Something clicked..." + item.getLocation().getName(), Toast.LENGTH_SHORT).show();
 

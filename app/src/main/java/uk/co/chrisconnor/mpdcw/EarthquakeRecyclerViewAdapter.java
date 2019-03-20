@@ -17,8 +17,6 @@ import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 import java.util.List;
 
-import static uk.co.chrisconnor.mpdcw.helpers.ColorHelper.getColor;
-
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Earthquake} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
@@ -70,7 +68,7 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
                 if (null != mCallback) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mCallback.onListFragmentInteraction(holder.mItem);
+                    mCallback.onListEarthquakeListItemClick(holder.mItem);
                 }
             }
         });

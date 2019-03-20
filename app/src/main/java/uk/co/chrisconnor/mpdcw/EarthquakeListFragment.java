@@ -120,6 +120,6 @@ public class EarthquakeListFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(Earthquake item);
+        void onListEarthquakeListItemClick(Earthquake item);
     }
 }

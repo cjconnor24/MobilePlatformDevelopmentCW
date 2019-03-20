@@ -195,8 +195,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     }
 
 //    @Override
-//    public void onListFragmentInteraction(Earthquake item) {
+//    public void onListEarthquakeListItemClick(Earthquake item) {
 //        Toast.makeText(this, item.getLocation().getName(), Toast.LENGTH_SHORT).show();
-//        Log.d(TAG, "onListFragmentInteraction: THIS WAS CLICKED" + item.toString());
+//        Log.d(TAG, "onListEarthquakeListItemClick: THIS WAS CLICKED" + item.toString());
 //    }
 }
