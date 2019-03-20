@@ -61,7 +61,7 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
     public static XEarthquakeMap newInstance(Earthquake earthquake) {
 
         Log.d(TAG, "newInstance: THIS FIRES");
-        
+
         XEarthquakeMap fragment = new XEarthquakeMap();
         Bundle args = new Bundle();
         args.putSerializable(EARTHQUAKE, earthquake);
@@ -71,6 +71,7 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
 
     /**
      * Overloaded method for creating a new instance of the fragment with a list of earthquakes
+     *
      * @param earthquake_list
      * @return
      */
@@ -91,12 +92,12 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
         if (getArguments() != null) {
 
             // CHECK TO SEE IF IT'S SINGLE EARTHQUAKE
-            if(getArguments().getSerializable(EARTHQUAKE) != null){
+            if (getArguments().getSerializable(EARTHQUAKE) != null) {
 
                 mEarthquake = (Earthquake) getArguments().getSerializable(EARTHQUAKE);
 
                 // OR IF ITS A LIST
-            } else if(getArguments().getSerializable(EARTHQUAKE_LIST) != null){
+            } else if (getArguments().getSerializable(EARTHQUAKE_LIST) != null) {
 
                 mEarthquakeList = (ArrayList<Earthquake>) getArguments().getSerializable(EARTHQUAKE_LIST);
                 multipleMarkers = true;
@@ -114,10 +115,10 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
         View view = inflater.inflate(R.layout.earthquake_map_fragment, container, false);
 
 //        view.findViewById(R.id.map);
-        mMapFragment = (SupportMapFragment)getChildFragmentManager().findFragmentById(R.id.map);
+        mMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 //        mMapFragment = (SupportMapFragment)getFragmentManager().findFragmentById(R.id.map);
 //        mMapFragment = (SupportMapFragment) getFragmentManager().find;
-        if(mMapFragment != null){
+        if (mMapFragment != null) {
             Log.d(TAG, "onCreateView: IS THE MAP NOT NULL?");
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -128,7 +129,7 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
 //
         try {
             mMapFragment.getMapAsync(this);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.e(TAG, "onCreateView: uh oh...mMapFragment is null?");
         }
 
@@ -136,65 +137,87 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
+    /**
+     * Plot multiple earthquakes on the map.
+     * @param mMap Map reference
+     * @param earthquakes The earthquakes list to plot.
+     */
+    private void plotEarthquakes(GoogleMap mMap, ArrayList<Earthquake> earthquakes){
 
-//        boolean success = googleMap.setMapStyle(new MapStyleOptions(getResources().getString(R.string.style_json)));
-//        if(success){
-//            Log.d(TAG, "onMapReady: SHOULD HAVE STYLES");
-//        } else {
-//            Log.e(TAG, "onMapReady: STRING STYLES DID NOT WORK");
-//        }
-        mMap = googleMap;
+        // LOOP THROUGH MULTIPLE MARKERS
+        ArrayList<Marker> markers = new ArrayList<>();
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
+        if (mEarthquakeList != null && mEarthquakeList.size() > 0) {
 
-        if(!multipleMarkers) {
-            LatLng location = new LatLng(mEarthquake.getLocation().getLat(), mEarthquake.getLocation().getLon());
-            mMap.addMarker(new MarkerOptions().position(location).title(mEarthquake.getLocation().getName()).icon(BitmapDescriptorFactory.fromResource(R.drawable.location_marker)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
-        } else {
+            for (Earthquake e : mEarthquakeList) {
 
-            // LOOP THROUGH MULTIPLE MARKERS
-            ArrayList<Marker> markers = new ArrayList<>();
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                // ADD MARKER TO THE MAP
+                markers.add(mMap.addMarker(
+                        createMarker(e)
+                ));
 
-            if (mEarthquakeList != null && mEarthquakeList.size() > 0) {
-
-                for (Earthquake e : mEarthquakeList) {
-
-                    // ADD MARKER TO THE MAP
-                    markers.add(mMap.addMarker(
-                            new MarkerOptions()
-                                    .position(new LatLng(e.getLocation().getLat(), e.getLocation().getLon()))
-                                    .title(e.getLocation().getName())
-                                    .snippet(PrettyDate.getTimeAgo(e.getDate()))
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                    ));
-
-                    builder.include(new LatLng(e.getLocation().getLat(), e.getLocation().getLon()));
-
-                }
+                builder.include(new LatLng(e.getLocation().getLat(), e.getLocation().getLon()));
 
             }
 
+        }
 
-//            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//                @Override
-//                public boolean onMarkerClick(Marker marker) {
-//                    Log.d(TAG, "onMarkerClick: " + marker.toString());
-//
-//                    Log.d(TAG, "onMarkerClick: " + marker.getId());
-//                    Toast.makeText(EarthquakeMap.this, "You clicked on " + marker.getTitle(), Toast.LENGTH_SHORT).show();
-//                    return false;
-//                }
-//            });
+        LatLngBounds bounds = builder.build();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 300));
 
-            LatLngBounds bounds = builder.build();
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(markers.get(0).getPosition()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 300));
+    }
+
+    /**
+     * Plot a single earthquake on the Map
+     * @param mMap Map reference
+     * @param earthquake to plot on the map
+     */
+    private void plotEarthquake(GoogleMap mMap, Earthquake earthquake){
+        LatLng location = new LatLng(earthquake.getLocation().getLat(), earthquake.getLocation().getLon());
+        mMap.addMarker(createMarker(earthquake));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
+    }
+
+    /**
+     * Build up the marker options - title, snippet and icon. Reused for both modes
+     * @param e Earthquake to build marker from
+     * @return MarkerOptions of earthquake
+     */
+    private MarkerOptions createMarker(Earthquake e){
+        return new MarkerOptions()
+                .position(new LatLng(e.getLocation().getLat(), e.getLocation().getLon()))
+                .title(e.getLocation().getName())
+                .snippet(PrettyDate.getTimeAgo(e.getDate()))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.location_marker));
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+
+        mMap = googleMap;
+
+
+        // CHECK WHAT STATE THE FRAGMENT IS BEING USED IN
+        if (!multipleMarkers) {
+
+            plotEarthquake(mMap, mEarthquake);
+
+        } else {
+
+            plotEarthquakes(mMap, mEarthquakeList);
 
         }
 
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+
+                Log.d(TAG, "onInfoWindowClick: You clicked this marker window" + marker.getTitle());
+
+            }
+        });
 
     }
 }
