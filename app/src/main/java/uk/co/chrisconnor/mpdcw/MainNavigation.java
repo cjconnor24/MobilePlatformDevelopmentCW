@@ -1,6 +1,8 @@
 package uk.co.chrisconnor.mpdcw;
 
+
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,14 +11,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 public class MainNavigation extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener {
@@ -82,7 +83,8 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
 
-//        mTextMessage = (TextView) findViewById(R.id.message);
+        EarthquakeDatabase earthquakeDatabase = EarthquakeDatabase.getInstance(this);
+        SQLiteDatabase db = earthquakeDatabase.getReadableDatabase();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
