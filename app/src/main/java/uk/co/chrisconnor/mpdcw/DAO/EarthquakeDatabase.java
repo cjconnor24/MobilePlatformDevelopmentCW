@@ -74,7 +74,7 @@ public class EarthquakeDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        
+
         Log.d(TAG, "onCreate: " + USER_TABLE_CREATE);
         db.execSQL(USER_TABLE_CREATE);
 
