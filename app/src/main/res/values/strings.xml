@@ -6,8 +6,10 @@
     <string name="earthquake_detail_depth">%s km</string>
     <string name="title_activity_earthquake_map">Map</string>
     <string name="title_activity_remove">Map</string>
-    <string name="title_activity_main_navigation">MainNavigation</string>
+    <string name="title_activity_main_navigation">Quake Trackr</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_list">List</string>
+    <string name="title_map">Map</string>
+    <string name="title_search">Search</string>
 </resources>

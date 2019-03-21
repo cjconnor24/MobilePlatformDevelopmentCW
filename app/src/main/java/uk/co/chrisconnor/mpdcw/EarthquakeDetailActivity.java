@@ -1,6 +1,8 @@
 package uk.co.chrisconnor.mpdcw;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
@@ -13,23 +15,20 @@ public class EarthquakeDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earthquake_detail_activity);
 
-
-//        Intent i = getIntent();
         Earthquake e = (Earthquake) getIntent().getSerializableExtra(EARTHQUAKE_TRANSFER);
-
 
         if (savedInstanceState == null) {
 
-            EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
 
-            Bundle b = new Bundle();
-            b.putSerializable(EARTHQUAKE_TRANSFER, e);
+            XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
+            FragmentTransaction detailTransaction = fragmentManager.beginTransaction();
+            detailTransaction.replace(R.id.bottom, xEarthquakeDetailFragment).commit();
 
-            fragment.setArguments(b);
+            XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
+            FragmentTransaction mapTransaction = fragmentManager.beginTransaction();
+            mapTransaction.replace(R.id.top, xEarthquakeMap).commit();
 
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, fragment)
-                    .commitNow();
         }
 
     }

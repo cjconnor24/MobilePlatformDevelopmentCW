@@ -22,10 +22,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
@@ -39,9 +41,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
 
 
-    private String url1 = "";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
-//    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
+    //    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private ListView earthquakeList;
     List<Earthquake> earthquakes = null;
 
@@ -64,8 +65,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                     startActivity(i);
                 }
             });
-        } catch(NullPointerException e){
-            Log.e(TAG, "onCreate: "+ e.toString());
+        } catch (NullPointerException e) {
+            Log.e(TAG, "onCreate: " + e.toString());
         }
 
 
@@ -73,18 +74,18 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 //        TextView currentLocation = (TextView) findViewById(R.id.currentLocation);
         earthquakeList = (ListView) findViewById(R.id.earthquakeList);
 
-        if(findViewById(R.id.container) != null){
+        if (findViewById(R.id.top) != null) {
 
             landscapeMode = true;
 
         } else {
 
-            Button viewMap = (Button)findViewById(R.id.viewMap);
+            Button viewMap = (Button) findViewById(R.id.viewMap);
             viewMap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getApplicationContext(), EarthquakeMap.class);
-                    i.putExtra(EARTHQUAKE_TRANSFER,(Serializable)earthquakes);
+                    i.putExtra(EARTHQUAKE_TRANSFER, (Serializable) earthquakes);
                     startActivity(i);
                 }
             });
@@ -127,6 +128,11 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
             EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, parseEarthquakes.getEarthquakes());
             earthquakeList.setAdapter(earthquakeListAdapter);
 
+//            EarthquakeListFragment earthquakeListFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>)earthquakes);
+//            FragmentManager f = getSupportFragmentManager();
+//            FragmentTransaction t = f.beginTransaction();
+//            t.add(R.id.container, earthquakeListFragment).commit();
+
             // CREATE A DUMMY TOAST ITEM WHEN SOMEONE CLICKS
             earthquakeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -134,23 +140,29 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
                     Earthquake e = earthquakes.get(position);
 
-                    if(landscapeMode){
+                    if (landscapeMode) {
 
-                        EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
-
-                        Bundle b = new Bundle();
-                        b.putSerializable(EARTHQUAKE_TRANSFER,e);
-                        fragment.setArguments(b);
+//                        EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
+//
+//                        Bundle b = new Bundle();
+//                        b.putSerializable(EARTHQUAKE_TRANSFER,e);
+//                        fragment.setArguments(b);
 
                         XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
                         FragmentManager f = getSupportFragmentManager();
                         FragmentTransaction transaction = f.beginTransaction();
-                        transaction.add(R.id.container, xEarthquakeDetailFragment).commit();
-                        // JUST FOR TESTING
-//                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
+                        transaction.add(R.id.bottom, xEarthquakeDetailFragment).commit();
+
+//                        EarthquakeListFragment earthquakeListFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
 //                        FragmentManager f = getSupportFragmentManager();
-//                        FragmentTransaction transaction = f.beginTransaction();
-//                        transaction.replace(R.id.container, xEarthquakeMap).commit();
+//                        FragmentTransaction t = f.beginTransaction();
+//                        t.add(R.id.container, earthquakeListFragment).commit();
+
+                        // JUST FOR TESTING
+                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
+//                        FragmentManager f = getSupportFragmentManager();
+                        FragmentTransaction mapTransaction = f.beginTransaction();
+                        mapTransaction.replace(R.id.top, xEarthquakeMap).commit();
 
 //                        getSupportFragmentManager().beginTransaction()
 //                                .replace(R.id.container, fragment)
@@ -159,7 +171,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                     } else {
 
                         Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
-                        i.putExtra(EARTHQUAKE_TRANSFER,e);
+                        i.putExtra(EARTHQUAKE_TRANSFER, e);
                         startActivity(i);
 
                     }
@@ -182,4 +194,9 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         super.onSaveInstanceState(outState);
     }
 
+//    @Override
+//    public void onListEarthquakeListItemClick(Earthquake item) {
+//        Toast.makeText(this, item.getLocation().getName(), Toast.LENGTH_SHORT).show();
+//        Log.d(TAG, "onListEarthquakeListItemClick: THIS WAS CLICKED" + item.toString());
+//    }
 }

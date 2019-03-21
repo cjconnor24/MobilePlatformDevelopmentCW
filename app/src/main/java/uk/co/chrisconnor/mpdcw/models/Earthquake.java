@@ -1,4 +1,4 @@
-package uk.co.chrisconnor.mpdcw.models;
+ package uk.co.chrisconnor.mpdcw.models;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 public class EarthquakeListAdapter extends ArrayAdapter {

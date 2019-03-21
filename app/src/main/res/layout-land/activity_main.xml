@@ -11,9 +11,17 @@
         android:layout_weight="1"
         android:layout_height="match_parent"/>
 
-    <FrameLayout
-        android:id="@+id/container"
+    <LinearLayout
         android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+
+        >
+
+    <FrameLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="match_parent">
         <TextView
@@ -23,5 +31,13 @@
             android:text="Please select an earthquake"
             />
     </FrameLayout>
+
+        <FrameLayout
+            android:layout_weight="1"
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
 
 </LinearLayout>
