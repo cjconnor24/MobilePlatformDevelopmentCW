@@ -6,6 +6,7 @@ import java.util.Date;
 public class Earthquake implements Serializable {
 
     // PRIVATE PROPERTIES
+    private String id;
     private Location location;
     private Date date;
     private int depth;
@@ -22,6 +23,14 @@ public class Earthquake implements Serializable {
         this.magnitude = 99d;
         this.category = "";
         this.link = "";
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Location getLocation() {

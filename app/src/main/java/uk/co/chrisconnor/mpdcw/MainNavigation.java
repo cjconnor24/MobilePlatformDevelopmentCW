@@ -143,10 +143,17 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
 
             
-            if(earthquakeDAO.addEarthquakes(earthquakes)){
-                Log.d(TAG, "onDownloadComplete: THIS SHOULD HAVE SAVED");
+//            if(earthquakeDAO.addEarthquakes(earthquakes)){
+//                Log.d(TAG, "onDownloadComplete: THIS SHOULD HAVE SAVED");
+//            } else {
+//                Log.d(TAG, "onDownloadComplete: THIS DID NOT SAVE");
+//            }
+
+            List<Earthquake> eqs = earthquakeDAO.fetchAllEarthquakes();
+            if(eqs != null && eqs.size() > 0) {
+                Log.d(TAG, "onDownloadComplete: " + eqs.toString());
             } else {
-                Log.d(TAG, "onDownloadComplete: THIS DID NOT SAVE");
+                Log.e(TAG, "onDownloadComplete: Uh oh...something went wrong with getting the eqs" );
             }
 
 
