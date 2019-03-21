@@ -67,6 +67,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
                     return false;
                 case R.id.navigation_search:
 
+                    // TODO: REMOVE THIS - ONLY FOR TESTING TO TAKE ME BACK TO THE PREVIOUS MAIN ACTIVITY
                     Intent i = new Intent(getBaseContext(), MainActivity.class);
                     startActivity(i);
 
