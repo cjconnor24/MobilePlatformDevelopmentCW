@@ -124,7 +124,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
                 mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
                 mFragmentManager = getSupportFragmentManager();
                 FragmentTransaction t = mFragmentManager.beginTransaction();
-                t.add(R.id.fragment_frame, mFragment).commit();
+                t.replace(R.id.fragment_frame, mFragment).commit();
             } else {
                 Log.d(TAG, "onDownloadComplete: onResume...?");
             }
