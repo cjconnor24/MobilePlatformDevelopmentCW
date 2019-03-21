@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDAO;
 import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
@@ -83,8 +84,18 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
 
-        EarthquakeDatabase earthquakeDatabase = EarthquakeDatabase.getInstance(this);
-        SQLiteDatabase db = earthquakeDatabase.getReadableDatabase();
+
+
+
+//        Log.d(TAG, "onCreate: " + e.toString());
+
+//        if (e != null) {
+//            if (earthquakeDAO.addEarthquake(e)) {
+//                Log.d(TAG, "onCreate: EARTHQUAKE SAVED");
+//            } else {
+//                Log.e(TAG, "onCreate: EARTHQUAKE DIDNT SAVE");
+//            }
+//        }
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -102,6 +113,8 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
             Log.d(TAG, "onResume: shouldnt have redownloaded?");
         }
     }
+
+
 
     /**
      * When download completes, send it across to the parser to return the Earthquakes
@@ -121,6 +134,20 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
             parseEarthquakes.parse(data);
             earthquakes = parseEarthquakes.getEarthquakes();
             Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
+
+            Earthquake e = earthquakes.get(4);
+
+            EarthquakeDatabase earthquakeDatabase = EarthquakeDatabase.getInstance(this);
+            SQLiteDatabase db = earthquakeDatabase.getReadableDatabase();
+            EarthquakeDAO earthquakeDAO = new EarthquakeDAO(db);
+
+
+            
+            if(earthquakeDAO.addEarthquakes(earthquakes)){
+                Log.d(TAG, "onDownloadComplete: THIS SHOULD HAVE SAVED");
+            } else {
+                Log.d(TAG, "onDownloadComplete: THIS DID NOT SAVE");
+            }
 
 
             if (mFragment == null) {
