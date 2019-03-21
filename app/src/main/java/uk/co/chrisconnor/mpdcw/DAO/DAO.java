@@ -1,4 +1,4 @@
-package uk.co.chrisconnor.mpdcw;
+package uk.co.chrisconnor.mpdcw.DAO;
 
 import java.util.List;
 
