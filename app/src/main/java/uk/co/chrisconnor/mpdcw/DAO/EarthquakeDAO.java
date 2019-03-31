@@ -74,22 +74,29 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
                 earthquake.setDate(new Date(cursor.getLong(datetime)));
             }
 
-            earthquake.setLocation(new Location());
+//            earthquake.setLocation(new Location());
+            Location l = new Location();
 
-//            if (cursor.getColumnIndex(COLUMN_NAME_LOCATION) != -1) {
-//                location = cursor.getColumnIndexOrThrow(
-//                        COLUMN_NAME_LOCATION);
-//                earthquake.username = cursor.getString(userNameIndex);
-//            }
-//            if (cursor.getColumnIndex(COLUMN_EMAIL) != -1) {
-//                emailIndex = cursor.getColumnIndexOrThrow(
-//                        COLUMN_EMAIL);
-//                earthquake.email = cursor.getString(emailIndex);
-//            }
-//            if (cursor.getColumnIndex(COLUMN_DATE) != -1) {
-//                dateIndex = cursor.getColumnIndexOrThrow(COLUMN_DATE);
-//                earthquake.createdDate = new Date(cursor.getLong(dateIndex));
-//            }
+            if (cursor.getColumnIndex(COLUMN_NAME_LOCATION) != -1) {
+                location = cursor.getColumnIndexOrThrow(
+                        COLUMN_NAME_LOCATION);
+                l.setName(cursor.getString(location));
+            }
+
+            if (cursor.getColumnIndex(COLUMN_NAME_LAT) != -1) {
+                lat = cursor.getColumnIndexOrThrow(
+                        COLUMN_NAME_LAT);
+                l.setLat(cursor.getDouble(lat));
+            }
+
+            if (cursor.getColumnIndex(COLUMN_NAME_LONG) != -1) {
+                lon = cursor.getColumnIndexOrThrow(
+                        COLUMN_NAME_LONG);
+                l.setLon(cursor.getDouble(lon));
+            }
+
+            earthquake.setLocation(l);
+
 
         }
         return earthquake;
@@ -126,7 +133,7 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
             return super.insert(TABLE_NAME, getContentValues(earthquake)) > 0;
         } catch (SQLiteConstraintException ex) {
 
-            Log.w("Database", ex.getMessage());
+//            Log.w("Database", ex.getMessage());
             return false;
         }
     }
