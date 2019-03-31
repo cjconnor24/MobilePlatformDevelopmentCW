@@ -69,11 +69,25 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
                     return false;
                 case R.id.navigation_search:
 
-                    // TODO: REMOVE THIS - ONLY FOR TESTING TO TAKE ME BACK TO THE PREVIOUS MAIN ACTIVITY
-                    Intent i = new Intent(getBaseContext(), MainActivity.class);
-                    startActivity(i);
+                    if (mFragment.getClass() != SearchFrament.class) {
 
-                    return true;
+                        mFragment = SearchFrament.newInstance("one","two");
+                        FragmentTransaction searchTransaction = mFragmentManager.beginTransaction();
+                        searchTransaction.addToBackStack(null);
+                        searchTransaction.replace(R.id.fragment_frame, mFragment).commit();
+
+
+                        return true;
+                    } else {
+                        Toast.makeText(MainNavigation.this, "You are already viewing the map", Toast.LENGTH_SHORT).show();
+                    }
+                    return false;
+
+//                    // TODO: REMOVE THIS - ONLY FOR TESTING TO TAKE ME BACK TO THE PREVIOUS MAIN ACTIVITY
+//                    Intent i = new Intent(getBaseContext(), MainActivity.class);
+//                    startActivity(i);
+//
+//                    return true;
             }
             return false;
         }
@@ -150,6 +164,10 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
     }
 
+    /**
+     * Launches new activity based on the earthquake clicked in the list
+     * @param item Earthquake item clicked
+     */
     @Override
     public void onListEarthquakeListItemClick(Earthquake item) {
 
