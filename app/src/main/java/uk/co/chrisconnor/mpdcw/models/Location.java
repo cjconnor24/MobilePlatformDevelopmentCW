@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * Represents Earthquake Location
  */
-public class Location implements Serializable, ClusterItem {
+public class Location implements Serializable {
 
     private String name;
     private double lat;
@@ -68,21 +68,6 @@ public class Location implements Serializable, ClusterItem {
                 ", lat=" + lat +
                 ", lon=" + lon +
                 '}';
-    }
-
-    @Override
-    public LatLng getPosition() {
-        return new LatLng(this.lat, this.lon);
-    }
-
-    @Override
-    public String getTitle() {
-        return this.name;
-    }
-
-    @Override
-    public String getSnippet() {
-        return "";
     }
 
     /**

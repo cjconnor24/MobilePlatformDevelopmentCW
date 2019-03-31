@@ -1,9 +1,14 @@
 package uk.co.chrisconnor.mpdcw.models;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class Earthquake implements Serializable {
+import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
+
+public class Earthquake implements Serializable, ClusterItem  {
 
     // PRIVATE PROPERTIES
     private String id;
@@ -92,4 +97,20 @@ public class Earthquake implements Serializable {
                 ", link='" + link + '\'' +
                 '}';
     }
+
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(getLocation().getLat(), getLocation().getLon());
+    }
+
+    @Override
+    public String getTitle() {
+        return getLocation().getName();
+    }
+
+    @Override
+    public String getSnippet() {
+        return PrettyDate.getTimeAgo(getDate());
+    }
+
 }
