@@ -84,19 +84,6 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
 
-
-
-
-//        Log.d(TAG, "onCreate: " + e.toString());
-
-//        if (e != null) {
-//            if (earthquakeDAO.addEarthquake(e)) {
-//                Log.d(TAG, "onCreate: EARTHQUAKE SAVED");
-//            } else {
-//                Log.e(TAG, "onCreate: EARTHQUAKE DIDNT SAVE");
-//            }
-//        }
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -135,30 +122,21 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
             earthquakes = parseEarthquakes.getEarthquakes();
             Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
 
-            Earthquake e = earthquakes.get(4);
-
             EarthquakeDatabase earthquakeDatabase = EarthquakeDatabase.getInstance(this);
             SQLiteDatabase db = earthquakeDatabase.getReadableDatabase();
             EarthquakeDAO earthquakeDAO = new EarthquakeDAO(db);
 
 
             
-//            if(earthquakeDAO.addEarthquakes(earthquakes)){
-//                Log.d(TAG, "onDownloadComplete: THIS SHOULD HAVE SAVED");
-//            } else {
-//                Log.d(TAG, "onDownloadComplete: THIS DID NOT SAVE");
-//            }
-
-            List<Earthquake> eqs = earthquakeDAO.fetchAllEarthquakes();
-            if(eqs != null && eqs.size() > 0) {
-                Log.d(TAG, "onDownloadComplete: " + eqs.toString());
+            if(earthquakeDAO.addEarthquakes(earthquakes)){
+                Log.d(TAG, "onDownloadComplete: THIS SHOULD HAVE SAVED");
             } else {
-                Log.e(TAG, "onDownloadComplete: Uh oh...something went wrong with getting the eqs" );
+                Log.d(TAG, "onDownloadComplete: THIS DID NOT SAVE");
             }
 
 
             if (mFragment == null) {
-                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
+                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakeDAO.fetchAllEarthquakes());
                 mFragmentManager = getSupportFragmentManager();
                 FragmentTransaction t = mFragmentManager.beginTransaction();
                 t.replace(R.id.fragment_frame, mFragment).commit();

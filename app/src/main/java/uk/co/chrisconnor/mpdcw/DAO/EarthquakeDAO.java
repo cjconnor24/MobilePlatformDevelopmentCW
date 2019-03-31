@@ -133,6 +133,7 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
             return super.insert(TABLE_NAME, getContentValues(earthquake)) > 0;
         } catch (SQLiteConstraintException ex) {
 
+            // CATCH THE Contstraint Exception if the EQ already exists in the Database
 //            Log.w("Database", ex.getMessage());
             return false;
         }
