@@ -17,7 +17,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDAO;
 import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
@@ -29,6 +28,8 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     private List<Earthquake> earthquakes;
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     private FragmentManager mFragmentManager = getSupportFragmentManager();
+    private EarthquakeDatabase mdb;
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -101,6 +102,10 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        // INITIALISE THE DB
+        mdb = new EarthquakeDatabase(this);
+        mdb.open();
+
     }
 
 
@@ -136,21 +141,12 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
             earthquakes = parseEarthquakes.getEarthquakes();
             Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
 
-            EarthquakeDatabase earthquakeDatabase = EarthquakeDatabase.getInstance(this);
-            SQLiteDatabase db = earthquakeDatabase.getReadableDatabase();
-            EarthquakeDAO earthquakeDAO = new EarthquakeDAO(db);
 
-
-            
-            if(earthquakeDAO.addEarthquakes(earthquakes)){
-                Log.d(TAG, "onDownloadComplete: THIS SHOULD HAVE SAVED");
-            } else {
-                Log.d(TAG, "onDownloadComplete: THIS DID NOT SAVE");
-            }
+            EarthquakeDatabase.mEarthquakeDao.addEarthquakes(earthquakes);
 
 
             if (mFragment == null) {
-                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakeDAO.fetchAllEarthquakes());
+                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes());
                 mFragmentManager = getSupportFragmentManager();
                 FragmentTransaction t = mFragmentManager.beginTransaction();
                 t.replace(R.id.fragment_frame, mFragment).commit();
@@ -177,6 +173,13 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         i.putExtra(EARTHQUAKE_TRANSFER, item);
         startActivity(i);
 
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        mdb.close();
+        super.onDestroy();
 
     }
 }
