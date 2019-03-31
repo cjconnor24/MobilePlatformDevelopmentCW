@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,14 +19,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
@@ -54,7 +52,7 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
     // MAP SPECIFIC VARIABLES
     private SupportMapFragment mMapFragment;
     private GoogleMap mMap;
-    private ClusterManager<Location> mEarthquakeClusterManager;
+    private ClusterManager<Earthquake> mEarthquakeClusterManager;
 
     // STATE
     private boolean multipleMarkers = false;
@@ -170,20 +168,26 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
 //                markers.add(mMap.addMarker(
 //                        createMarker(e)
 //                ));
-                addClusterItem(e.getLocation());
+//                addClusterItem(e);
+//                mEarthquakeClusterManager.addItem(e);
+
+//                mEarthquakeClusterManager.getMarkerManager();
 
 //                Marker m = mMap.addMarker(createMarker(e));
+//                m.setVisible(false);
 //                mHashMap.put(m,i);
 
-//                builder.include(new LatLng(e.getLocation().getLat(), e.getLocation().getLon()));
+                builder.include(new LatLng(e.getLocation().getLat(), e.getLocation().getLon()));
 
                 i++;
             }
 
+            mEarthquakeClusterManager.addItems(earthquakes);
+
         }
 
-//        LatLngBounds bounds = builder.build();
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 300));
+        LatLngBounds bounds = builder.build();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 300));
 
     }
 
@@ -237,6 +241,8 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
             @Override
             public void onInfoWindowClick(Marker marker) {
 
+                Log.d(TAG, "onInfoWindowClick: " + marker.toString());
+
                 if(mHashMap.get(marker) != null) {
                     int pos = mHashMap.get(marker);
 
@@ -263,7 +269,16 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
                     Log.d(TAG, "onMarkerClick: " + mEarthquakeList.get(pos).toString());
                 }
 
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 8f));
+                float markerZoom = 8.0f;
+
+
+
+                // ONLY ZOOM IF FURTHER OUT THAN MAX ZOOM
+                if(mMap.getCameraPosition().zoom < 8.0f) {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 8f));
+                } else {
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), mMap.getCameraPosition().zoom));
+                }
                 marker.showInfoWindow();
 
 
@@ -274,43 +289,29 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
     }
 
 
+
+
     private void setUpClusterer() {
         // Position the map.
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
 
         // Initialize the manager with the context and the map.
         // (Activity extends context, so we can pass 'this' in the constructor.)
-        mEarthquakeClusterManager = new ClusterManager<Location>(getContext(), mMap);
+        mEarthquakeClusterManager = new ClusterManager<Earthquake>(getContext(), mMap);
+        mEarthquakeClusterManager.setRenderer(new EarthquakeClusterRenderer(getContext(),mMap, mEarthquakeClusterManager));
+
 
         // Point the map's listeners at the listeners implemented by the cluster
         // manager.
         mMap.setOnCameraIdleListener(mEarthquakeClusterManager );
 //        mMap.setOnMarkerClickListener(mEarthquakeClusterManager );
 
-        // Add cluster items (markers) to the cluster manager.
-        addItems();
     }
 
-    private void addItems() {
 
-        // Set some lat/lng coordinates to start with.
-        double lat = 51.5145160;
-        double lng = -0.1270060;
+    private void addClusterItem(Earthquake e) {
 
-        // Add ten cluster items in close proximity, for purposes of this example.
-        for (int i = 0; i < 10; i++) {
-            double offset = i / 60d;
-            lat = lat + offset;
-            lng = lng + offset;
-            Location offsetItem = new Location("Test",lat, lng);
-            mEarthquakeClusterManager.addItem(offsetItem);
-
-        }
-    }
-
-    private void addClusterItem(Location l) {
-
-            mEarthquakeClusterManager.addItem(l);
+            mEarthquakeClusterManager.addItem(e);
 
     }
 
