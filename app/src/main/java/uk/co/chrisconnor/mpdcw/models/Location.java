@@ -2,12 +2,15 @@ package uk.co.chrisconnor.mpdcw.models;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
+
 import java.io.Serializable;
 
 /**
  * Represents Earthquake Location
  */
-public class Location implements Serializable {
+public class Location implements Serializable, ClusterItem {
 
     private String name;
     private double lat;
@@ -65,6 +68,21 @@ public class Location implements Serializable {
                 ", lat=" + lat +
                 ", lon=" + lon +
                 '}';
+    }
+
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(this.lat, this.lon);
+    }
+
+    @Override
+    public String getTitle() {
+        return this.name;
+    }
+
+    @Override
+    public String getSnippet() {
+        return "";
     }
 
     /**
