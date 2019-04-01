@@ -22,8 +22,8 @@ import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 public class MainNavigation extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener {
 
-    private TextView mTextMessage;
-    private Fragment mFragment;
+//    private TextView mTextMessage;
+
     private static final String TAG = "MainNavigation";
     private List<Earthquake> earthquakes;
     //        private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
@@ -31,61 +31,45 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private EarthquakeDatabase mdb;
 
+    // LIST FRAGMENTS
+    private Fragment listFragment;
+    private Fragment mapFragment;
+    private Fragment searchFragment;
+    private Fragment mFragment;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             switch (item.getItemId()) {
 //                case R.id.navigation_dashboard:
 ////                    mTextMessage.setText(R.string.title_home);
 //                    return true;
                 case R.id.navigation_list:
 
-                    if (mFragment.getClass() != EarthquakeListFragment.class) {
-                        mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
-                        FragmentTransaction listTransaction = mFragmentManager.beginTransaction();
-                        listTransaction.addToBackStack(null);
-                        listTransaction.replace(R.id.fragment_frame, mFragment).commit();
-                        return true;
-                    } else {
-                        Toast.makeText(MainNavigation.this, "You're already viewing the list", Toast.LENGTH_SHORT).show();
-                    }
-                    return false;
+                    mFragment = listFragment;
+                    break;
+
+
                 case R.id.navigation_map:
 
-                    if (mFragment.getClass() != XEarthquakeMap.class) {
-
-                        mFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
-                        FragmentTransaction mapTransaction = mFragmentManager.beginTransaction();
-                        mapTransaction.addToBackStack(null);
-                        mapTransaction.replace(R.id.fragment_frame, mFragment).commit();
-
-
-                        return true;
-                    } else {
-                        Toast.makeText(MainNavigation.this, "You are already viewing the map", Toast.LENGTH_SHORT).show();
-                    }
-                    return false;
+                    mFragment = mapFragment;
+                    break;
+//
                 case R.id.navigation_search:
 
-                    if (mFragment.getClass() != SearchFrament.class) {
+                    mFragment = searchFragment;
+                    break;
 
-                        mFragment = SearchFrament.newInstance("one", "two");
-                        FragmentTransaction searchTransaction = mFragmentManager.beginTransaction();
-                        searchTransaction.addToBackStack(null);
-                        searchTransaction.replace(R.id.fragment_frame, mFragment).commit();
-
-
-                        return true;
-                    } else {
-                        Toast.makeText(MainNavigation.this, "You are already viewing the map", Toast.LENGTH_SHORT).show();
-                    }
-                    return false;
-
+                default:
+                    mFragment = listFragment;
+                    break;
             }
-            return false;
+            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+            return true;
         }
     };
 
@@ -94,13 +78,14 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
 
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // INITIALISE THE DB
         mdb = new EarthquakeDatabase(this);
         mdb.open();
-//        earthquakes = EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes();
+
 
     }
 
@@ -121,6 +106,10 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         } else {
             Log.d(TAG, "onResume: shouldnt have redownloaded?");
         }
+    }
+
+    private void initialiseFragments() {
+
     }
 
 
@@ -145,12 +134,18 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
             EarthquakeDatabase.mEarthquakeDao.addEarthquakes(earthquakes);
 
+            listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
+            mapFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
+            searchFragment = SearchFrament.newInstance("one", "two");
+
 
             if (mFragment == null) {
-                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes());
-                mFragmentManager = getSupportFragmentManager();
-                FragmentTransaction t = mFragmentManager.beginTransaction();
-                t.replace(R.id.fragment_frame, mFragment).commit();
+                mFragment = listFragment;
+                mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+//                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes());
+//                mFragmentManager = getSupportFragmentManager();
+//                FragmentTransaction t = mFragmentManager.beginTransaction();
+//                t.replace(R.id.fragment_frame, mFragment).commit();
             } else {
                 Log.d(TAG, "onDownloadComplete: onResume...?");
             }
