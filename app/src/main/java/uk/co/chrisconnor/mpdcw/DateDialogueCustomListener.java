@@ -28,13 +28,5 @@ public class DateDialogueCustomListener implements DatePickerDialog.OnDateSetLis
 
     }
 
-    //    @Override
-//    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth, EditText textBox) {
-//
-//        String dateString = String.format("%d/%d/%d",dayOfMonth,month,year);
-//        textBox.setText(dateString);
-//
-//    }
-
 
 }
