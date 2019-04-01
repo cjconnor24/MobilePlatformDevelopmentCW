@@ -26,11 +26,10 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     private Fragment mFragment;
     private static final String TAG = "MainNavigation";
     private List<Earthquake> earthquakes;
-//        private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
+    //        private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private EarthquakeDatabase mdb;
-
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -73,7 +72,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
                     if (mFragment.getClass() != SearchFrament.class) {
 
-                        mFragment = SearchFrament.newInstance("one","two");
+                        mFragment = SearchFrament.newInstance("one", "two");
                         FragmentTransaction searchTransaction = mFragmentManager.beginTransaction();
                         searchTransaction.addToBackStack(null);
                         searchTransaction.replace(R.id.fragment_frame, mFragment).commit();
@@ -85,11 +84,6 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
                     }
                     return false;
 
-//                    // TODO: REMOVE THIS - ONLY FOR TESTING TO TAKE ME BACK TO THE PREVIOUS MAIN ACTIVITY
-//                    Intent i = new Intent(getBaseContext(), MainActivity.class);
-//                    startActivity(i);
-//
-//                    return true;
             }
             return false;
         }
@@ -106,21 +100,28 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         // INITIALISE THE DB
         mdb = new EarthquakeDatabase(this);
         mdb.open();
+//        earthquakes = EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes();
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: FRAGMENTS ON START");
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (earthquakes == null) {
+
             DownloadData downloadData = new DownloadData(this);
             downloadData.execute(urlSource);
+
         } else {
             Log.d(TAG, "onResume: shouldnt have redownloaded?");
         }
     }
-
 
 
     /**
@@ -162,6 +163,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
     /**
      * Launches new activity based on the earthquake clicked in the list
+     *
      * @param item Earthquake item clicked
      */
     @Override
