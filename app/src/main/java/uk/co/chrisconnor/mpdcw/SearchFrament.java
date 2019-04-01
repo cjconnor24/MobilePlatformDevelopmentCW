@@ -1,13 +1,19 @@
 package uk.co.chrisconnor.mpdcw;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
 
+import java.util.Calendar;
 
 
 public class SearchFrament extends Fragment {
@@ -19,6 +25,9 @@ public class SearchFrament extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private EditText mDatePickerFrom, mDatePickerTo;
+    private DatePickerDialog.OnDateSetListener mDatePickerFromSetListener, mDatePickerToSetListener;
 
 //    private OnFragmentInteractionListener mListener;
 
@@ -51,6 +60,39 @@ public class SearchFrament extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        mDatePickerFrom = (EditText)view.findViewById(R.id.datePickerFrom);
+        mDatePickerTo = (EditText)view.findViewById(R.id.datePickerTo);
+
+
+
+        // DATE PICKER LISTENERS
+        mDatePickerFromSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month++;
+                String date = String.format("%d/%d/%d", dayOfMonth, month, year);
+                mDatePickerFrom.setText(date);
+            }
+        };
+
+        mDatePickerToSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month++;
+                String date = String.format("%d/%d/%d", dayOfMonth, month, year);
+                mDatePickerTo.setText(date);
+            }
+        };
+
     }
 
     @Override
