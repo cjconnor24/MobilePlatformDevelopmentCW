@@ -1,28 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_marginTop="40dp"
+    android:layout_marginBottom="40dp"
     tools:context=".SearchFrament">
 
-
-        <DatePicker
-            android:id="@+id/datePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="36dp" />
-
-        <Spinner
-            android:id="@+id/spinner"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <!--<CalendarView-->
-            <!--android:id="@+id/calendarView"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" />-->
+            <TextView
+                android:id="@+id/mainHeading"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="Earthquake Search" />
 
+            <TextView
+                android:id="@+id/lbldatePickerFrom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_date_24dp"
+                android:text="Start Date" />
 
-</LinearLayout>
+            <EditText
+                android:id="@+id/datePickerFrom"
+                style="@style/editTextFormField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="e.g. 21/05/2018"
+                android:inputType="date" />
+
+            <TextView
+                android:id="@+id/lbldatePickerTo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_date_24dp"
+                android:text="End Date" />
+
+            <EditText
+                android:id="@+id/datePickerTo"
+                style="@style/editTextFormField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="e.g. 21/05/2018"
+                android:inputType="date" />
+
+            <TextView
+                android:id="@+id/lblMagnitude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_richter_24dp"
+                android:text="Magnitude" />
+
+            <Spinner
+                android:id="@+id/magnitude"
+                style="@style/editTextFormField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/magnitude_options" />
+
+            <TextView
+                android:id="@+id/lblDepth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_depth_24dp"
+                android:text="Depth Greater Than" />
+
+            <EditText
+                android:id="@+id/depth"
+                style="@style/editTextFormField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Depth (KM)"
+                android:inputType="number" />
+
+            <TextView
+                android:id="@+id/lblLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_location_24dp"
+                android:text="Earthquake Location" />
+
+            <EditText
+                android:id="@+id/location"
+                style="@style/editTextFormField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="e.g. Salsbury" />
+
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_search_black_24dp"
+                android:text="Search" />
+
+        </LinearLayout>
+
+</ScrollView>
