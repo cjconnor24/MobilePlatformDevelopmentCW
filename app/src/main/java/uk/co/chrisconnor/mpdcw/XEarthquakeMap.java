@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.MarkerManager;
 import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 
@@ -221,7 +222,7 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
 
         mMap = googleMap;
 
-        setUpClusterer();
+        setUpClusterer(mEarthquakeList);
 
         // CHECK WHAT STATE THE FRAGMENT IS BEING USED IN
         if (!multipleMarkers) {
@@ -291,20 +292,35 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
 
 
 
-    private void setUpClusterer() {
+    private void setUpClusterer(ArrayList<Earthquake> earthquakeList) {
         // Position the map.
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
 
         // Initialize the manager with the context and the map.
         // (Activity extends context, so we can pass 'this' in the constructor.)
-        mEarthquakeClusterManager = new ClusterManager<Earthquake>(getContext(), mMap);
+        MarkerManager t = new MarkerManager(mMap);
+//        t.newCollection("Test");
+
+        MarkerManager.Collection mMarkers = t.newCollection();
+
+//        for(Earthquake e : earthquakeList){
+//        mMarkers.addMarker(createMarker(e));
+//        }
+
+
+
+        mEarthquakeClusterManager = new ClusterManager<Earthquake>(getContext(), mMap,t);
         mEarthquakeClusterManager.setRenderer(new EarthquakeClusterRenderer(getContext(),mMap, mEarthquakeClusterManager));
+
+
 
 
         // Point the map's listeners at the listeners implemented by the cluster
         // manager.
         mMap.setOnCameraIdleListener(mEarthquakeClusterManager );
-//        mMap.setOnMarkerClickListener(mEarthquakeClusterManager );
+        mMap.setOnMarkerClickListener(mEarthquakeClusterManager );
+
+        mEarthquakeClusterManager.cluster();
 
     }
 
