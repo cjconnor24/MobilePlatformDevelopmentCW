@@ -2,18 +2,31 @@ package uk.co.chrisconnor.mpdcw;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
+import uk.co.chrisconnor.mpdcw.DAO.IEarthquakeTableSchema;
+import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 
 public class SearchFrament extends Fragment implements View.OnFocusChangeListener {
@@ -30,7 +43,7 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
 
     private EditText mDatePickerFrom, mDatePickerTo, mDepth, mLocation;
     private Spinner mMagnitude;
-    private Button mSubmitButton;
+    private Button mSubmitButton, mClearButton;
 
 
 //    private OnFragmentInteractionListener mListener;
@@ -79,29 +92,109 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
         mDepth = (EditText) view.findViewById(R.id.depth);
         mLocation = (EditText) view.findViewById(R.id.location);
         mSubmitButton = (Button) view.findViewById(R.id.btnSearch);
+        mClearButton = (Button) view.findViewById(R.id.btnClear);
 
+        // ADD LISTENERS
         mDatePickerFrom.setOnFocusChangeListener(this);
         mDatePickerTo.setOnFocusChangeListener(this);
+        mClearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearForm();
+            }
+        });
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // VALIDATE VALUES
+                String startDate = mDatePickerFrom.getText().toString();
+                String endDate = mDatePickerTo.getText().toString();
+                int magnitude = mMagnitude.getSelectedItemPosition();
+                String depth = mDepth.getText().toString();
+                String location = mLocation.getText().toString();
+
+                // NEW Placeholders
+                Date sDate = null;
+                Date eDate = null;
+                Integer mag = null;
+                Integer dep = null;
+                String loc = null;
+
+                List<Earthquake> eqs;
 
 
-        // DATE PICKER LISTENERS
-//        mDatePickerFromSetListener = new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                month++;
-//                String date = String.format("%d/%d/%d", dayOfMonth, month, year);
-//                mDatePickerFrom.setText(date);
-//            }
-//        };
-//
-//        mDatePickerToSetListener = new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                month++;
-//                String date = String.format("%d/%d/%d", dayOfMonth, month, year);
-//                mDatePickerTo.setText(date);
-//            }
-//        };
+                ArrayList<String> errors = new ArrayList<>();
+
+                // CHECK THE DATES
+                String pattern = "dd/MM/yyyy";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+                // CARRYOUT THE TRANSFORMATIONS
+                try {
+
+                    // START DATE
+                    if (!startDate.equals("")) {
+                        sDate = simpleDateFormat.parse(startDate);
+                    }
+
+                    // END DATE
+                    if (!endDate.equals("")) {
+                        eDate = simpleDateFormat.parse(endDate);
+                    }
+
+                    // MAGNITUDE
+                    if (magnitude == 0) {
+                        mag = null;
+                    } else {
+                        mag = magnitude;
+                    }
+
+                    // DEPTH
+                    if (!depth.equals("")) {
+                        dep = Integer.parseInt(depth);
+                    }
+
+                    // LOCATION
+                    if (!location.equals("")) {
+                        loc = location;
+                    }
+
+                } catch(ParseException e){
+                    errors.add("The dates you entered are invalid");
+
+                } catch(NumberFormatException e) {
+                    errors.add("Please depth is a number");
+                }
+
+                if(errors.size() != 0){
+                    Toast.makeText(getContext(), "Uh oh...errors", Toast.LENGTH_SHORT).show();
+                } else {
+                    eqs = EarthquakeDatabase.mEarthquakeDao.searchEarthquake(sDate,eDate,mag,dep,loc);
+                    Toast.makeText(getContext(), "There are" + eqs.size(), Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "RETURNED:" + eqs.size() + " earthquakes - " + eqs.toString());
+                }
+
+
+
+
+
+                // MAKE SURE DATES FALL WITHIN RANGE
+            }
+        });
+
+
+    }
+
+    private void clearForm() {
+
+        mDatePickerFrom.setText("");
+        mDatePickerTo.setText("");
+        mMagnitude.setSelection(0, true);
+        mDepth.setText("");
+        mLocation.setText("");
+
+        Toast.makeText(getContext(), "Search cleared", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -116,18 +209,11 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
     }
 
     @Override
@@ -136,34 +222,30 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
         if (hasFocus) {
 
             Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DATE, -14);
             int y = calendar.get(Calendar.YEAR);
             int m = calendar.get(Calendar.MONTH);
             int d = calendar.get(Calendar.DAY_OF_MONTH);
 
-            if(v.getId()== R.id.datePickerFrom || v.getId() == R.id.datePickerTo){
+            if (v.getId() == R.id.datePickerFrom || v.getId() == R.id.datePickerTo) {
 
-                DatePickerDialog datePicker = new DatePickerDialog(getContext(), R.style.DialogTheme, new DateDialogueCustomListener((EditText)v), y, m, d);
+                DatePickerDialog datePicker = new DatePickerDialog(getContext(), R.style.DialogTheme, new DateDialogueCustomListener((EditText) v), y, m, d);
+
+                // SET MINIMUM AND MAXIMUM DATES
+                long DAY_IN_MS = 1000 * 60 * 60 * 24;
+                datePicker.getDatePicker().setMaxDate(System.currentTimeMillis());
+                datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - (100 * DAY_IN_MS));
+
+                // SHOW THE DIALOGUE
                 datePicker.show();
             }
 
-//            switch (v.getId()) {
-//                case R.id.datePickerFrom:
-//
-//                    break;
-//                case R.id.datePickerTo:
-//                    DatePickerDialog datePickerTo = new DatePickerDialog(getContext(), R.style.DialogTheme, new DateDialogueCustomListener((EditText)v), y, m, d);
-//                    datePickerTo.show();
-//
-//                    break;
-//                default:
-//                    Log.d(TAG, "SOMETHING ELSE");
-//                    break;
-//            }
-
         }
 
-//        mDateSetListener = new DateDialogueCustomListener(getContext(), (EditText)v);
 
+    }
+
+    public void onSubmitForm() {
 
 
     }

@@ -4,8 +4,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +21,7 @@ import uk.co.chrisconnor.mpdcw.models.Location;
 public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema, IEarthquakeDAO {
 
     SQLiteDatabase db;
+    private static final String TAG = "EarthquakeDAO";
 
     public EarthquakeDAO(SQLiteDatabase db) {
         super(db);
@@ -25,6 +29,7 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
 
     @Override
     protected Earthquake cursorToEntity(Cursor cursor) {
+
 
         Earthquake earthquake = new Earthquake();
 
@@ -37,15 +42,6 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         int lon;
         int link;
         int datetime;
-
-//        String COLUMN_NAME_ID = "_id";
-//        String COLUMN_NAME_LOCATION = "location";
-//        String COLUMN_NAME_MAGNITUDE = "magnitude";
-//        String COLUMN_NAME_DEPTH = "depth";
-//        String COLUMN_NAME_LAT = "lat";
-//        String COLUMN_NAME_LONG = "long";
-//        String COLUMN_NAME_LINK = "link";
-//        String COLUMN_NAME_DATETIME = "datetime";
 
         if (cursor != null) {
 
@@ -104,7 +100,81 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
 
     @Override
     public Earthquake getEarthquakeById(int earthquakeId) {
-        return null;
+
+        String selectionArgs[] = {String.valueOf(earthquakeId)};
+        String selection = COLUMN_NAME_ID + " = ?";
+        Cursor cursor = super.query(TABLE_NAME, EARTHQUAKE_COLUMNS, selection, selectionArgs, COLUMN_NAME_ID);
+        Earthquake e = null;
+        if(cursor != null){
+            cursor.moveToFirst();
+            do {
+                e = cursorToEntity(cursor);
+            } while( cursor.moveToNext());
+        }
+        return e;
+    }
+
+    public List<Earthquake> searchEarthquake(Date pStartDate, Date pEndDate, Integer pMagnitude, Integer pDepth, String pLocation) {
+
+        String query = "SELECT * FROM " + TABLE_NAME;
+        ArrayList<String> conditions = new ArrayList<>();
+
+        if(pStartDate != null){
+            conditions.add(String.format("%s >= %s",IEarthquakeTableSchema.COLUMN_NAME_DATETIME, pStartDate.getTime()));
+        }
+
+        if(pEndDate != null){
+            conditions.add(String.format("%s <= %s",IEarthquakeTableSchema.COLUMN_NAME_DATETIME, pEndDate.getTime()));
+        }
+
+        if(pMagnitude != null){
+            conditions.add(String.format("%s <= %s",IEarthquakeTableSchema.COLUMN_NAME_MAGNITUDE, pMagnitude));
+        }
+
+        if(pDepth != null){
+            conditions.add(String.format("%s >= %s",IEarthquakeTableSchema.COLUMN_NAME_DEPTH, pDepth));
+        }
+
+        if(pLocation != null && !pLocation.equals("")){
+            conditions.add(String.format("%s LIKE '%%%s%%'",IEarthquakeTableSchema.COLUMN_NAME_LOCATION, pLocation));
+        }
+
+
+        if(conditions.size() > 0){
+            query += " WHERE " + TextUtils.join(" AND ", conditions);
+        }
+
+        query+=";";
+
+        List<Earthquake> earthquakes = new ArrayList<>();
+
+        Log.d(TAG, query);
+
+        Cursor cursor = super.rawQuery(query, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+//                Earthquake earthquake = cursorToEntity(cursor);
+                earthquakes.add(cursorToEntity(cursor));
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+//        if (cursor != null) {
+//            if(cursor.moveToFirst()) {
+//
+//                do {
+//                    Earthquake earthquake = cursorToEntity(cursor);
+//                    earthquakes.add(earthquake);
+//                    cursor.moveToNext();
+//                } while (cursor.moveToNext());
+//
+//            }
+//            cursor.close();
+//        }
+
+        return earthquakes;
+
     }
 
     @Override
@@ -158,7 +228,7 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
 
         ContentValues cv = new ContentValues();
 //        cv.put(COLUMN_NAME_ID, UUID.randomUUID().toString());
-        cv.put(COLUMN_NAME_ID, e.hashCode());
+        cv.put(COLUMN_NAME_ID, e.getId());
         cv.put(COLUMN_NAME_LOCATION, e.getLocation().getName());
         cv.put(COLUMN_NAME_MAGNITUDE, e.getMagnitude());
         cv.put(COLUMN_NAME_DEPTH, e.getDepth());
