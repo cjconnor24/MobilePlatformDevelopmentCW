@@ -6,28 +6,32 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.util.Calendar;
 
 
-public class SearchFrament extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class SearchFrament extends Fragment implements View.OnFocusChangeListener {
+//    // TODO: Rename parameter arguments, choose names that match
+//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+//    private static final String ARG_PARAM1 = "param1";
+//    private static final String ARG_PARAM2 = "param2";
+//
+//    // TODO: Rename and change types of parameters
+//    private String mParam1;
+//    private String mParam2;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final String TAG = "SearchFrament";
 
-    private EditText mDatePickerFrom, mDatePickerTo;
-    private DatePickerDialog.OnDateSetListener mDatePickerFromSetListener, mDatePickerToSetListener;
+    private EditText mDatePickerFrom, mDatePickerTo, mDepth, mLocation;
+    private Spinner mMagnitude;
+    private Button mSubmitButton;
+
 
 //    private OnFragmentInteractionListener mListener;
 
@@ -47,8 +51,8 @@ public class SearchFrament extends Fragment {
     public static SearchFrament newInstance(String param1, String param2) {
         SearchFrament fragment = new SearchFrament();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,8 +61,8 @@ public class SearchFrament extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
 
@@ -69,29 +73,35 @@ public class SearchFrament extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        mDatePickerFrom = (EditText)view.findViewById(R.id.datePickerFrom);
-        mDatePickerTo = (EditText)view.findViewById(R.id.datePickerTo);
+        mDatePickerFrom = (EditText) view.findViewById(R.id.datePickerFrom);
+        mDatePickerTo = (EditText) view.findViewById(R.id.datePickerTo);
+        mMagnitude = (Spinner) view.findViewById(R.id.magnitude);
+        mDepth = (EditText) view.findViewById(R.id.depth);
+        mLocation = (EditText) view.findViewById(R.id.location);
+        mSubmitButton = (Button) view.findViewById(R.id.btnSearch);
 
+        mDatePickerFrom.setOnFocusChangeListener(this);
+        mDatePickerTo.setOnFocusChangeListener(this);
 
 
         // DATE PICKER LISTENERS
-        mDatePickerFromSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month++;
-                String date = String.format("%d/%d/%d", dayOfMonth, month, year);
-                mDatePickerFrom.setText(date);
-            }
-        };
-
-        mDatePickerToSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month++;
-                String date = String.format("%d/%d/%d", dayOfMonth, month, year);
-                mDatePickerTo.setText(date);
-            }
-        };
+//        mDatePickerFromSetListener = new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                month++;
+//                String date = String.format("%d/%d/%d", dayOfMonth, month, year);
+//                mDatePickerFrom.setText(date);
+//            }
+//        };
+//
+//        mDatePickerToSetListener = new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+//                month++;
+//                String date = String.format("%d/%d/%d", dayOfMonth, month, year);
+//                mDatePickerTo.setText(date);
+//            }
+//        };
 
     }
 
@@ -118,6 +128,44 @@ public class SearchFrament extends Fragment {
     public void onDetach() {
         super.onDetach();
 //        mListener = null;
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+
+        if (hasFocus) {
+
+            Calendar calendar = Calendar.getInstance();
+            int y = calendar.get(Calendar.YEAR);
+            int m = calendar.get(Calendar.MONTH);
+            int d = calendar.get(Calendar.DAY_OF_MONTH);
+
+            if(v.getId()== R.id.datePickerFrom || v.getId() == R.id.datePickerTo){
+
+                DatePickerDialog datePicker = new DatePickerDialog(getContext(), R.style.DialogTheme, new DateDialogueCustomListener((EditText)v), y, m, d);
+                datePicker.show();
+            }
+
+//            switch (v.getId()) {
+//                case R.id.datePickerFrom:
+//
+//                    break;
+//                case R.id.datePickerTo:
+//                    DatePickerDialog datePickerTo = new DatePickerDialog(getContext(), R.style.DialogTheme, new DateDialogueCustomListener((EditText)v), y, m, d);
+//                    datePickerTo.show();
+//
+//                    break;
+//                default:
+//                    Log.d(TAG, "SOMETHING ELSE");
+//                    break;
+//            }
+
+        }
+
+//        mDateSetListener = new DateDialogueCustomListener(getContext(), (EditText)v);
+
+
+
     }
 
     /**
