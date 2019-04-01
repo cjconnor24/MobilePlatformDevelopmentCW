@@ -23,7 +23,7 @@ public class DateDialogueCustomListener implements DatePickerDialog.OnDateSetLis
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
         Log.d(TAG, "onDateSet: CALLED THE EVENT LISTENER ON DATE SET");
-        String dateString = String.format("%d/%d/%d", dayOfMonth, month, year);
+        String dateString = String.format("%d/%d/%d", dayOfMonth, month+1, year);
         mEditText.setText(dateString);
 
     }
