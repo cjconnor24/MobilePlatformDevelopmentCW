@@ -26,6 +26,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     private Fragment mFragment;
     private static final String TAG = "MainNavigation";
     private List<Earthquake> earthquakes;
+//        private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private EarthquakeDatabase mdb;
@@ -140,7 +141,6 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
             parseEarthquakes.parse(data);
             earthquakes = parseEarthquakes.getEarthquakes();
             Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
-
 
             EarthquakeDatabase.mEarthquakeDao.addEarthquakes(earthquakes);
 
