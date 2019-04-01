@@ -4,7 +4,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 
@@ -31,7 +34,7 @@ public class Earthquake implements Serializable, ClusterItem  {
     }
 
     public String getId() {
-        return id;
+        return extractID();
     }
 
     public void setId(String id) {
@@ -96,6 +99,20 @@ public class Earthquake implements Serializable, ClusterItem  {
                 ", category='" + category + '\'' +
                 ", link='" + link + '\'' +
                 '}';
+    }
+
+    private String extractID(){
+
+        Pattern pattern = Pattern.compile("[0-9]+");
+        Matcher matcher = pattern.matcher(getLink());
+        String id = null;
+        if(matcher.find()){
+
+            id = matcher.group(0);
+        }
+
+        return id;
+
     }
 
     @Override
