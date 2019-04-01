@@ -5,6 +5,9 @@
     android:layout_height="match_parent"
     android:layout_marginTop="40dp"
     android:layout_marginBottom="40dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:scrollbars="none"
     tools:context=".SearchFrament">
 
         <LinearLayout
@@ -15,17 +18,27 @@
             <TextView
                 android:id="@+id/mainHeading"
                 style="@style/TextAppearance.AppCompat.Headline"
+                android:drawableStart="@drawable/ic_search_black_24dp"
+                android:layout_width="match_parent"
+                android:fontFamily="@font/roboto_condensed_bold"
+                android:layout_height="wrap_content"
+                android:text="Earthquake Search" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"
-                android:text="Earthquake Search" />
+                android:text="You can search for Earthquakes using the form below"
+                />
 
             <TextView
                 android:id="@+id/lbldatePickerFrom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/formLabel"
                 android:drawableStart="@drawable/ic_date_24dp"
-                android:text="Start Date" />
+                android:text=" Start Date" />
 
             <EditText
                 android:id="@+id/datePickerFrom"
@@ -39,8 +52,9 @@
                 android:id="@+id/lbldatePickerTo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/formLabel"
                 android:drawableStart="@drawable/ic_date_24dp"
-                android:text="End Date" />
+                android:text=" End Date" />
 
             <EditText
                 android:id="@+id/datePickerTo"
@@ -50,12 +64,17 @@
                 android:hint="e.g. 21/05/2018"
                 android:inputType="date" />
 
+            <View
+                android:id="@+id/divider1"
+                style="@style/formDivider" />
+
             <TextView
                 android:id="@+id/lblMagnitude"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/formLabel"
                 android:drawableStart="@drawable/ic_richter_24dp"
-                android:text="Magnitude" />
+                android:text=" Magnitude" />
 
             <Spinner
                 android:id="@+id/magnitude"
@@ -64,12 +83,17 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/magnitude_options" />
 
+            <View
+                android:id="@+id/divider2"
+                style="@style/formDivider" />
+
             <TextView
                 android:id="@+id/lblDepth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/formLabel"
                 android:drawableStart="@drawable/ic_depth_24dp"
-                android:text="Depth Greater Than" />
+                android:text=" Depth Greater Than" />
 
             <EditText
                 android:id="@+id/depth"
@@ -79,12 +103,17 @@
                 android:hint="Enter Depth (KM)"
                 android:inputType="number" />
 
+            <View
+                android:id="@+id/divider3"
+                style="@style/formDivider" />
+
             <TextView
                 android:id="@+id/lblLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/formLabel"
                 android:drawableStart="@drawable/ic_location_24dp"
-                android:text="Earthquake Location" />
+                android:text=" Earthquake Location" />
 
             <EditText
                 android:id="@+id/location"
@@ -99,6 +128,12 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_search_black_24dp"
                 android:text="Search" />
+
+            <Button
+                android:id="@+id/btnClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear Form" />
 
         </LinearLayout>
 
