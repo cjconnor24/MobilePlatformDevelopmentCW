@@ -7,144 +7,287 @@
     android:layout_height="match_parent"
     tools:context=".EarthquakeDetailFragment">
 
-    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true"
-        android:padding="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-
-            <android.support.constraint.ConstraintLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:padding="20dp"
+                app:cardCornerRadius="10dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/magnitude_heading"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/circle"
-                    android:fontFamily="@font/roboto_condensed_bold"
-                    android:padding="10dp"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="5.5" />
-
-                <TextView
-                    android:id="@+id/location_heading"
-                    style="@style/TextAppearance.AppCompat.Headline"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:fontFamily="@font/roboto_condensed_bold"
-                    app:layout_constraintEnd_toStartOf="@+id/magnitude_heading"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Cumbernauld, North Lanarkshire" />
-
-                <TextView
-                    android:id="@+id/datetime_heading"
-                    style="@style/Base.TextAppearance.AppCompat.Subhead"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorSecondaryText"
-                    app:layout_constraintStart_toStartOf="@+id/location_heading"
-                    app:layout_constraintTop_toBottomOf="@+id/location_heading"
-                    tools:text="5 days ago" />
-
-            </android.support.constraint.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="30dp">
 
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_date_24dp" />
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp">
 
-            <TextView
-                android:id="@+id/detail_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="21st February 2018" />
+                        <TextView
+                            android:id="@+id/magnitude_heading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/circle"
+                            android:fontFamily="@font/roboto_condensed_bold"
+                            android:padding="10dp"
+                            android:textAlignment="center"
+                            android:textSize="20sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/datetime_heading"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:text="5.5" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_distance_24dp" />
+                        <TextView
+                            android:id="@+id/location_heading"
+                            style="@style/TextAppearance.AppCompat.Headline"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:fontFamily="@font/roboto_condensed_bold"
+                            app:layout_constraintEnd_toStartOf="@+id/magnitude_heading"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Cumbernauld, North Lanarkshire" />
 
-            <TextView
-                android:id="@+id/detail_distance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="541 Miles away" />
+                        <TextView
+                            android:id="@+id/datetime_heading"
+                            style="@style/Base.TextAppearance.AppCompat.Subhead"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/colorSecondaryText"
+                            app:layout_constraintStart_toStartOf="@+id/location_heading"
+                            app:layout_constraintTop_toBottomOf="@+id/location_heading"
+                            tools:text="5 days ago" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/ic_date_24dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/lblDate"
+                            style="@style/detail_view_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="Date"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageView2"
+                            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+                        <TextView
+                            android:id="@+id/detail_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="@+id/lblDate"
+                            app:layout_constraintTop_toBottomOf="@+id/lblDate"
+                            tools:text="21st February 2018" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <View
+                        style="@style/detail_view_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/ic_distance_24dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/lblLocation"
+                            style="@style/detail_view_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="Distance"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageView3"
+                            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+                        <TextView
+                            android:id="@+id/detail_distance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="541 Miles away"
+                            app:layout_constraintStart_toStartOf="@+id/lblLocation"
+                            app:layout_constraintTop_toBottomOf="@+id/lblLocation" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <View
+                        style="@style/detail_view_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/lblLatLon"
+                            style="@style/detail_view_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="Position"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageView4"
+                            app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+                        <ImageView
+                            android:id="@+id/imageView4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/ic_location_24dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/detail_lat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="@+id/lblLatLon"
+                            app:layout_constraintTop_toBottomOf="@+id/lblLatLon"
+                            tools:text="-31.234" />
+
+                        <TextView
+                            android:id="@+id/detail_lon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:layout_constraintBaseline_toBaselineOf="@+id/detail_lat"
+                            app:layout_constraintStart_toEndOf="@+id/detail_lat"
+                            tools:text="32.665" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <View
+                        style="@style/detail_view_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:layout_editor_absoluteX="59dp"
+                        tools:layout_editor_absoluteY="347dp">
+
+                        <TextView
+                            android:id="@+id/lblDepth"
+                            style="@style/detail_view_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="Depth"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@+id/imageView5"
+                            app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:src="@drawable/ic_depth_24dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/detail_depth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/earthquake_detail_depth"
+                            app:layout_constraintStart_toStartOf="@+id/lblDepth"
+                            app:layout_constraintTop_toBottomOf="@+id/lblDepth"
+                            tools:text="23km depth" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view"
+                        style="@style/detail_view_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
 
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_location_24dp" />
+                    <!--<ImageView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/ic_richter_24dp" />-->
 
-            <TextView
-                android:id="@+id/detail_lat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="-31.234" />
+                    <!--<TextView-->
+                    <!--android:id="@+id/detail_magnitude"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--tools:text="5.0 Magnitude" />-->
 
-            <TextView
-                android:id="@+id/detail_lon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="32.665" />
+                </LinearLayout>
 
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_richter_24dp" />
-
-            <TextView
-                android:id="@+id/detail_magnitude"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="5.0 Magnitude" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_depth_24dp" />
-
-            <TextView
-                android:id="@+id/detail_depth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/earthquake_detail_depth"
-                tools:text="23km depth" />
-
-
+            </android.support.v7.widget.CardView>
         </LinearLayout>
+    </ScrollView>
 
-    </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>

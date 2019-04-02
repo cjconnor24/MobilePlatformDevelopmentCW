@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+
 import uk.co.chrisconnor.mpdcw.helpers.ColorHelper;
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
@@ -83,16 +85,19 @@ public class XEarthquakeDetailFragment extends Fragment {
             Drawable d = magnitudeHeading.getBackground();
             d.setColorFilter(ColorHelper.getColor(mEarthquake.getMagnitude()), PorterDuff.Mode.MULTIPLY);
 
+            String datePattern = "EEE, dd MMMM yyyy";
+            SimpleDateFormat sdf = new SimpleDateFormat(datePattern);
+            String dateString = sdf.format(mEarthquake.getDate());
             TextView date = (TextView) view.findViewById(R.id.detail_date);
-            date.setText(mEarthquake.getDate().toString());
+            date.setText(dateString);
 
             TextView latitude = (TextView) view.findViewById(R.id.detail_lat);
             TextView longitude = (TextView) view.findViewById(R.id.detail_lon);
             latitude.setText(String.valueOf(mEarthquake.getLocation().getLat()));
             longitude.setText(String.valueOf(mEarthquake.getLocation().getLon()));
-
-            TextView magnitute = (TextView) view.findViewById(R.id.detail_magnitude);
-            magnitute.setText(String.valueOf(mEarthquake.getMagnitude()));
+//
+//            TextView magnitute = (TextView) view.findViewById(R.id.detail_magnitude);
+//            magnitute.setText(String.valueOf(mEarthquake.getMagnitude()));
 
             TextView depth = (TextView) view.findViewById(R.id.detail_depth);
             depth.setText(resources.getString(R.string.earthquake_detail_depth, String.valueOf(mEarthquake.getDepth())));

@@ -70,5 +70,16 @@
         <!--<item name="android:layout_width">0dp</item>-->
     </style>
 
+    <style name="detail_view_label">
+        <item name="android:fontFamily">@font/roboto_condensed_bold</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="detail_view_divider">
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
 
 </resources>
