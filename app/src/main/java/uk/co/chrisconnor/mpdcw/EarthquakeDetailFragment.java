@@ -1,6 +1,8 @@
 package uk.co.chrisconnor.mpdcw;
 
 import android.content.res.Resources;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import uk.co.chrisconnor.mpdcw.helpers.ColorHelper;
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
@@ -52,6 +55,14 @@ public class EarthquakeDetailFragment extends Fragment {
             TextView subtitle = (TextView) view.findViewById(R.id.datetime_heading);
             subtitle.setText(PrettyDate.getTimeAgo(earthquake.getDate()));
 
+            TextView magnitudeHeading = (TextView)view.findViewById(R.id.magnitude_heading);
+            magnitudeHeading.setText(String.valueOf(earthquake.getMagnitude()));
+            //
+//            // SET THE BACKGROUND COLOR OF MAGNITUDE
+//            Drawable d = magnitudeHeading.getBackground();
+//            d.setColorFilter(ColorHelper.getColor(earthquake.getMagnitude()), PorterDuff.Mode.MULTIPLY);
+
+
             TextView date = (TextView)view.findViewById(R.id.detail_date);
             date.setText(earthquake.getDate().toString());
 
@@ -60,8 +71,10 @@ public class EarthquakeDetailFragment extends Fragment {
             latitude.setText(String.valueOf(earthquake.getLocation().getLat()));
             longitude.setText(String.valueOf(earthquake.getLocation().getLon()));
 
-            TextView magnitute = (TextView)view.findViewById(R.id.detail_magnitude);
-            magnitute.setText(String.valueOf(earthquake.getMagnitude()));
+            TextView magnitude = (TextView)view.findViewById(R.id.detail_magnitude);
+            magnitude.setText(String.valueOf(earthquake.getMagnitude()));
+
+
 
             TextView depth = (TextView)view.findViewById(R.id.detail_depth);
             depth.setText(resources.getString(R.string.earthquake_detail_depth, String.valueOf(earthquake.getDepth())));

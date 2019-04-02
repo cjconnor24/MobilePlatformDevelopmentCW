@@ -1,6 +1,8 @@
 package uk.co.chrisconnor.mpdcw;
 
 import android.content.res.Resources;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import uk.co.chrisconnor.mpdcw.helpers.ColorHelper;
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
@@ -55,7 +58,7 @@ public class XEarthquakeDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mEarthquake = (Earthquake)getArguments().getSerializable(EARTHQUAKE);
+            mEarthquake = (Earthquake) getArguments().getSerializable(EARTHQUAKE);
         }
     }
 
@@ -75,18 +78,23 @@ public class XEarthquakeDetailFragment extends Fragment {
             TextView subtitle = (TextView) view.findViewById(R.id.datetime_heading);
             subtitle.setText(PrettyDate.getTimeAgo(mEarthquake.getDate()));
 
-            TextView date = (TextView)view.findViewById(R.id.detail_date);
+            TextView magnitudeHeading = (TextView) view.findViewById(R.id.magnitude_heading);
+            magnitudeHeading.setText(String.valueOf(mEarthquake.getMagnitude()));
+            Drawable d = magnitudeHeading.getBackground();
+            d.setColorFilter(ColorHelper.getColor(mEarthquake.getMagnitude()), PorterDuff.Mode.MULTIPLY);
+
+            TextView date = (TextView) view.findViewById(R.id.detail_date);
             date.setText(mEarthquake.getDate().toString());
 
-            TextView latitude = (TextView)view.findViewById(R.id.detail_lat);
-            TextView longitude  = (TextView)view.findViewById(R.id.detail_lon);
+            TextView latitude = (TextView) view.findViewById(R.id.detail_lat);
+            TextView longitude = (TextView) view.findViewById(R.id.detail_lon);
             latitude.setText(String.valueOf(mEarthquake.getLocation().getLat()));
             longitude.setText(String.valueOf(mEarthquake.getLocation().getLon()));
 
-            TextView magnitute = (TextView)view.findViewById(R.id.detail_magnitude);
+            TextView magnitute = (TextView) view.findViewById(R.id.detail_magnitude);
             magnitute.setText(String.valueOf(mEarthquake.getMagnitude()));
 
-            TextView depth = (TextView)view.findViewById(R.id.detail_depth);
+            TextView depth = (TextView) view.findViewById(R.id.detail_depth);
             depth.setText(resources.getString(R.string.earthquake_detail_depth, String.valueOf(mEarthquake.getDepth())));
 
         }

@@ -11,114 +11,136 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="25dp"
-        android:orientation="vertical">
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:id="@+id/magnitude_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/circle"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    android:padding="10dp"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="5.5" />
+
+                <TextView
+                    android:id="@+id/location_heading"
+                    style="@style/TextAppearance.AppCompat.Headline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto_condensed_bold"
+                    app:layout_constraintEnd_toStartOf="@+id/magnitude_heading"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Cumbernauld, North Lanarkshire" />
+
+                <TextView
+                    android:id="@+id/datetime_heading"
+                    style="@style/Base.TextAppearance.AppCompat.Subhead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorSecondaryText"
+                    app:layout_constraintStart_toStartOf="@+id/location_heading"
+                    app:layout_constraintTop_toBottomOf="@+id/location_heading"
+                    tools:text="5 days ago" />
+
+            </android.support.constraint.ConstraintLayout>
+
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_location_24dp"/>
-
-
-            <TextView
-                android:id="@+id/location_heading"
-                style="@style/TextAppearance.AppCompat.Headline"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                tools:text="Cumbernauld, North Lanarkshire" />
+                android:src="@drawable/ic_date_24dp" />
 
             <TextView
-                android:id="@+id/datetime_heading"
-                style="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:id="@+id/detail_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="5 days ago" />
+                tools:text="21st February 2018" />
 
-            <!--POSSIBLE MAP HERE-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_distance_24dp" />
 
-            <TableLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/detail_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="541 Miles away" />
 
-                <TableRow>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_date_24dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location_24dp" />
 
-                    <TextView
-                        android:id="@+id/detail_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="21st February 2018" />
+            <TextView
+                android:id="@+id/detail_lat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="-31.234" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_distance_24dp"/>
+            <TextView
+                android:id="@+id/detail_lon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="32.665" />
 
-                    <TextView
-                        android:id="@+id/detail_distance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="541 Miles away" />
 
-                </TableRow>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_richter_24dp" />
 
-                <TableRow>
+            <TextView
+                android:id="@+id/detail_magnitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="5.0 Magnitude" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_location_24dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_depth_24dp" />
 
-                    <TextView
-                        android:id="@+id/detail_lat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="-31.234" />
-
-                    <TextView
-                        android:id="@+id/detail_lon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="32.665" />
-
-                </TableRow>
-
-                <TableRow>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_richter_24dp"/>
-
-                    <TextView
-                        android:id="@+id/detail_magnitude"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="5.0 Magnitude" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_depth_24dp"/>
-
-                    <TextView
-                        android:id="@+id/detail_depth"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/earthquake_detail_depth"
-                        tools:text="23km depth" />
-
-                </TableRow>
-            </TableLayout>
+            <TextView
+                android:id="@+id/detail_depth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/earthquake_detail_depth"
+                tools:text="23km depth" />
 
 
         </LinearLayout>
