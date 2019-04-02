@@ -1,6 +1,9 @@
 package uk.co.chrisconnor.mpdcw;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,7 +23,6 @@ import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 public class MainActivity extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener, SearchFrament.OnSearchFragmentInteractionListener {
 
-//    private TextView mTextMessage;
 
     private static final String TAG = "MainActivity";
     private List<Earthquake> earthquakes;
@@ -29,8 +31,6 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private EarthquakeDatabase mdb;
 
-//    ActionBar mActionBar = getActionBar();
-
     // LIST FRAGMENTS
     private Fragment dashboardFragment;
     private Fragment listFragment;
@@ -38,10 +38,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     private Fragment searchFragment;
     private Fragment mFragment;
 
-
     // DETECT LANDSCAPE MODE
     private boolean landscapeMode = false;
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -87,19 +85,12 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
 
-//        if (getSupportActionBar() != null) {
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setHomeButtonEnabled(true);
-//        }
-
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // INITIALISE THE DB
         mdb = new EarthquakeDatabase(this);
         mdb.open();
-
 
     }
 
@@ -108,7 +99,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
         Log.d(TAG, "onOptionsItemSelected: " + item);
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.home:
                 onBackPressed();
                 Toast.makeText(this, "Back button pressed", Toast.LENGTH_SHORT).show();
@@ -116,12 +107,6 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: FRAGMENTS ON START");
     }
 
     @Override
@@ -154,32 +139,41 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
             ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
             parseEarthquakes.parse(data);
             earthquakes = parseEarthquakes.getEarthquakes();
-            Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
 
             EarthquakeDatabase.mEarthquakeDao.addEarthquakes(earthquakes);
 
 
+            // INITIALISE THE FRAGMENTS
             listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
             mapFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
             searchFragment = SearchFrament.newInstance("one", "two");
             dashboardFragment = DashboardFragment.newInstance("one", "two");
 
-//            mFragment = dashFragment;
-//            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
 
+            // IF ITS BLANK, DISPLAY THE DASHBOARD
             if (mFragment == null) {
                 mFragment = dashboardFragment;
                 mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
-//                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes());
-//                mFragmentManager = getSupportFragmentManager();
-//                FragmentTransaction t = mFragmentManager.beginTransaction();
-//                t.replace(R.id.fragment_frame, mFragment).commit();
-            } else {
-                Log.d(TAG, "onDownloadComplete: onResume...?");
             }
 
         } else {
-            Log.e(TAG, "onDownloadComplete: Something went wrong" + status.toString());
+            Log.e(TAG, "onDownloadComplete: Something went wrong " + status.toString());
+
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+            builder1.setMessage("There was an issue downloading the data. Please try again shortly.");
+            builder1.setCancelable(true);
+
+            builder1.setPositiveButton(
+                    "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            finish();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+
         }
 
     }
@@ -193,11 +187,9 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     public void onListEarthquakeListItemClick(Earthquake item) {
 
         Toast.makeText(this, "Something clicked..." + item.getLocation().getName(), Toast.LENGTH_SHORT).show();
-
         Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
         i.putExtra(EARTHQUAKE_TRANSFER, item);
         startActivity(i);
-
 
     }
 
@@ -208,19 +200,18 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         Toast.makeText(this, "BACK WAS PRESSED", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * This callback function is triggered when search results are returned from the search fragment
+     * @param earthquakes
+     */
     @Override
     public void onSearchResultsReturned(List<Earthquake> earthquakes) {
 
+        // VAR TO STORE THE RESULTS FRAG TAG
         String SEARCH_RESULTS = "search_results";
 
-        List<Fragment> fragList = mFragmentManager.getFragments();
-        fragList.size();
-
-
+        // CHECK TO SEE IF RESULTS WERE RETURNED
         if (earthquakes == null) {
-
-
-//            getActionBar().setDisplayHomeAsUpEnabled(true);
 
             // CLEAR THE FRAGMENT IF ANY?
             if (mFragmentManager.findFragmentByTag(SEARCH_RESULTS) != null) {
@@ -233,15 +224,14 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
         } else {
 
-//            activateToolbar(true);
-            Toast.makeText(this, "Results were returned to main. Count: " + earthquakes.size(), Toast.LENGTH_SHORT).show();
-
+            // OVERLAY THE RESULTS IN LIST FRAGMENT
             Fragment searchResults = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
             mFragment = searchResults;
             FragmentTransaction t = mFragmentManager.beginTransaction();
             t.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_left);
 
 
+            // DISPLAY THE RESULTS
             if (findViewById(R.id.searchResultsLandscape) == null) {
                 t.addToBackStack(null);
                 t.add(R.id.fragment_frame, mFragment, SEARCH_RESULTS).commit();
@@ -255,10 +245,12 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     }
 
 
+    /**
+     * Close to database on destroy
+     */
     @Override
     protected void onDestroy() {
         mdb.close();
         super.onDestroy();
-
     }
 }
