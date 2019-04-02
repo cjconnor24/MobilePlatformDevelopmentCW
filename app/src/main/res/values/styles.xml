@@ -59,4 +59,14 @@
         <item name="android:layout_marginBottom">20dp</item>
     </style>
 
+    <style name="CardViewStyle" parent="CardView">
+        <item name="cardBackgroundColor">@color/colorPrimary</item>
+        <item name="cardElevation">8dp</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+    </style>
+
+
 </resources>
