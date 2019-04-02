@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import uk.co.chrisconnor.mpdcw.helpers.ColorHelper;
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
@@ -85,11 +86,17 @@ public class XEarthquakeDetailFragment extends Fragment {
             Drawable d = magnitudeHeading.getBackground();
             d.setColorFilter(ColorHelper.getColor(mEarthquake.getMagnitude()), PorterDuff.Mode.MULTIPLY);
 
-            String datePattern = "EEE, dd MMMM yyyy";
-            SimpleDateFormat sdf = new SimpleDateFormat(datePattern);
-            String dateString = sdf.format(mEarthquake.getDate());
+
+
+            SimpleDateFormat sdate = new SimpleDateFormat("dd MMMM yyyy", Locale.UK);
+            SimpleDateFormat stime = new SimpleDateFormat("hh:mm a", Locale.UK);
+            String dateString = sdate.format(mEarthquake.getDate());
+            String timeString = stime.format(mEarthquake.getDate());
             TextView date = (TextView) view.findViewById(R.id.detail_date);
             date.setText(dateString);
+
+            TextView time = (TextView) view.findViewById(R.id.detail_time);
+            time.setText(timeString);
 
             TextView latitude = (TextView) view.findViewById(R.id.detail_lat);
             TextView longitude = (TextView) view.findViewById(R.id.detail_lon);

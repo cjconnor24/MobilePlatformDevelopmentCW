@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="2"
     android:orientation="horizontal">
 
     <FrameLayout
         android:id="@+id/bottom"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:padding="20dp"
-        android:layout_weight="1"
+        android:padding="0dp"
+        android:layout_weight="8"
         tools:context=".EarthquakeDetailActivity"
         />
 
@@ -20,7 +19,7 @@
         android:id="@+id/top"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="5"
         tools:context=".EarthquakeDetailActivity"
         />
 
