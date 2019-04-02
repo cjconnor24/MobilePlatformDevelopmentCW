@@ -1,5 +1,6 @@
 package uk.co.chrisconnor.mpdcw;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private EarthquakeDatabase mdb;
+
+//    ActionBar mActionBar = getActionBar();
 
     // LIST FRAGMENTS
     private Fragment dashboardFragment;
@@ -84,10 +87,10 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
-        }
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setHomeButtonEnabled(true);
+//        }
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -98,6 +101,21 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         mdb.open();
 
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Log.d(TAG, "onOptionsItemSelected: " + item);
+
+        switch (item.getItemId()){
+            case R.id.home:
+                onBackPressed();
+                Toast.makeText(this, "Back button pressed", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -184,6 +202,13 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mFragmentManager.popBackStack();
+        Toast.makeText(this, "BACK WAS PRESSED", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onSearchResultsReturned(List<Earthquake> earthquakes) {
 
         String SEARCH_RESULTS = "search_results";
@@ -193,6 +218,9 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
 
         if (earthquakes == null) {
+
+
+//            getActionBar().setDisplayHomeAsUpEnabled(true);
 
             // CLEAR THE FRAGMENT IF ANY?
             if (mFragmentManager.findFragmentByTag(SEARCH_RESULTS) != null) {
@@ -205,6 +233,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
         } else {
 
+//            activateToolbar(true);
             Toast.makeText(this, "Results were returned to main. Count: " + earthquakes.size(), Toast.LENGTH_SHORT).show();
 
             Fragment searchResults = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
