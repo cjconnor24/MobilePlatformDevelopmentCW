@@ -35,6 +35,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     private EarthquakeDatabase mdb;
 
     // LIST FRAGMENTS
+    private Fragment dashFragment;
     private Fragment listFragment;
     private Fragment mapFragment;
     private Fragment searchFragment;
@@ -53,9 +54,9 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
             Fragment previous = mFragment;
 
             switch (item.getItemId()) {
-//                case R.id.navigation_dashboard:
-////                    mTextMessage.setText(R.string.title_home);
-//                    return true;
+                case R.id.navigation_dashboard:
+                    mFragment = dashFragment;
+                    return true;
                 case R.id.navigation_list:
 
                     mFragment = listFragment;
@@ -121,11 +122,6 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         }
     }
 
-    private void initialiseFragments() {
-
-    }
-
-
     /**
      * When download completes, send it across to the parser to return the Earthquakes
      *
@@ -147,13 +143,16 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
             EarthquakeDatabase.mEarthquakeDao.addEarthquakes(earthquakes);
 
+            dashFragment = DashboardFragment.newInstance();
             listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
             mapFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
             searchFragment = SearchFrament.newInstance("one", "two");
 
+//            mFragment = dashFragment;
+//            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
 
             if (mFragment == null) {
-                mFragment = listFragment;
+                mFragment = dashFragment;
                 mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
 //                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes());
 //                mFragmentManager = getSupportFragmentManager();

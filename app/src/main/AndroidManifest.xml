@@ -45,14 +45,14 @@
             android:label="@string/title_activity_earthquake_map">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="uk.co.chrisconnor.mpdcw.MainActivity" />
+                android:value="uk.co.chrisconnor.mpdcw.xx___MainActivity" />
         </activity>
         <activity android:name=".EarthquakeDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="uk.co.chrisconnor.mpdcw.MainActivity" />
+                android:value="uk.co.chrisconnor.mpdcw.xx___MainActivity" />
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".xx___MainActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->

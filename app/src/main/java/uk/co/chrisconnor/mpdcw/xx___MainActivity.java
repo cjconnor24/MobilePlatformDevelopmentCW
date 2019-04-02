@@ -22,20 +22,18 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 
-public class MainActivity extends BaseActivity implements DownloadData.OnDownloadComplete {
+public class xx___MainActivity extends BaseActivity implements DownloadData.OnDownloadComplete {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "xx___MainActivity";
     private TextView rawDataDisplay;
     private Button startButton;
 
@@ -125,7 +123,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
             Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
 
             // CREATE AN INSTANCE OF THE NEW CUSTOM FEED ADAPTER AND SET THE SOURCE
-            EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, parseEarthquakes.getEarthquakes());
+            EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(xx___MainActivity.this, R.layout.list_earthquake, parseEarthquakes.getEarthquakes());
             earthquakeList.setAdapter(earthquakeListAdapter);
 
 //            EarthquakeListFragment earthquakeListFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>)earthquakes);
