@@ -113,31 +113,6 @@
             style="@style/formLabel"
             android:text=" Sort Order" />
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:id="@+id/sortOrder"
-            style="@style/formRadioGroup"
-            >
-
-            <RadioButton
-                android:id="@+id/sortASC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:checked="true"
-                android:text="Ascending" />
-
-            <RadioButton
-                android:id="@+id/sortDESC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Descending" />
-
-        </RadioGroup>
-
         <TextView
             android:id="@+id/lblLocation"
             android:layout_width="match_parent"
@@ -171,7 +146,30 @@
             android:layout_height="wrap_content"
             android:entries="@array/sort_options" />
 
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/sortOrder"
+            style="@style/formRadioGroup"
+            >
 
+            <RadioButton
+                android:id="@+id/sortASC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Ascending" />
+
+            <RadioButton
+                android:id="@+id/sortDESC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Descending" />
+
+        </RadioGroup>
 
         <LinearLayout
             android:orientation="horizontal"
