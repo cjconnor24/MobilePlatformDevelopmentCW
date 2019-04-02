@@ -29,10 +29,12 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     private EarthquakeDatabase mdb;
 
     // LIST FRAGMENTS
+    private Fragment dashboardFragment;
     private Fragment listFragment;
     private Fragment mapFragment;
     private Fragment searchFragment;
     private Fragment mFragment;
+
 
     // DETECT LANDSCAPE MODE
     private boolean landscapeMode = false;
@@ -50,7 +52,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                 case R.id.navigation_dashboard:
 
                     Toast.makeText(MainActivity.this, "You Clicked DASHBOARD", Toast.LENGTH_SHORT).show();
-                    mFragment = listFragment;
+                    mFragment = dashboardFragment;
                     break;
                 case R.id.navigation_list:
 
@@ -142,13 +144,14 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
             listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
             mapFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
             searchFragment = SearchFrament.newInstance("one", "two");
+            dashboardFragment = DashboardFragment.newInstance("one", "two");
 
 //            mFragment = dashFragment;
 //            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
 
             if (mFragment == null) {
-//                mFragment = dashFragment;
-//                mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+                mFragment = dashboardFragment;
+                mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
 //                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes());
 //                mFragmentManager = getSupportFragmentManager();
 //                FragmentTransaction t = mFragmentManager.beginTransaction();
