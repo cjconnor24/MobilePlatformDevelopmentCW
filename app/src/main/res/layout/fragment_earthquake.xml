@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
+    <android.support.constraint.ConstraintLayout
+        android:paddingTop="@dimen/rounder_corner_radius"
+        android:paddingBottom="@dimen/rounder_corner_radius"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/roboto_condensed_bold"
+            android:textColor="@color/colorPrimaryText"
 
             android:autoSizeTextType="uniform"
             android:autoSizeMinTextSize="8sp"
@@ -43,15 +44,16 @@
             android:id="@+id/eMagnitude"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/circle"
+            android:fontFamily="@font/roboto_condensed_bold"
             android:padding="10dp"
             android:textAlignment="center"
             android:textColor="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/eLocation"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="5.5" />
 

@@ -6,6 +6,46 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <style name="AppTheme.WhiteTextAppearance">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="MyDatePicker" parent="@android:style/Widget.DatePicker">
+        <item name="android:calendarViewShown">false</item>
+        <item name="android:datePickerMode">spinner</item>
+    </style>
+
+    <!-- Theme.AppCompat.Light is not a dialog theme -->
+    <style name="DialogTheme" parent="Base.Theme.AppCompat.Light.Dialog.MinWidth">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="editTextFormField">
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:background">@drawable/rounded_corners</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="formLabel">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="primaryButton">
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="formDivider">
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:alpha">0.3</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
 </resources>

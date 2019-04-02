@@ -51,6 +51,8 @@ public class EarthquakeListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.d(TAG, "onCreate: CREATE LIST FRAGMENT");
+
         if (getArguments() != null) {
             mEarthquakes = (ArrayList<Earthquake>) getArguments().getSerializable(EARTHQUAKES);
         }
@@ -93,19 +95,19 @@ public class EarthquakeListFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy: This was destroyed");
+        Log.d(TAG, "LIST FRAGMENT: This was destroyed");
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause: This was paused?");
+        Log.d(TAG, "LIST FRAGMENT: This was paused");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: This was resumed?");
+        Log.d(TAG, "LIST FRAGMENT: This was resumed");
     }
 
     /**

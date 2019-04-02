@@ -1,6 +1,8 @@
 package uk.co.chrisconnor.mpdcw;
 
+
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,24 +11,31 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 public class MainNavigation extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener {
 
-    private TextView mTextMessage;
-    private Fragment mFragment;
+//    private TextView mTextMessage;
+
     private static final String TAG = "MainNavigation";
     private List<Earthquake> earthquakes;
+//            private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     private FragmentManager mFragmentManager = getSupportFragmentManager();
+    private EarthquakeDatabase mdb;
+
+    // LIST FRAGMENTS
+    private Fragment listFragment;
+    private Fragment mapFragment;
+    private Fragment searchFragment;
+    private Fragment mFragment;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -34,46 +43,35 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            Fragment previous = mFragment;
+
             switch (item.getItemId()) {
 //                case R.id.navigation_dashboard:
 ////                    mTextMessage.setText(R.string.title_home);
 //                    return true;
                 case R.id.navigation_list:
 
-                    if (mFragment.getClass() != EarthquakeListFragment.class) {
-                        mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
-                        FragmentTransaction listTransaction = mFragmentManager.beginTransaction();
-                        listTransaction.addToBackStack(null);
-                        listTransaction.replace(R.id.fragment_frame, mFragment).commit();
-                        return true;
-                    } else {
-                        Toast.makeText(MainNavigation.this, "You're already viewing the list", Toast.LENGTH_SHORT).show();
-                    }
-                    return false;
+                    mFragment = listFragment;
+                    break;
+
+
                 case R.id.navigation_map:
 
-                    if (mFragment.getClass() != XEarthquakeMap.class) {
-
-                        mFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
-                        FragmentTransaction mapTransaction = mFragmentManager.beginTransaction();
-                        mapTransaction.addToBackStack(null);
-                        mapTransaction.replace(R.id.fragment_frame, mFragment).commit();
-
-
-                        return true;
-                    } else {
-                        Toast.makeText(MainNavigation.this, "You are already viewing the map", Toast.LENGTH_SHORT).show();
-                    }
-                    return false;
+                    mFragment = mapFragment;
+                    break;
+//
                 case R.id.navigation_search:
 
-                    // TODO: REMOVE THIS - ONLY FOR TESTING TO TAKE ME BACK TO THE PREVIOUS MAIN ACTIVITY
-                    Intent i = new Intent(getBaseContext(), MainActivity.class);
-                    startActivity(i);
+                    mFragment = searchFragment;
+                    break;
 
-                    return true;
+                default:
+                    mFragment = listFragment;
+                    break;
             }
-            return false;
+            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+            return true;
         }
     };
 
@@ -82,24 +80,40 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
 
-//        mTextMessage = (TextView) findViewById(R.id.message);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        // INITIALISE THE DB
+        mdb = new EarthquakeDatabase(this);
+        mdb.open();
+
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: FRAGMENTS ON START");
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (earthquakes == null) {
+
             DownloadData downloadData = new DownloadData(this);
             downloadData.execute(urlSource);
+
         } else {
             Log.d(TAG, "onResume: shouldnt have redownloaded?");
         }
     }
+
+    private void initialiseFragments() {
+
+    }
+
 
     /**
      * When download completes, send it across to the parser to return the Earthquakes
@@ -120,12 +134,20 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
             earthquakes = parseEarthquakes.getEarthquakes();
             Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
 
+            EarthquakeDatabase.mEarthquakeDao.addEarthquakes(earthquakes);
+
+            listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
+            mapFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
+            searchFragment = SearchFrament.newInstance("one", "two");
+
 
             if (mFragment == null) {
-                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
-                mFragmentManager = getSupportFragmentManager();
-                FragmentTransaction t = mFragmentManager.beginTransaction();
-                t.replace(R.id.fragment_frame, mFragment).commit();
+                mFragment = listFragment;
+                mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+//                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes());
+//                mFragmentManager = getSupportFragmentManager();
+//                FragmentTransaction t = mFragmentManager.beginTransaction();
+//                t.replace(R.id.fragment_frame, mFragment).commit();
             } else {
                 Log.d(TAG, "onDownloadComplete: onResume...?");
             }
@@ -136,6 +158,11 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
     }
 
+    /**
+     * Launches new activity based on the earthquake clicked in the list
+     *
+     * @param item Earthquake item clicked
+     */
     @Override
     public void onListEarthquakeListItemClick(Earthquake item) {
 
@@ -145,6 +172,13 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         i.putExtra(EARTHQUAKE_TRANSFER, item);
         startActivity(i);
 
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        mdb.close();
+        super.onDestroy();
 
     }
 }

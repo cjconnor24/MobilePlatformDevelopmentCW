@@ -1,17 +1,27 @@
- package uk.co.chrisconnor.mpdcw.models;
+package uk.co.chrisconnor.mpdcw.models;
+
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class Earthquake implements Serializable {
+import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
+
+public class Earthquake implements Serializable, ClusterItem  {
 
     // PRIVATE PROPERTIES
+    private String id;
     private Location location;
     private Date date;
     private int depth;
     private double magnitude;
     private String category;
     private String link;
+
 
     // BLANK CONSTRUCTOR
     public Earthquake() {
@@ -21,6 +31,14 @@ public class Earthquake implements Serializable {
         this.magnitude = 99d;
         this.category = "";
         this.link = "";
+    }
+
+    public String getId() {
+        return extractID();
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Location getLocation() {
@@ -82,4 +100,34 @@ public class Earthquake implements Serializable {
                 ", link='" + link + '\'' +
                 '}';
     }
+
+    private String extractID(){
+
+        Pattern pattern = Pattern.compile("[0-9]+");
+        Matcher matcher = pattern.matcher(getLink());
+        String id = null;
+        if(matcher.find()){
+
+            id = matcher.group(0);
+        }
+
+        return id;
+
+    }
+
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(getLocation().getLat(), getLocation().getLon());
+    }
+
+    @Override
+    public String getTitle() {
+        return getLocation().getName();
+    }
+
+    @Override
+    public String getSnippet() {
+        return PrettyDate.getTimeAgo(getDate());
+    }
+
 }

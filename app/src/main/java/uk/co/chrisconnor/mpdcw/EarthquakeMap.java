@@ -15,12 +15,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
+import uk.co.chrisconnor.mpdcw.models.Location;
 
 public class EarthquakeMap extends FragmentActivity implements OnMapReadyCallback {
 

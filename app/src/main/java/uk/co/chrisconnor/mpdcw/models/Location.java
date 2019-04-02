@@ -2,6 +2,9 @@ package uk.co.chrisconnor.mpdcw.models;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
+
 import java.io.Serializable;
 
 /**
