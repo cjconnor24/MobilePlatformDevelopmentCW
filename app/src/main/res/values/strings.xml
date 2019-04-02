@@ -25,4 +25,11 @@
         <item>up to 8.0 Magnitude</item>
     </string-array>
 
+    <string-array name="sort_options">
+        <item>Location</item>
+        <item>Date</item>
+        <item>Depth</item>
+        <item>Magnitude</item>
+    </string-array>
+
 </resources>
