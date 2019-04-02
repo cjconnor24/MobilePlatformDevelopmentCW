@@ -57,4 +57,34 @@ public class ColorHelper {
         return color;
 
     }
+
+    /**
+     * Get HSV float value based on severity of earthqyake
+     * @param magnitude Magnitude of earthquake
+     * @return float hue representation
+     */
+    public static float getHue(double magnitude){
+
+        float color;
+        Double m = Math.abs(magnitude);
+        int mag = m.intValue();
+
+        if(mag >= 0 && mag < 3){
+        // GREEN - LOW
+            return 120;
+        } else
+
+        // YELLOW - MEDIUM LOW
+        if(mag >= 3 && mag < 6){
+            return 60;
+        } else
+
+        // ORANGE - MEDIUM
+        if(mag >= 6 && mag < 8){
+            return 30;
+        } else {
+            return 0;
+        }
+
+    }
 }

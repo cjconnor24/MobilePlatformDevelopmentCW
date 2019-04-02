@@ -26,7 +26,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
     private static final String TAG = "MainNavigation";
     private List<Earthquake> earthquakes;
-    //        private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
+//            private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private EarthquakeDatabase mdb;
@@ -43,6 +43,8 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            Fragment previous = mFragment;
 
             switch (item.getItemId()) {
 //                case R.id.navigation_dashboard:
