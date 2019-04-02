@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="uk.co.chrisconnor.mpdcw">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -16,9 +17,21 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <!--<activity android:name=".EarthquakeDetailActivity" />-->
+        <activity
+            android:name=".EarthquakeDetailActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="uk.co.chrisconnor.mpdcw.MainActivity" />
+        </activity>
         <activity
             android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_activity_main_navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,24 +53,6 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity
-            android:name=".EarthquakeMap"
-            android:label="@string/title_activity_earthquake_map">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="uk.co.chrisconnor.mpdcw.xx___MainActivity" />
-        </activity>
-        <activity android:name=".EarthquakeDetailActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="uk.co.chrisconnor.mpdcw.xx___MainActivity" />
-        </activity>
-        <activity android:name=".xx___MainActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
     </application>
 
 </manifest>

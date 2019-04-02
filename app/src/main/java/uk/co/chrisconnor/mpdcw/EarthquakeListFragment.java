@@ -22,7 +22,7 @@ import uk.co.chrisconnor.mpdcw.models.Earthquake;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class EarthquakeListFragment extends Fragment {
+public class EarthquakeListFragment extends Fragment{
 
     private static final String TAG = "EarthquakeListFragment";
     private static final String EARTHQUAKES = "earthquakes";
@@ -69,6 +69,7 @@ public class EarthquakeListFragment extends Fragment {
 
         return view;
     }
+
 
 
     @Override

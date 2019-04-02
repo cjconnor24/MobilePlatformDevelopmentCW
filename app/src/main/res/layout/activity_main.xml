@@ -1,44 +1,25 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
-    <!--<TextView-->
-    <!--android:id="@+id/currentLocation"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Latest Earthquakes" />-->
-
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <Button
-            android:id="@+id/viewMap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View Map" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-        <Button
-            android:id="@+id/viewBottomNav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View Bottom Nav" />
+    </android.support.design.widget.AppBarLayout>
 
-    </LinearLayout>
+    <include layout="@layout/activity_main_navigation" />
 
-    <!--<fragment-->
-    <!--android:id="@+id/map"-->
-    <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_weight="1"/>-->
-
-    <!--TODO: GREAT SCOTSSSSS THIS ABOMINATION NEED RAFACTOOOORED-->
-    <ListView
-        android:id="@+id/earthquakeList"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"></ListView>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -11,9 +11,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +86,11 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_navigation);
+//        setContentView(R.layout.activity_main_navigation);
+
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -92,6 +99,27 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         mdb = new EarthquakeDatabase(this);
         mdb.open();
 
+        earthquakes = EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes();
+
+        // INITIALISE THE FRAGMENTS
+        listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
+        mapFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
+        searchFragment = SearchFrament.newInstance("one", "two");
+        dashboardFragment = DashboardFragment.newInstance("one", "two");
+
+        // IF ITS BLANK, DISPLAY THE DASHBOARD
+        if (mFragment == null) {
+            mFragment = dashboardFragment;
+            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+        }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
@@ -112,7 +140,9 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     @Override
     protected void onResume() {
         super.onResume();
-        if (earthquakes == null) {
+
+
+        if (earthquakes == null || earthquakes.size() == 0) {
 
             DownloadData downloadData = new DownloadData(this);
             downloadData.execute(urlSource);
@@ -142,37 +172,29 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
             EarthquakeDatabase.mEarthquakeDao.addEarthquakes(earthquakes);
 
-
-            // INITIALISE THE FRAGMENTS
-            listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
-            mapFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
-            searchFragment = SearchFrament.newInstance("one", "two");
-            dashboardFragment = DashboardFragment.newInstance("one", "two");
-
-
-            // IF ITS BLANK, DISPLAY THE DASHBOARD
-            if (mFragment == null) {
-                mFragment = dashboardFragment;
-                mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
-            }
-
         } else {
-            Log.e(TAG, "onDownloadComplete: Something went wrong " + status.toString());
 
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-            builder1.setMessage("There was an issue downloading the data. Please try again shortly.");
-            builder1.setCancelable(true);
+            if(earthquakes == null || earthquakes.size() == 0) {
 
-            builder1.setPositiveButton(
-                    "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                            finish();
-                        }
-                    });
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                builder1.setMessage("There was an issue downloading the data. Please try again shortly.");
+                builder1.setCancelable(true);
+
+                builder1.setPositiveButton(
+                        "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                finish();
+                            }
+                        });
+                AlertDialog alert11 = builder1.create();
+                alert11.show();
+            } else {
+
+                Toast.makeText(this, "There was a problem getting live data. Will try again shortly.", Toast.LENGTH_LONG).show();
+
+            }
 
         }
 
