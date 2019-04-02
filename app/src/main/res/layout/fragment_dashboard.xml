@@ -40,7 +40,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:src="@drawable/ic_search_white_24dp"
+                    android:src="@drawable/ic_magnitude_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="QuakeTrackr Dashboard" />
+                    android:text="Strongest Earthquake" />
 
 
             </LinearLayout>
@@ -69,7 +69,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:src="@drawable/ic_search_white_24dp"
+                    android:src="@drawable/ic_strength_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="QuakeTrackr Dashboard" />
+                    android:text="Deepest Earthquake" />
 
 
             </LinearLayout>
@@ -98,7 +98,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:src="@drawable/ic_search_white_24dp"
+                    android:src="@drawable/ic_north_dash"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="QuakeTrackr Dashboard" />
+                    android:text="Most Northerly" />
 
 
             </LinearLayout>
@@ -127,7 +127,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:src="@drawable/ic_search_white_24dp"
+                    android:src="@drawable/ic_east_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="QuakeTrackr Dashboard" />
+                    android:text="Most Easterly" />
 
 
             </LinearLayout>
@@ -156,7 +156,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:src="@drawable/ic_search_white_24dp"
+                    android:src="@drawable/ic_west_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="QuakeTrackr Dashboard" />
+                    android:text="Most Westerly" />
 
 
             </LinearLayout>
@@ -185,7 +185,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:src="@drawable/ic_search_white_24dp"
+                    android:src="@drawable/ic_south_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -194,61 +194,13 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="QuakeTrackr Dashboard" />
+                    android:text="Most Southernly" />
 
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
-
-        <!--<Button-->
-            <!--android:id="@+id/button"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_rowWeight="1"-->
-            <!--android:layout_columnWeight="1"-->
-            <!--android:text="Button" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/button2"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_rowWeight="1"-->
-            <!--android:layout_columnWeight="1"-->
-            <!--android:text="Button" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/button3"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_rowWeight="1"-->
-            <!--android:layout_columnWeight="1"-->
-            <!--android:text="Button" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/button4"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_rowWeight="1"-->
-            <!--android:layout_columnWeight="1"-->
-            <!--android:text="Button" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/button5"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_rowWeight="1"-->
-            <!--android:layout_columnWeight="1"-->
-            <!--android:text="Button" />-->
-
-        <!--<Button-->
-            <!--android:id="@+id/button6"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_rowWeight="1"-->
-            <!--android:layout_columnWeight="1"-->
-            <!--android:text="Button" />-->
     </GridLayout>
 
 </LinearLayout>
