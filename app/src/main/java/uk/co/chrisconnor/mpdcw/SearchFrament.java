@@ -177,6 +177,8 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                     // RETURN THESE BACK TO MAIN ACTIVITY TO DISPLAY RESULTS
                     if(eqs.size() > 0){
                         mCallback.onSearchResultsReturned(eqs);
+                    } else {
+                        Toast.makeText(getContext(), "Sorry, no Earthquakes found", Toast.LENGTH_LONG).show();
                     }
 
                 }
