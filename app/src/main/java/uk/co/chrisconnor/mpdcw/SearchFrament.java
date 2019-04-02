@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -42,8 +43,9 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
     private static final String TAG = "SearchFrament";
 
     private EditText mDatePickerFrom, mDatePickerTo, mDepth, mLocation;
-    private Spinner mMagnitude;
+    private Spinner mMagnitude, mSortOrder;
     private Button mSubmitButton, mClearButton;
+    private RadioGroup mSortBy;
 
 
 //    private EarthquakeListFragment.OnListFragmentInteractionListener mListener;
@@ -92,8 +94,10 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
         mMagnitude = (Spinner) view.findViewById(R.id.magnitude);
         mDepth = (EditText) view.findViewById(R.id.depth);
         mLocation = (EditText) view.findViewById(R.id.location);
+        mSortOrder = (Spinner)view.findViewById(R.id.sortBy);
         mSubmitButton = (Button) view.findViewById(R.id.btnSearch);
         mClearButton = (Button) view.findViewById(R.id.btnClear);
+        mSortBy = (RadioGroup)view.findViewById(R.id.sortOrder);
 
         // ADD LISTENERS
         mDatePickerFrom.setOnFocusChangeListener(this);
@@ -114,6 +118,10 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                 int magnitude = mMagnitude.getSelectedItemPosition();
                 String depth = mDepth.getText().toString();
                 String location = mLocation.getText().toString();
+                int sortOrder = mSortOrder.getSelectedItemPosition();
+                int sortById = mSortBy.getCheckedRadioButtonId();
+
+
 
                 // NEW Placeholders
                 Date sDate = null;
@@ -121,6 +129,15 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                 Integer mag = null;
                 Integer dep = null;
                 String loc = null;
+                Integer sort = null;
+                String sortBy = null;
+
+                // GETTING THE SORT ORDER
+                if(sortById == R.id.sortASC){
+                    sortBy = "ASC";
+                } else {
+                    sortBy = "DESC";
+                }
 
                 List<Earthquake> eqs;
 
@@ -161,6 +178,9 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                         loc = location;
                     }
 
+                    // SORTORDER
+                    sort = sortOrder;
+
                 } catch(ParseException e){
                     errors.add("The dates you entered are invalid");
 
@@ -172,7 +192,7 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                     Toast.makeText(getContext(), "Uh oh...errors", Toast.LENGTH_SHORT).show();
                 } else {
 
-                    eqs = EarthquakeDatabase.mEarthquakeDao.searchEarthquake(sDate,eDate,mag,dep,loc);
+                    eqs = EarthquakeDatabase.mEarthquakeDao.searchEarthquake(sDate,eDate,mag,dep,loc, sort, sortBy);
 
                     // RETURN THESE BACK TO MAIN ACTIVITY TO DISPLAY RESULTS
                     if(eqs.size() > 0){

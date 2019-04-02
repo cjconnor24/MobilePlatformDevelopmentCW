@@ -109,6 +109,38 @@
             style="@style/formDivider" />
 
         <TextView
+            android:id="@+id/lblSortOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/formLabel"
+            android:text=" Sort Order" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/sortOrder"
+            style="@style/formRadioGroup"
+            >
+
+            <RadioButton
+                android:id="@+id/sortASC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:text="Ascending" />
+
+            <RadioButton
+                android:id="@+id/sortDESC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Descending" />
+
+        </RadioGroup>
+
+        <TextView
             android:id="@+id/lblLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -123,18 +155,50 @@
             android:layout_height="wrap_content"
             android:hint="e.g. Salsbury" />
 
+        <View
+            android:id="@+id/divider4"
+            style="@style/formDivider" />
+
+        <TextView
+            android:id="@+id/lblSort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/formLabel"
+            android:text=" Sort By" />
+
+        <Spinner
+            android:id="@+id/sortBy"
+            style="@style/editTextFormField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/sort_options" />
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
         <Button
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_search_black_24dp"
+            style="@style/button_primary"
+            android:background="@drawable/button_primary"
+            android:drawableStart="@drawable/ic_search_white_24dp"
             android:text="Search" />
 
         <Button
             android:id="@+id/btnClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_clear_black_24dp"
+            android:background="@drawable/button_secondary"
+            style="@style/button_secondary"
             android:text="Clear Form" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

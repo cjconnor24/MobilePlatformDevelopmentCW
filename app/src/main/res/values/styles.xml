@@ -33,11 +33,18 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="primaryButton">
+    <style name="button_primary">
         <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingRight">20dp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="button_secondary">
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:background">@color/colorPrimaryLight</item>
     </style>
 
     <style name="formDivider">
@@ -46,6 +53,10 @@
         <item name="android:layout_height">1dp</item>
         <item name="android:alpha">0.3</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="formRadioGroup">
+        <item name="android:layout_marginBottom">20dp</item>
     </style>
 
 </resources>
