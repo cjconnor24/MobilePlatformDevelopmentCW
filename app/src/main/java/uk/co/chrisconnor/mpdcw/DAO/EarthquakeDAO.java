@@ -105,13 +105,48 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         String selection = COLUMN_NAME_ID + " = ?";
         Cursor cursor = super.query(TABLE_NAME, EARTHQUAKE_COLUMNS, selection, selectionArgs, COLUMN_NAME_ID);
         Earthquake e = null;
-        if(cursor != null){
+        if (cursor != null) {
             cursor.moveToFirst();
             do {
                 e = cursorToEntity(cursor);
-            } while( cursor.moveToNext());
+            } while (cursor.moveToNext());
         }
         return e;
+    }
+
+    public Earthquake getStrongestEarthquake() {
+        return runSingleRawQuery("SELECT * FROM " + IEarthquakeTableSchema.TABLE_NAME + " ORDER BY " + COLUMN_NAME_MAGNITUDE + " DESC LIMIT 0,1");
+    }
+
+    public Earthquake getDeepestEarthquake() {
+        return runSingleRawQuery("SELECT * FROM " + IEarthquakeTableSchema.TABLE_NAME + " ORDER BY " + COLUMN_NAME_DEPTH + " DESC LIMIT 0,1");
+    }
+
+    public Earthquake getFurtherstCardinalEarthquake(char x) {
+
+        String field="";
+        String direction ="";
+
+        switch(x){
+            case 'n':
+                field = COLUMN_NAME_LAT;
+                direction = "DESC";
+                break;
+            case 's':
+                field = COLUMN_NAME_LAT;
+                direction = "ASC";
+                break;
+            case 'e':
+                field = COLUMN_NAME_LONG;
+                direction = "DESC";
+                break;
+            case 'w':
+                field = COLUMN_NAME_LONG;
+                direction = "ASC";
+                break;
+        }
+
+        return runSingleRawQuery("SELECT * FROM " + IEarthquakeTableSchema.TABLE_NAME + " ORDER BY " + field + " "+direction+" LIMIT 0,1");
     }
 
     public List<Earthquake> searchEarthquake(Date pStartDate, Date pEndDate, Integer pMagnitude, Integer pDepth, String pLocation, Integer pSort, String pSortBy) {
@@ -119,34 +154,34 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         String query = "SELECT * FROM " + TABLE_NAME;
         ArrayList<String> conditions = new ArrayList<>();
 
-        if(pStartDate != null){
-            conditions.add(String.format("%s >= %s",IEarthquakeTableSchema.COLUMN_NAME_DATETIME, pStartDate.getTime()));
+        if (pStartDate != null) {
+            conditions.add(String.format("%s >= %s", IEarthquakeTableSchema.COLUMN_NAME_DATETIME, pStartDate.getTime()));
         }
 
-        if(pEndDate != null){
-            conditions.add(String.format("%s <= %s",IEarthquakeTableSchema.COLUMN_NAME_DATETIME, pEndDate.getTime()));
+        if (pEndDate != null) {
+            conditions.add(String.format("%s <= %s", IEarthquakeTableSchema.COLUMN_NAME_DATETIME, pEndDate.getTime()));
         }
 
-        if(pMagnitude != null){
-            conditions.add(String.format("%s <= %s",IEarthquakeTableSchema.COLUMN_NAME_MAGNITUDE, pMagnitude));
+        if (pMagnitude != null) {
+            conditions.add(String.format("%s <= %s", IEarthquakeTableSchema.COLUMN_NAME_MAGNITUDE, pMagnitude));
         }
 
-        if(pDepth != null){
-            conditions.add(String.format("%s >= %s",IEarthquakeTableSchema.COLUMN_NAME_DEPTH, pDepth));
+        if (pDepth != null) {
+            conditions.add(String.format("%s >= %s", IEarthquakeTableSchema.COLUMN_NAME_DEPTH, pDepth));
         }
 
-        if(pLocation != null && !pLocation.equals("")){
-            conditions.add(String.format("%s LIKE '%%%s%%'",IEarthquakeTableSchema.COLUMN_NAME_LOCATION, pLocation));
+        if (pLocation != null && !pLocation.equals("")) {
+            conditions.add(String.format("%s LIKE '%%%s%%'", IEarthquakeTableSchema.COLUMN_NAME_LOCATION, pLocation));
         }
 
 
-        if(conditions.size() > 0){
+        if (conditions.size() > 0) {
             query += " WHERE " + TextUtils.join(" AND ", conditions);
         }
 
-        String sortOrder =" ORDER BY ";
+        String sortOrder = " ORDER BY ";
         Log.d(TAG, "searchEarthquake: PSORT IN" + pSort);
-        if(pSort != null) {
+        if (pSort != null) {
 
             switch (pSort) {
                 case 0:
@@ -168,7 +203,7 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         }
 
         // GET SORT DIRECTION
-        query+= sortOrder+" "+pSortBy+";";
+        query += sortOrder + " " + pSortBy + ";";
 
         List<Earthquake> earthquakes = new ArrayList<>();
 
@@ -199,6 +234,20 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
 
         return earthquakes;
 
+    }
+
+    private Earthquake runSingleRawQuery(String query) {
+
+        Earthquake e = null;
+
+        Cursor cursor = super.rawQuery(query, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            e = cursorToEntity(cursor);
+            cursor.close();
+        }
+
+        return e;
     }
 
     @Override
