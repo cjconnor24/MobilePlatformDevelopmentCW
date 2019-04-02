@@ -1,108 +1,122 @@
-/*  Starter project for Mobile Platform Development in Semester B Session 2018/2019
-    You should use this project as the starting point for your assignment.
-    This project simply reads the data from the required URL and displays the
-    raw data in a TextField
-*/
-
-//
-// Name                 Chris Connor
-// Student ID           S1715477
-// Programme of Study   Computing (BSc Hons)
-//
 package uk.co.chrisconnor.mpdcw;
-
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.GoogleMap;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
+public class MainActivity extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener, SearchFrament.OnSearchFragmentInteractionListener {
 
-public class MainActivity extends BaseActivity implements DownloadData.OnDownloadComplete {
+//    private TextView mTextMessage;
 
     private static final String TAG = "MainActivity";
-    private TextView rawDataDisplay;
-    private Button startButton;
-
-
-
+    private List<Earthquake> earthquakes;
+    //            private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
-    //    private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
-    private ListView earthquakeList;
-    List<Earthquake> earthquakes = null;
+    private FragmentManager mFragmentManager = getSupportFragmentManager();
+    private EarthquakeDatabase mdb;
 
+    // LIST FRAGMENTS
+    private Fragment dashboardFragment;
+    private Fragment listFragment;
+    private Fragment mapFragment;
+    private Fragment searchFragment;
+    private Fragment mFragment;
+
+
+    // DETECT LANDSCAPE MODE
     private boolean landscapeMode = false;
-    private GoogleMap mMap;
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            Fragment previous = mFragment;
+
+            switch (item.getItemId()) {
+                case R.id.navigation_dashboard:
+
+                    Toast.makeText(MainActivity.this, "You Clicked DASHBOARD", Toast.LENGTH_SHORT).show();
+                    mFragment = dashboardFragment;
+                    break;
+                case R.id.navigation_list:
+
+                    mFragment = listFragment;
+                    break;
+
+
+                case R.id.navigation_map:
+
+                    mFragment = mapFragment;
+                    break;
+//
+                case R.id.navigation_search:
+
+                    mFragment = searchFragment;
+                    break;
+
+                default:
+                    mFragment = listFragment;
+                    break;
+            }
+            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+            return true;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_navigation);
 
-
-        // TODO: THIS WILL BE REMOVED - ONLY FOR TESTING
-        try {
-            Button bottomMenu = (Button) findViewById(R.id.viewBottomNav);
-            bottomMenu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(v.getContext(), MainNavigation.class);
-                    startActivity(i);
-                }
-            });
-        } catch (NullPointerException e) {
-            Log.e(TAG, "onCreate: " + e.toString());
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
         }
 
 
-        // EARTHQUAKE LIST
-//        TextView currentLocation = (TextView) findViewById(R.id.currentLocation);
-        earthquakeList = (ListView) findViewById(R.id.earthquakeList);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        if (findViewById(R.id.top) != null) {
-
-            landscapeMode = true;
-
-        } else {
-
-            Button viewMap = (Button) findViewById(R.id.viewMap);
-            viewMap.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(getApplicationContext(), EarthquakeMap.class);
-                    i.putExtra(EARTHQUAKE_TRANSFER, (Serializable) earthquakes);
-                    startActivity(i);
-                }
-            });
-
-        }
+        // INITIALISE THE DB
+        mdb = new EarthquakeDatabase(this);
+        mdb.open();
 
 
-        // DOWNLOAD THE DATA THEN DISPLAY FURTHER DOWN INTO THE VIEW
-//        downloadUrl(urlSource);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: FRAGMENTS ON START");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        DownloadData downloadData = new DownloadData(this);
-        downloadData.execute(urlSource);
+        if (earthquakes == null) {
+
+            DownloadData downloadData = new DownloadData(this);
+            downloadData.execute(urlSource);
+
+        } else {
+            Log.d(TAG, "onResume: shouldnt have redownloaded?");
+        }
     }
 
     /**
@@ -124,61 +138,27 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
             earthquakes = parseEarthquakes.getEarthquakes();
             Log.d(TAG, "onDownloadComplete: RETURNED " + earthquakes.size() + " earthquakes");
 
-            // CREATE AN INSTANCE OF THE NEW CUSTOM FEED ADAPTER AND SET THE SOURCE
-            EarthquakeListAdapter earthquakeListAdapter = new EarthquakeListAdapter(MainActivity.this, R.layout.list_earthquake, parseEarthquakes.getEarthquakes());
-            earthquakeList.setAdapter(earthquakeListAdapter);
+            EarthquakeDatabase.mEarthquakeDao.addEarthquakes(earthquakes);
 
-//            EarthquakeListFragment earthquakeListFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>)earthquakes);
-//            FragmentManager f = getSupportFragmentManager();
-//            FragmentTransaction t = f.beginTransaction();
-//            t.add(R.id.container, earthquakeListFragment).commit();
 
-            // CREATE A DUMMY TOAST ITEM WHEN SOMEONE CLICKS
-            earthquakeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
+            mapFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
+            searchFragment = SearchFrament.newInstance("one", "two");
+            dashboardFragment = DashboardFragment.newInstance("one", "two");
 
-                    Earthquake e = earthquakes.get(position);
+//            mFragment = dashFragment;
+//            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
 
-                    if (landscapeMode) {
-
-//                        EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
-//
-//                        Bundle b = new Bundle();
-//                        b.putSerializable(EARTHQUAKE_TRANSFER,e);
-//                        fragment.setArguments(b);
-
-                        XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
-                        FragmentManager f = getSupportFragmentManager();
-                        FragmentTransaction transaction = f.beginTransaction();
-                        transaction.add(R.id.bottom, xEarthquakeDetailFragment).commit();
-
-//                        EarthquakeListFragment earthquakeListFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
-//                        FragmentManager f = getSupportFragmentManager();
-//                        FragmentTransaction t = f.beginTransaction();
-//                        t.add(R.id.container, earthquakeListFragment).commit();
-
-                        // JUST FOR TESTING
-                        XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
-//                        FragmentManager f = getSupportFragmentManager();
-                        FragmentTransaction mapTransaction = f.beginTransaction();
-                        mapTransaction.replace(R.id.top, xEarthquakeMap).commit();
-
-//                        getSupportFragmentManager().beginTransaction()
-//                                .replace(R.id.container, fragment)
-//                                .commit();
-
-                    } else {
-
-                        Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
-                        i.putExtra(EARTHQUAKE_TRANSFER, e);
-                        startActivity(i);
-
-                    }
-
-                }
-            });
-
+            if (mFragment == null) {
+                mFragment = dashboardFragment;
+                mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+//                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes());
+//                mFragmentManager = getSupportFragmentManager();
+//                FragmentTransaction t = mFragmentManager.beginTransaction();
+//                t.replace(R.id.fragment_frame, mFragment).commit();
+            } else {
+                Log.d(TAG, "onDownloadComplete: onResume...?");
+            }
 
         } else {
             Log.e(TAG, "onDownloadComplete: Something went wrong" + status.toString());
@@ -186,17 +166,70 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
     }
 
+    /**
+     * Launches new activity based on the earthquake clicked in the list
+     *
+     * @param item Earthquake item clicked
+     */
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onListEarthquakeListItemClick(Earthquake item) {
 
-        // CHECK TO SEE IF THERE ARE EARTHWUAKES AND SAVE
-        // TODO: FIND A WAY TO PUT OBJECTS INTO THE BUNDLE
-        super.onSaveInstanceState(outState);
+        Toast.makeText(this, "Something clicked..." + item.getLocation().getName(), Toast.LENGTH_SHORT).show();
+
+        Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
+        i.putExtra(EARTHQUAKE_TRANSFER, item);
+        startActivity(i);
+
+
     }
 
-//    @Override
-//    public void onListEarthquakeListItemClick(Earthquake item) {
-//        Toast.makeText(this, item.getLocation().getName(), Toast.LENGTH_SHORT).show();
-//        Log.d(TAG, "onListEarthquakeListItemClick: THIS WAS CLICKED" + item.toString());
-//    }
+    @Override
+    public void onSearchResultsReturned(List<Earthquake> earthquakes) {
+
+        String SEARCH_RESULTS = "search_results";
+
+        List<Fragment> fragList = mFragmentManager.getFragments();
+        fragList.size();
+
+
+        if (earthquakes == null) {
+
+            // CLEAR THE FRAGMENT IF ANY?
+            if (mFragmentManager.findFragmentByTag(SEARCH_RESULTS) != null) {
+
+                FragmentTransaction ft = mFragmentManager.beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+                ft.remove(mFragmentManager.findFragmentByTag(SEARCH_RESULTS)).commit();
+
+            }
+
+        } else {
+
+            Toast.makeText(this, "Results were returned to main. Count: " + earthquakes.size(), Toast.LENGTH_SHORT).show();
+
+            Fragment searchResults = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
+            mFragment = searchResults;
+            FragmentTransaction t = mFragmentManager.beginTransaction();
+            t.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_left);
+
+
+            if (findViewById(R.id.searchResultsLandscape) == null) {
+                t.addToBackStack(null);
+                t.add(R.id.fragment_frame, mFragment, SEARCH_RESULTS).commit();
+            } else {
+                t.replace(R.id.searchResultsLandscape, searchResults, SEARCH_RESULTS).commit();
+            }
+
+        }
+
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        mdb.close();
+        super.onDestroy();
+
+    }
 }
