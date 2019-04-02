@@ -59,7 +59,7 @@ public class xx___MainActivity extends BaseActivity implements DownloadData.OnDo
             bottomMenu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(v.getContext(), MainNavigation.class);
+                    Intent i = new Intent(v.getContext(), MainActivity.class);
                     startActivity(i);
                 }
             });

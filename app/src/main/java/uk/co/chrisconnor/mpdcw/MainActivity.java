@@ -1,20 +1,14 @@
 package uk.co.chrisconnor.mpdcw;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,11 +17,11 @@ import java.util.List;
 import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
-public class MainNavigation extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener, SearchFrament.OnSearchFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener, SearchFrament.OnSearchFragmentInteractionListener {
 
 //    private TextView mTextMessage;
 
-    private static final String TAG = "MainNavigation";
+    private static final String TAG = "MainActivity";
     private List<Earthquake> earthquakes;
     //            private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
@@ -55,7 +49,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
             switch (item.getItemId()) {
                 case R.id.navigation_dashboard:
 
-                    Toast.makeText(MainNavigation.this, "You Clicked DASHBOARD", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "You Clicked DASHBOARD", Toast.LENGTH_SHORT).show();
                     mFragment = listFragment;
                     break;
                 case R.id.navigation_list:
