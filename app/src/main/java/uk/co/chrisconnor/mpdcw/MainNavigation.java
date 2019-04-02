@@ -1,17 +1,15 @@
 package uk.co.chrisconnor.mpdcw;
 
-
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,13 +18,13 @@ import java.util.List;
 import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
-public class MainNavigation extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener {
+public class MainNavigation extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener, SearchFrament.OnSearchFragmentInteractionListener {
 
 //    private TextView mTextMessage;
 
     private static final String TAG = "MainNavigation";
     private List<Earthquake> earthquakes;
-//            private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
+    //            private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private EarthquakeDatabase mdb;
@@ -79,6 +77,11 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -171,6 +174,21 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
         Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
         i.putExtra(EARTHQUAKE_TRANSFER, item);
         startActivity(i);
+
+
+    }
+
+    @Override
+    public void onSearchResultsReturned(List<Earthquake> earthquakes) {
+
+        Toast.makeText(this, "Results were returned to main. Count: " + earthquakes.size(), Toast.LENGTH_SHORT).show();
+
+        Fragment searchResults = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
+        mFragment = searchResults;
+        FragmentTransaction t = mFragmentManager.beginTransaction();
+        t.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_left);
+        t.addToBackStack(null);
+        t.add(R.id.fragment_frame, mFragment).commit();
 
 
     }

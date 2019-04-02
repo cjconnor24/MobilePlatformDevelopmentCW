@@ -46,7 +46,8 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
     private Button mSubmitButton, mClearButton;
 
 
-//    private OnFragmentInteractionListener mListener;
+//    private EarthquakeListFragment.OnListFragmentInteractionListener mListener;
+    private OnSearchFragmentInteractionListener mCallback;
 
     public SearchFrament() {
         // Required empty public constructor
@@ -170,16 +171,16 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                 if(errors.size() != 0){
                     Toast.makeText(getContext(), "Uh oh...errors", Toast.LENGTH_SHORT).show();
                 } else {
+
                     eqs = EarthquakeDatabase.mEarthquakeDao.searchEarthquake(sDate,eDate,mag,dep,loc);
-                    Toast.makeText(getContext(), "There are" + eqs.size(), Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "RETURNED:" + eqs.size() + " earthquakes - " + eqs.toString());
+
+                    // RETURN THESE BACK TO MAIN ACTIVITY TO DISPLAY RESULTS
+                    if(eqs.size() > 0){
+                        mCallback.onSearchResultsReturned(eqs);
+                    }
+
                 }
 
-
-
-
-
-                // MAKE SURE DATES FALL WITHIN RANGE
             }
         });
 
@@ -209,6 +210,12 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (context instanceof OnSearchFragmentInteractionListener) {
+            mCallback = (OnSearchFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -260,8 +267,8 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
+    public interface OnSearchFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onSearchResultsReturned(List<Earthquake> earthquakes);
+    }
 }
