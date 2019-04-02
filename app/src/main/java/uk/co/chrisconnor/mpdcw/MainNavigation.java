@@ -35,7 +35,6 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     private EarthquakeDatabase mdb;
 
     // LIST FRAGMENTS
-    private Fragment dashFragment;
     private Fragment listFragment;
     private Fragment mapFragment;
     private Fragment searchFragment;
@@ -55,8 +54,10 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
             switch (item.getItemId()) {
                 case R.id.navigation_dashboard:
-                    mFragment = dashFragment;
-                    return true;
+
+                    Toast.makeText(MainNavigation.this, "You Clicked DASHBOARD", Toast.LENGTH_SHORT).show();
+                    mFragment = listFragment;
+                    break;
                 case R.id.navigation_list:
 
                     mFragment = listFragment;
@@ -143,7 +144,7 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
             EarthquakeDatabase.mEarthquakeDao.addEarthquakes(earthquakes);
 
-            dashFragment = DashboardFragment.newInstance();
+
             listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
             mapFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
             searchFragment = SearchFrament.newInstance("one", "two");
@@ -152,8 +153,8 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 //            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
 
             if (mFragment == null) {
-                mFragment = dashFragment;
-                mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+//                mFragment = dashFragment;
+//                mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
 //                mFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes());
 //                mFragmentManager = getSupportFragmentManager();
 //                FragmentTransaction t = mFragmentManager.beginTransaction();
