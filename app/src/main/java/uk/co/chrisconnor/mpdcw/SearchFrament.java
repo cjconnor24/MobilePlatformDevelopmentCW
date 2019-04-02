@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -42,11 +43,13 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
     private static final String TAG = "SearchFrament";
 
     private EditText mDatePickerFrom, mDatePickerTo, mDepth, mLocation;
-    private Spinner mMagnitude;
+    private Spinner mMagnitude, mSortOrder;
     private Button mSubmitButton, mClearButton;
+    private RadioGroup mSortBy;
 
 
-//    private OnFragmentInteractionListener mListener;
+//    private EarthquakeListFragment.OnListFragmentInteractionListener mListener;
+    private OnSearchFragmentInteractionListener mCallback;
 
     public SearchFrament() {
         // Required empty public constructor
@@ -91,8 +94,10 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
         mMagnitude = (Spinner) view.findViewById(R.id.magnitude);
         mDepth = (EditText) view.findViewById(R.id.depth);
         mLocation = (EditText) view.findViewById(R.id.location);
+        mSortOrder = (Spinner)view.findViewById(R.id.sortBy);
         mSubmitButton = (Button) view.findViewById(R.id.btnSearch);
         mClearButton = (Button) view.findViewById(R.id.btnClear);
+        mSortBy = (RadioGroup)view.findViewById(R.id.sortOrder);
 
         // ADD LISTENERS
         mDatePickerFrom.setOnFocusChangeListener(this);
@@ -113,6 +118,10 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                 int magnitude = mMagnitude.getSelectedItemPosition();
                 String depth = mDepth.getText().toString();
                 String location = mLocation.getText().toString();
+                int sortOrder = mSortOrder.getSelectedItemPosition();
+                int sortById = mSortBy.getCheckedRadioButtonId();
+
+
 
                 // NEW Placeholders
                 Date sDate = null;
@@ -120,6 +129,15 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                 Integer mag = null;
                 Integer dep = null;
                 String loc = null;
+                Integer sort = null;
+                String sortBy = null;
+
+                // GETTING THE SORT ORDER
+                if(sortById == R.id.sortASC){
+                    sortBy = "ASC";
+                } else {
+                    sortBy = "DESC";
+                }
 
                 List<Earthquake> eqs;
 
@@ -160,6 +178,9 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                         loc = location;
                     }
 
+                    // SORTORDER
+                    sort = sortOrder;
+
                 } catch(ParseException e){
                     errors.add("The dates you entered are invalid");
 
@@ -170,16 +191,19 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                 if(errors.size() != 0){
                     Toast.makeText(getContext(), "Uh oh...errors", Toast.LENGTH_SHORT).show();
                 } else {
-                    eqs = EarthquakeDatabase.mEarthquakeDao.searchEarthquake(sDate,eDate,mag,dep,loc);
-                    Toast.makeText(getContext(), "There are" + eqs.size(), Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "RETURNED:" + eqs.size() + " earthquakes - " + eqs.toString());
+
+                    eqs = EarthquakeDatabase.mEarthquakeDao.searchEarthquake(sDate,eDate,mag,dep,loc, sort, sortBy);
+
+                    // RETURN THESE BACK TO MAIN ACTIVITY TO DISPLAY RESULTS
+                    if(eqs.size() > 0){
+                        mCallback.onSearchResultsReturned(eqs);
+                    } else {
+                        Toast.makeText(getContext(), "Sorry, no Earthquakes found", Toast.LENGTH_LONG).show();
+                        mCallback.onSearchResultsReturned(null);
+                    }
+
                 }
 
-
-
-
-
-                // MAKE SURE DATES FALL WITHIN RANGE
             }
         });
 
@@ -209,6 +233,12 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (context instanceof OnSearchFragmentInteractionListener) {
+            mCallback = (OnSearchFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
     }
 
     @Override
@@ -260,8 +290,8 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
+    public interface OnSearchFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onSearchResultsReturned(List<Earthquake> earthquakes);
+    }
 }

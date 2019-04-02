@@ -114,7 +114,7 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         return e;
     }
 
-    public List<Earthquake> searchEarthquake(Date pStartDate, Date pEndDate, Integer pMagnitude, Integer pDepth, String pLocation) {
+    public List<Earthquake> searchEarthquake(Date pStartDate, Date pEndDate, Integer pMagnitude, Integer pDepth, String pLocation, Integer pSort, String pSortBy) {
 
         String query = "SELECT * FROM " + TABLE_NAME;
         ArrayList<String> conditions = new ArrayList<>();
@@ -144,7 +144,31 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
             query += " WHERE " + TextUtils.join(" AND ", conditions);
         }
 
-        query+=";";
+        String sortOrder =" ORDER BY ";
+        Log.d(TAG, "searchEarthquake: PSORT IN" + pSort);
+        if(pSort != null) {
+
+            switch (pSort) {
+                case 0:
+                    sortOrder += IEarthquakeTableSchema.COLUMN_NAME_DATETIME;
+                    break;
+                case 1:
+                    sortOrder += IEarthquakeTableSchema.COLUMN_NAME_DEPTH;
+                    break;
+                case 2:
+                    sortOrder += IEarthquakeTableSchema.COLUMN_NAME_LOCATION;
+                    break;
+                case 3:
+                    sortOrder += IEarthquakeTableSchema.COLUMN_NAME_MAGNITUDE;
+                    break;
+                default:
+//                    sortOrder += IEarthquakeTableSchema.COLUMN_NAME_DATETIME;
+                    break;
+            }
+        }
+
+        // GET SORT DIRECTION
+        query+= sortOrder+" "+pSortBy+";";
 
         List<Earthquake> earthquakes = new ArrayList<>();
 

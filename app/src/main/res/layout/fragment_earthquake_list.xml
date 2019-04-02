@@ -2,12 +2,14 @@
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
-    android:name="uk.co.chrisconnor.mpdcw.EarthquakeListFragment"
+    android:id="@+id/earthquakeList"
+    android:background="@android:color/white"
+    android:backgroundTintMode="multiply"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="28dp"
     android:layout_marginBottom="30dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".EarthquakeListFragment"
-    tools:listitem="@layout/fragment_earthquake" />
+    tools:listitem="@layout/fragment_earthquake_list_row">
+</android.support.v7.widget.RecyclerView>

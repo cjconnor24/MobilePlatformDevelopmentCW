@@ -36,7 +36,7 @@ public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<Earthqua
     @Override
     public EarthquakeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_earthquake, parent, false);
+                .inflate(R.layout.fragment_earthquake_list_row, parent, false);
         return new EarthquakeViewHolder(view);
     }
 

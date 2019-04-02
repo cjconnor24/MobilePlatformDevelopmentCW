@@ -7,6 +7,7 @@
     android:orientation="horizontal">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/earthquake_row"
         android:paddingTop="@dimen/rounder_corner_radius"
         android:paddingBottom="@dimen/rounder_corner_radius"
         android:layout_width="match_parent"

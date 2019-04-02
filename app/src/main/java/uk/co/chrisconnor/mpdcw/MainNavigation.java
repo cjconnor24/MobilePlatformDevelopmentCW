@@ -1,17 +1,20 @@
 package uk.co.chrisconnor.mpdcw;
 
-
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,13 +23,13 @@ import java.util.List;
 import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
-public class MainNavigation extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener {
+public class MainNavigation extends BaseActivity implements DownloadData.OnDownloadComplete, EarthquakeListFragment.OnListFragmentInteractionListener, SearchFrament.OnSearchFragmentInteractionListener {
 
 //    private TextView mTextMessage;
 
     private static final String TAG = "MainNavigation";
     private List<Earthquake> earthquakes;
-//            private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
+    //            private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private EarthquakeDatabase mdb;
@@ -36,6 +39,9 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     private Fragment mapFragment;
     private Fragment searchFragment;
     private Fragment mFragment;
+
+    // DETECT LANDSCAPE MODE
+    private boolean landscapeMode = false;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -79,6 +85,11 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -174,6 +185,49 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
 
 
     }
+
+    @Override
+    public void onSearchResultsReturned(List<Earthquake> earthquakes) {
+
+        String SEARCH_RESULTS = "search_results";
+
+        List<Fragment> fragList = mFragmentManager.getFragments();
+        fragList.size();
+
+
+        if (earthquakes == null) {
+
+            // CLEAR THE FRAGMENT IF ANY?
+            if (mFragmentManager.findFragmentByTag(SEARCH_RESULTS) != null) {
+
+                FragmentTransaction ft = mFragmentManager.beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+                ft.remove(mFragmentManager.findFragmentByTag(SEARCH_RESULTS)).commit();
+
+            }
+
+        } else {
+
+            Toast.makeText(this, "Results were returned to main. Count: " + earthquakes.size(), Toast.LENGTH_SHORT).show();
+
+            Fragment searchResults = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
+            mFragment = searchResults;
+            FragmentTransaction t = mFragmentManager.beginTransaction();
+            t.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_left);
+
+
+            if (findViewById(R.id.searchResultsLandscape) == null) {
+                t.addToBackStack(null);
+                t.add(R.id.fragment_frame, mFragment, SEARCH_RESULTS).commit();
+            } else {
+                t.replace(R.id.searchResultsLandscape, searchResults, SEARCH_RESULTS).commit();
+            }
+
+        }
+
+
+    }
+
 
     @Override
     protected void onDestroy() {
