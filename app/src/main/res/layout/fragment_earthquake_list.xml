@@ -6,6 +6,8 @@
     android:name="uk.co.chrisconnor.mpdcw.EarthquakeListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="28dp"
+    android:layout_marginBottom="30dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".EarthquakeListFragment"
     tools:listitem="@layout/fragment_earthquake" />
