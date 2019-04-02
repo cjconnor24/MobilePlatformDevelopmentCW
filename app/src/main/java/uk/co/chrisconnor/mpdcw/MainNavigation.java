@@ -40,6 +40,9 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     private Fragment searchFragment;
     private Fragment mFragment;
 
+    // DETECT LANDSCAPE MODE
+    private boolean landscapeMode = false;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -186,18 +189,44 @@ public class MainNavigation extends BaseActivity implements DownloadData.OnDownl
     @Override
     public void onSearchResultsReturned(List<Earthquake> earthquakes) {
 
-        Toast.makeText(this, "Results were returned to main. Count: " + earthquakes.size(), Toast.LENGTH_SHORT).show();
+        String SEARCH_RESULTS = "search_results";
 
-        Fragment searchResults = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
-        mFragment = searchResults;
-        FragmentTransaction t = mFragmentManager.beginTransaction();
-        t.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_left);
-        t.addToBackStack(null);
-        t.add(R.id.fragment_frame, mFragment).commit();
-        
+        List<Fragment> fragList = mFragmentManager.getFragments();
+        fragList.size();
+
+
+        if (earthquakes == null) {
+
+            // CLEAR THE FRAGMENT IF ANY?
+            if (mFragmentManager.findFragmentByTag(SEARCH_RESULTS) != null) {
+
+                FragmentTransaction ft = mFragmentManager.beginTransaction();
+                ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+                ft.remove(mFragmentManager.findFragmentByTag(SEARCH_RESULTS)).commit();
+
+            }
+
+        } else {
+
+            Toast.makeText(this, "Results were returned to main. Count: " + earthquakes.size(), Toast.LENGTH_SHORT).show();
+
+            Fragment searchResults = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
+            mFragment = searchResults;
+            FragmentTransaction t = mFragmentManager.beginTransaction();
+            t.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_left);
+
+
+            if (findViewById(R.id.searchResultsLandscape) == null) {
+                t.addToBackStack(null);
+                t.add(R.id.fragment_frame, mFragment, SEARCH_RESULTS).commit();
+            } else {
+                t.replace(R.id.searchResultsLandscape, searchResults, SEARCH_RESULTS).commit();
+            }
+
+        }
+
 
     }
-
 
 
     @Override
