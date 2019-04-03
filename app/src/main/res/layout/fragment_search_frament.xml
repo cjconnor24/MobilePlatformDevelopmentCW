@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Chris Connor-->
+<!--S1715477-->
+<!--cconno208@caledonian.ac.uk-->
 <FrameLayout android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:orientation="vertical"

@@ -1,3 +1,8 @@
+/**
+ * Chris Connor
+ * S1715477
+ * cconno208@caledonian.ac.uk
+ */
 package uk.co.chrisconnor.mpdcw.models;
 
 import com.google.android.gms.maps.model.LatLng;
