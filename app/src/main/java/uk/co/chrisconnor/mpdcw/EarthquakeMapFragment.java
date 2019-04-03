@@ -155,15 +155,15 @@ public class EarthquakeMapFragment extends Fragment implements OnMapReadyCallbac
             int i = 0;
             for (Earthquake e : mEarthquakeList) {
 
-                // ADD MARKER TO THE MAP
+//                // ADD MARKER TO THE MAP
 //                markers.add(mMap.addMarker(
 //                        createMarker(e)
 //                ));
-//                addClusterItem(e);
+////                addClusterItem(e);
 //                mEarthquakeClusterManager.addItem(e);
-
+//
 //                mEarthquakeClusterManager.getMarkerManager();
-
+//
 //                Marker m = mMap.addMarker(createMarker(e));
 //                m.setVisible(false);
 //                mHashMap.put(m,i);

@@ -11,6 +11,8 @@ import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
@@ -26,6 +28,8 @@ public class ParseEarthquakes {
     }
 
     public List<Earthquake> getEarthquakes() {
+
+
         return earthquakes;
     }
 

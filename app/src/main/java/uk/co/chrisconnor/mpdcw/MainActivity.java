@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
@@ -154,6 +157,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         // IF NO EARTHQUAKES, DOWNLOAD FROM API
         if (earthquakes == null || earthquakes.size() == 0) {
             downloadData();
+            Log.d(TAG, "onResume: Downloading Data CHCKHERE");
         }
     }
 
@@ -191,6 +195,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
             // STORE THE DATA IN THE DB
             EarthquakeDatabase.mEarthquakeDao.addEarthquakes(earthquakes);
+            earthquakes = EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes();
+
 
             // REINITIALISE THE FRAGMENT
             initialiseFragments();

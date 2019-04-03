@@ -276,7 +276,7 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
     public List<Earthquake> fetchAllEarthquakes() {
         List<Earthquake> earthquakes = new ArrayList<Earthquake>();
         Cursor cursor = super.query(TABLE_NAME, EARTHQUAKE_COLUMNS, null,
-                null, COLUMN_NAME_ID);
+                null, COLUMN_NAME_ID+" DESC");
 
         if (cursor != null) {
             cursor.moveToFirst();
