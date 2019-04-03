@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -58,26 +59,18 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
             switch (item.getItemId()) {
                 case R.id.navigation_dashboard:
-
                     Toast.makeText(MainActivity.this, "You Clicked DASHBOARD", Toast.LENGTH_SHORT).show();
                     mFragment = dashboardFragment;
                     break;
                 case R.id.navigation_list:
-
                     mFragment = listFragment;
                     break;
-
-
                 case R.id.navigation_map:
-
                     mFragment = mapFragment;
                     break;
-//
                 case R.id.navigation_search:
-
                     mFragment = searchFragment;
                     break;
-
                 default:
                     mFragment = listFragment;
                     break;
@@ -90,8 +83,6 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main_navigation);
-
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -185,7 +176,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
             if (earthquakes == null || earthquakes.size() == 0) {
 
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-                builder1.setMessage("There was an issue downloading the data. Please try again shortly.");
+                builder1.setTitle("Problem retreiving data");
+                builder1.setMessage("There was an issue downloading the data and you currently have no saved data. Please try again shortly.");
                 builder1.setCancelable(true);
 
                 builder1.setPositiveButton(
