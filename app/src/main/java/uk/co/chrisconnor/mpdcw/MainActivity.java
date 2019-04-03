@@ -132,9 +132,12 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         Log.d(TAG, "onOptionsItemSelected: " + item);
 
         switch (item.getItemId()) {
-            case R.id.home:
+            case android.R.id.home:
+
+                // DISPLAY THE BACK BUTTON
                 onBackPressed();
-                Toast.makeText(this, "Back button pressed", Toast.LENGTH_SHORT).show();
+                upDateActionBar(false);
+
                 return true;
         }
 
@@ -155,6 +158,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
             Log.d(TAG, "onResume: shouldnt have redownloaded?");
         }
     }
+
 
     /**
      * When download completes, send it across to the parser to return the Earthquakes
@@ -178,7 +182,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
         } else {
 
-            if(earthquakes == null || earthquakes.size() == 0) {
+            if (earthquakes == null || earthquakes.size() == 0) {
 
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                 builder1.setMessage("There was an issue downloading the data. Please try again shortly.");
@@ -228,6 +232,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
     /**
      * This callback function is triggered when search results are returned from the search fragment
+     *
      * @param earthquakes
      */
     @Override
@@ -256,6 +261,9 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
             FragmentTransaction t = mFragmentManager.beginTransaction();
             t.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right, R.anim.slide_in_left, R.anim.slide_out_left);
 
+            // DISPLAY THE BACK BUTTON
+            upDateActionBar(true);
+
 
             // DISPLAY THE RESULTS
             if (findViewById(R.id.searchResultsLandscape) == null) {
@@ -269,6 +277,24 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
 
     }
+
+    /**
+     * Update action bar to show / hide the back button
+     * @param show
+     */
+    private void upDateActionBar(boolean show) {
+
+        if(show){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("Search Results");
+        } else {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+        }
+
+    }
+
+
 
 
     /**
