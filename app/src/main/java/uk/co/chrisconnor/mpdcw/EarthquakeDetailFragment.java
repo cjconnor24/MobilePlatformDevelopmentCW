@@ -3,87 +3,153 @@ package uk.co.chrisconnor.mpdcw;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import uk.co.chrisconnor.mpdcw.helpers.ColorHelper;
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link EarthquakeDetailFragment.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link EarthquakeDetailFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class EarthquakeDetailFragment extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String EARTHQUAKE = "earthquake";
 
-    private static final String TAG = "EarthquakeDetailFrag";
-    private Earthquake earthquake;
 
-    public static EarthquakeDetailFragment newInstance() {
-        return new EarthquakeDetailFragment();
+    // TODO: Rename and change types of parameters
+    private Earthquake mEarthquake;
+
+    private OnFragmentInteractionListener mListener;
+
+    public EarthquakeDetailFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param earthquake Parameter 1.
+     * @return A new instance of fragment EarthquakeDetailFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static EarthquakeDetailFragment newInstance(Earthquake earthquake) {
+        EarthquakeDetailFragment fragment = new EarthquakeDetailFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(EARTHQUAKE, earthquake);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // GET THE EARTHQUAKES FROM THE ARGS
-        Bundle b = getArguments();
-        if (b != null && b.containsKey(BaseActivity.EARTHQUAKE_TRANSFER)) {
-
-            earthquake = (Earthquake) b.getSerializable(BaseActivity.EARTHQUAKE_TRANSFER);
-
+        if (getArguments() != null) {
+            mEarthquake = (Earthquake) getArguments().getSerializable(EARTHQUAKE);
         }
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.earthquake_detail_fragment, container, false);
 
-        if (earthquake != null) {
+        if (mEarthquake != null) {
 
             Resources resources = getResources();
 
             TextView title = (TextView) view.findViewById(R.id.location_heading);
-            title.setText(earthquake.getLocation().getName());
+            title.setText(mEarthquake.getLocation().getName());
 
             TextView subtitle = (TextView) view.findViewById(R.id.datetime_heading);
-            subtitle.setText(PrettyDate.getTimeAgo(earthquake.getDate()));
+            subtitle.setText(PrettyDate.getTimeAgo(mEarthquake.getDate()));
 
-            TextView magnitudeHeading = (TextView)view.findViewById(R.id.magnitude_heading);
-            magnitudeHeading.setText(String.valueOf(earthquake.getMagnitude()));
-            //
-//            // SET THE BACKGROUND COLOR OF MAGNITUDE
-//            Drawable d = magnitudeHeading.getBackground();
-//            d.setColorFilter(ColorHelper.getColor(earthquake.getMagnitude()), PorterDuff.Mode.MULTIPLY);
-
-
-            TextView date = (TextView)view.findViewById(R.id.detail_date);
-            date.setText(earthquake.getDate().toString());
-
-            TextView latitude = (TextView)view.findViewById(R.id.detail_lat);
-            TextView longitude  = (TextView)view.findViewById(R.id.detail_lon);
-            latitude.setText(String.valueOf(earthquake.getLocation().getLat()));
-            longitude.setText(String.valueOf(earthquake.getLocation().getLon()));
-
-            TextView magnitude = (TextView)view.findViewById(R.id.detail_magnitude);
-            magnitude.setText(String.valueOf(earthquake.getMagnitude()));
+            TextView magnitudeHeading = (TextView) view.findViewById(R.id.magnitude_heading);
+            magnitudeHeading.setText(String.valueOf(mEarthquake.getMagnitude()));
+            Drawable d = magnitudeHeading.getBackground();
+            d.setColorFilter(ColorHelper.getColor(mEarthquake.getMagnitude()), PorterDuff.Mode.MULTIPLY);
 
 
 
-            TextView depth = (TextView)view.findViewById(R.id.detail_depth);
-            depth.setText(resources.getString(R.string.earthquake_detail_depth, String.valueOf(earthquake.getDepth())));
+            SimpleDateFormat sdate = new SimpleDateFormat("dd MMMM yyyy", Locale.UK);
+            SimpleDateFormat stime = new SimpleDateFormat("hh:mm a", Locale.UK);
+            String dateString = sdate.format(mEarthquake.getDate());
+            String timeString = stime.format(mEarthquake.getDate());
+            TextView date = (TextView) view.findViewById(R.id.detail_date);
+            date.setText(dateString);
 
+            TextView time = (TextView) view.findViewById(R.id.detail_time);
+            time.setText(timeString);
 
+            TextView latitude = (TextView) view.findViewById(R.id.detail_lat);
+            TextView longitude = (TextView) view.findViewById(R.id.detail_lon);
+            latitude.setText(String.valueOf(mEarthquake.getLocation().getLat()));
+            longitude.setText(String.valueOf(mEarthquake.getLocation().getLon()));
+//
+//            TextView magnitute = (TextView) view.findViewById(R.id.detail_magnitude);
+//            magnitute.setText(String.valueOf(mEarthquake.getMagnitude()));
+
+            TextView depth = (TextView) view.findViewById(R.id.detail_depth);
+            depth.setText(resources.getString(R.string.earthquake_detail_depth, String.valueOf(mEarthquake.getDepth())));
 
         }
 
         return view;
     }
 
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof OnDashboardFragmentInteractionListener) {
+//            mListener = (OnDashboardFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnDashboardFragmentInteractionListener");
+//        }
+//    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
 }

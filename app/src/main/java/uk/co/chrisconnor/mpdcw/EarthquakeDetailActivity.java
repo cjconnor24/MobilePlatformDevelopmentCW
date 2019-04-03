@@ -28,9 +28,9 @@ public class EarthquakeDetailActivity extends BaseActivity {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
 
-            XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
+            EarthquakeDetailFragment earthquakeDetailFragment = EarthquakeDetailFragment.newInstance(e);
             FragmentTransaction detailTransaction = fragmentManager.beginTransaction();
-            detailTransaction.replace(R.id.bottom, xEarthquakeDetailFragment).commit();
+            detailTransaction.replace(R.id.bottom, earthquakeDetailFragment).commit();
 
             XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
             FragmentTransaction mapTransaction = fragmentManager.beginTransaction();
