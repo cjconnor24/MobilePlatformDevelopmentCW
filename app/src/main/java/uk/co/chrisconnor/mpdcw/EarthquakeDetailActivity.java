@@ -9,6 +9,9 @@ import android.view.MenuItem;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
+/**
+ * Earthquake detail activity creates view with details and map
+ */
 public class EarthquakeDetailActivity extends BaseActivity {
 
     private static final String TAG = "EarthquakeDetailActiv";
@@ -22,10 +25,13 @@ public class EarthquakeDetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        // GET THE PASSED EARTHQUAKE TO DISPLAY
         Earthquake e = (Earthquake) getIntent().getSerializableExtra(EARTHQUAKE_TRANSFER);
 
+        // IF ITS NULL
         if (savedInstanceState == null) {
 
+            // CREATE AND SETUP THE MAP AND DETAIL FRAGMENTS
             FragmentManager fragmentManager = getSupportFragmentManager();
 
             EarthquakeDetailFragment earthquakeDetailFragment = EarthquakeDetailFragment.newInstance(e);

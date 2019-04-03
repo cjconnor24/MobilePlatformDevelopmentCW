@@ -7,21 +7,28 @@ import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+/**
+ * Custom listener to handle datepicker dialouge. Allows the same handled to return and set a value on a text obkect
+ */
 public class DateDialogueCustomListener implements DatePickerDialog.OnDateSetListener {
 
     private static final String TAG = "CustomDateDialogue";
     private EditText mEditText;
-//    private Context mContext;
 
     public DateDialogueCustomListener(EditText textBox) {
         this.mEditText = textBox;
-        Log.d(TAG, "DateDialogueCustomListener: CALLED THE CONSTRUCTOR");
     }
 
+    /**
+     * When the dateDate event is fired, update the relevant TextView
+     * @param view Picker
+     * @param year Year
+     * @param month Month
+     * @param dayOfMonth Day of Month
+     */
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-        Log.d(TAG, "onDateSet: CALLED THE EVENT LISTENER ON DATE SET");
         String dateString = String.format("%d/%d/%d", dayOfMonth, month+1, year);
         mEditText.setText(dateString);
 

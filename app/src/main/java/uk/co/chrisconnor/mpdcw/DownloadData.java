@@ -10,10 +10,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * ENUM to handle download state representation
+ */
 enum DownloadStatus {
     IDLE, PROCESSING, NOT_INITIALISED, FAILED_OR_EMPTY, OK
 };
 
+/**
+ * Class to handle the downloading of the data from BGS
+ */
 class DownloadData extends AsyncTask<String, Void, String> {
 
     private static final String TAG = "DownloadData";
@@ -36,7 +42,10 @@ class DownloadData extends AsyncTask<String, Void, String> {
     }
 
 
-
+    /**
+     * Once the data has downloaded, execute the callback
+     * @param data
+     */
     @Override
     protected void onPostExecute(String data) {
 
@@ -46,6 +55,11 @@ class DownloadData extends AsyncTask<String, Void, String> {
         Log.d(TAG, "onPostExecute has completed");
     }
 
+    /**
+     * To tasks to be carried out async
+     * @param strings  [0] URL of data to download
+     * @return
+     */
     @Override
     protected String doInBackground(String... strings) {
 
@@ -78,7 +92,6 @@ class DownloadData extends AsyncTask<String, Void, String> {
             StringBuilder result = new StringBuilder();
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
-
             // LOOP THROUGH EACH LINE AND BUILD UP THE STREAM LOCALLY
             for (String line = reader.readLine(); line != null; line = reader.readLine()) {
                 result.append(line).append("\n"); // NEW LINES ARE GETTING STRIPPED SO NEED TO ADD THEM BACK IN
@@ -87,7 +100,6 @@ class DownloadData extends AsyncTask<String, Void, String> {
             // SET STATUS TO OK AND RETURN THE STRING RESULT
             mDownloadStatus = DownloadStatus.OK;
             return result.toString();
-
 
         } catch (MalformedURLException e) {
             // BAD URL SUPPLIED
