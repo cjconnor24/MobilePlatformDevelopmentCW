@@ -3,7 +3,6 @@ package uk.co.chrisconnor.mpdcw;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
@@ -65,7 +63,7 @@ public class EarthquakeListFragment extends Fragment{
 
         RecyclerView recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new EarthquakeRecyclerViewAdapter(mEarthquakes, mListener));
+        recyclerView.setAdapter(new EarthquakeListRecyclerViewAdapter(mEarthquakes, mListener));
 
         return view;
     }

@@ -22,13 +22,13 @@ import java.util.List;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class EarthquakeRecyclerViewAdapter extends RecyclerView.Adapter<EarthquakeRecyclerViewAdapter.EarthquakeViewHolder> {
+public class EarthquakeListRecyclerViewAdapter extends RecyclerView.Adapter<EarthquakeListRecyclerViewAdapter.EarthquakeViewHolder> {
 
     private static final String TAG = "EarthquakeRecyclerViewA";
     private final List<Earthquake> mEarthquakes;
     private final OnListFragmentInteractionListener mCallback;
 
-    public EarthquakeRecyclerViewAdapter(List<Earthquake> items, OnListFragmentInteractionListener callback) {
+    public EarthquakeListRecyclerViewAdapter(List<Earthquake> items, OnListFragmentInteractionListener callback) {
         mEarthquakes = items;
         mCallback = callback;
     }

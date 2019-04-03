@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,7 +21,6 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.MarkerManager;
-import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
@@ -30,18 +28,17 @@ import java.util.HashMap;
 
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
-import uk.co.chrisconnor.mpdcw.models.Location;
 
 import static uk.co.chrisconnor.mpdcw.BaseActivity.EARTHQUAKE_TRANSFER;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link XEarthquakeMap#newInstance} factory method to
+ * Use the {@link EarthquakeMapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
+public class EarthquakeMapFragment extends Fragment implements OnMapReadyCallback {
 
-    private static final String TAG = "XEarthquakeMap";
+    private static final String TAG = "EarthquakeMapFragment";
     private static final String EARTHQUAKE = "earthquake";
     private static final String EARTHQUAKE_LIST = "earthquake_list";
 
@@ -59,7 +56,7 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
     private boolean multipleMarkers = false;
 
 
-    public XEarthquakeMap() {
+    public EarthquakeMapFragment() {
         // Required empty public constructor
     }
 
@@ -68,13 +65,13 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
      * this fragment using the provided parameters.
      *
      * @param earthquake Earthquake to display.
-     * @return A new instance of fragment XEarthquakeMap.
+     * @return A new instance of fragment EarthquakeMapFragment.
      */
-    public static XEarthquakeMap newInstance(Earthquake earthquake) {
+    public static EarthquakeMapFragment newInstance(Earthquake earthquake) {
 
         Log.d(TAG, "newInstance: THIS FIRES");
 
-        XEarthquakeMap fragment = new XEarthquakeMap();
+        EarthquakeMapFragment fragment = new EarthquakeMapFragment();
         Bundle args = new Bundle();
         args.putSerializable(EARTHQUAKE, earthquake);
         fragment.setArguments(args);
@@ -87,9 +84,9 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
      * @param earthquake_list
      * @return
      */
-    public static XEarthquakeMap newInstance(ArrayList<Earthquake> earthquake_list) {
+    public static EarthquakeMapFragment newInstance(ArrayList<Earthquake> earthquake_list) {
 
-        XEarthquakeMap fragment = new XEarthquakeMap();
+        EarthquakeMapFragment fragment = new EarthquakeMapFragment();
         Bundle args = new Bundle();
         args.putSerializable(EARTHQUAKE_LIST, earthquake_list);
         fragment.setArguments(args);

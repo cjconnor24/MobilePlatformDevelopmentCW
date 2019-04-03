@@ -14,7 +14,6 @@ public class DateDialogueCustomListener implements DatePickerDialog.OnDateSetLis
 //    private Context mContext;
 
     public DateDialogueCustomListener(EditText textBox) {
-//        this.mContext = c;
         this.mEditText = textBox;
         Log.d(TAG, "DateDialogueCustomListener: CALLED THE CONSTRUCTOR");
     }
