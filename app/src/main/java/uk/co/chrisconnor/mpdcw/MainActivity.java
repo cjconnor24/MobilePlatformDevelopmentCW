@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
         mapFragment = EarthquakeMapFragment.newInstance((ArrayList<Earthquake>) earthquakes);
         searchFragment = SearchFrament.newInstance("one", "two");
-        dashboardFragment = DashboardFragment.newInstance("one", "two");
+        dashboardFragment = DashboardFragment.newInstance();
     }
 
     /**

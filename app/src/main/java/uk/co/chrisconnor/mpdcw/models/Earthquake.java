@@ -11,6 +11,9 @@ import java.util.regex.Pattern;
 
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 
+/**
+ * Represents Earthquake Entity
+ */
 public class Earthquake implements Serializable, ClusterItem  {
 
     // PRIVATE PROPERTIES
@@ -33,62 +36,114 @@ public class Earthquake implements Serializable, ClusterItem  {
         this.link = "";
     }
 
+    /**
+     * Retrieve ID
+     * @return ID
+     */
     public String getId() {
         return extractID();
     }
 
+    /**
+     * Set Earthquake ID
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Retrieve the location object
+     * @return
+     */
     public Location getLocation() {
         return location;
     }
 
+    /**
+     * Set location object
+     * @param location
+     */
     public void setLocation(Location location) {
         this.location = location;
     }
 
+    /**
+     * Get earthquake date
+     * @return
+     */
     public Date getDate() {
         return date;
     }
 
+    /**
+     * Set Earthquake data
+     * @param date
+     */
     public void setDate(Date date) {
         this.date = date;
     }
 
+    /**
+     * Get depth of Earthquake
+     * @return
+     */
     public int getDepth() {
         return depth;
     }
 
+    /**
+     * Set earthquake depth
+     * @param depth
+     */
     public void setDepth(int depth) {
         this.depth = depth;
     }
 
+    /**
+     * Get Earthquake Magnitude
+     * @return
+     */
     public double getMagnitude() {
         return magnitude;
     }
 
+    /**
+     * Set earthquake Magnitude
+     * @param magnitude
+     */
     public void setMagnitude(double magnitude) {
         this.magnitude = magnitude;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
+    /**
+     * Set Earthquake Category
+     * @param category
+     */
     public void setCategory(String category) {
         this.category = category;
     }
 
+    /**
+     * Retrieve earthquake Link
+     * @return
+     */
     public String getLink() {
         return link;
     }
 
+    /**
+     * Set earthquake Link
+     * @param link
+     */
     public void setLink(String link) {
         this.link = link;
     }
 
+    /**
+     * Get string representation of Earthqyake
+     * @return
+     */
     @Override
     public String toString() {
         return "Earthquake{" +
@@ -101,6 +156,10 @@ public class Earthquake implements Serializable, ClusterItem  {
                 '}';
     }
 
+    /**
+     * Extract the BGS id based on the link - looks like the datetime stamp
+     * @return
+     */
     private String extractID(){
 
         Pattern pattern = Pattern.compile("[0-9]+");
@@ -115,16 +174,30 @@ public class Earthquake implements Serializable, ClusterItem  {
 
     }
 
+    // BELOW METHODS ARE FROM THE CLUSERITEM Class
+
+    /**
+     * Get LalLong position for Google Maps
+     * @return
+     */
     @Override
     public LatLng getPosition() {
         return new LatLng(getLocation().getLat(), getLocation().getLon());
     }
 
+    /**
+     * Get the location name for google maps title
+     * @return
+     */
     @Override
     public String getTitle() {
         return getLocation().getName();
     }
 
+    /**
+     * Get snippet window content
+     * @return
+     */
     @Override
     public String getSnippet() {
         return PrettyDate.getTimeAgo(getDate());

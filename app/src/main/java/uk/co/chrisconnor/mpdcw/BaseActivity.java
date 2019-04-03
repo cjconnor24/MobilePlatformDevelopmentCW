@@ -11,8 +11,6 @@ public class BaseActivity extends AppCompatActivity {
     static final String EARTHQUAKE_TRANSFER = "EARTHQUAKE_TRANSFER";
 
 //    ActionBar mActionBar;
-
-
 //    void activateToolbar(boolean enableHome){
 //        Log.d(TAG, "activateToolbar: starts");
 //        ActionBar actionBar = getSupportActionBar();
