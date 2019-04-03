@@ -100,8 +100,9 @@ public class ParseEarthquakes {
                         String dateString = elements[1].replace(" ;", "").trim();
                         currentEarthquake.setDate(simpleDateFormat.parse(dateString));
 
+                        String locname = elements[2].replace(",",", ");
                         // 2 LOCATION
-                        Location loc = new Location(elements[2], elements[3]);
+                        Location loc = new Location(locname, elements[3]);
                         currentEarthquake.setLocation(loc);
 
                         // 4 DEPTH
