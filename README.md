@@ -6,7 +6,10 @@ This is the base readme for the Earthquake application.
 Description will go here
 
 ### YouTube Walkthrough
-You can access the video walkthrough on YouTube by click the link below
+
+[1]: https://youtu.be/woTzVRbaMSI?
+You can [view a walkthrough][1] of the application on YouTube by clicking the link below.
+[![YouTube Walkthrough](Documents/YouTubeIcon.jpg)][1]
 
 #### Contents
 Below is a break down of the walkthrough. Click on the time marker to access directly.
