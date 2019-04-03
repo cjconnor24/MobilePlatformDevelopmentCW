@@ -1,5 +1,8 @@
 package uk.co.chrisconnor.mpdcw.DAO;
 
+/**
+ * Interface which contains constants for the Database fields and names.
+ */
 public interface IEarthquakeTableSchema {
 
     String TABLE_NAME = "Earthquakes";

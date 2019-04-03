@@ -29,33 +29,6 @@ public class PrettyDate {
 
         final long diff = now - then;
 
-//        Log.d(TAG, "getTimeAgo: MINUTES " + diff / MINUTES);
-//        Log.d(TAG, "getTimeAgo: HOURS " + diff / HOURS);
-//        Log.d(TAG, "getTimeAgo: DAYS " + diff / DAYS);
-//        Log.d(TAG, "getTimeAgo: WEEKS " + diff / WEEKS);
-//        Log.d(TAG, "getTimeAgo: MONTHS " + (diff / WEEKS) /4);
-//        Log.d(TAG, "getTimeAgo: --------");
-
-        // MONTHS
-//        if((diff / WEEKS) /4 > 1){
-//            return (diff / WEEKS) /4 + " months ago";
-//        } else if (diff / WEEKS > 1){
-//            return diff / WEEKS + " weeks ago";
-//        } else if (diff / DAYS > 1) {
-//            return diff / DAYS + " days ago";
-//        } else if (diff / HOURS > 1) {
-//            return diff / HOURS + " hours ago";
-//        } else if (diff / MINUTES > 1) {
-//            return diff / MINUTES + " minutes ago";
-//        } else {
-//            return " few moments ago";
-//        }
-
-//        return "DEFAULT";
-
-//        TODO: NEEDS WORK...BIT OF A MESS
-
-
         if (diff < MINUTES) {
             return "A few moments ago";
         } else if (diff < 2 * MINUTES) {

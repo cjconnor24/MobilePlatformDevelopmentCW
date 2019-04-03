@@ -5,6 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * Earthquake database class to separate concerns from the DAO and the Db Provider.
+ * This class takes care of creating the data and table if neccessary. It will also get a readable/writeable instance of the DB for use.
+ */
 public class EarthquakeDatabase {
 
     private static final String TAG = "EarthquakeDatabase";
@@ -13,10 +17,18 @@ public class EarthquakeDatabase {
     private DatabaseHelper mDatabaseHelper;
     public static EarthquakeDAO mEarthquakeDao;
 
+    /**
+     * Constructor
+     * @param context
+     */
     public EarthquakeDatabase (Context context){
         this.mContext = context;
     }
 
+    /**
+     * Open the database and return instance
+     * @return instance of EarthquakeDatabase
+     */
     public EarthquakeDatabase open() {
 
         mDatabaseHelper = DatabaseHelper.getInstance(mContext);
@@ -27,11 +39,17 @@ public class EarthquakeDatabase {
 
     }
 
+    /**
+     * Close the database
+     */
     public void close() {
         mDatabaseHelper.close();
     }
 
 
+    /**
+     * Inner class to help with the management of the database itself
+     */
     private static class DatabaseHelper extends SQLiteOpenHelper implements IEarthquakeTableSchema {
 
         private static final String TAG = "EarthquakeDatabase";
@@ -61,6 +79,10 @@ public class EarthquakeDatabase {
 
         }
 
+        /**
+         * Create the database table
+         * @param db
+         */
         @Override
         public void onCreate(SQLiteDatabase db) {
 
@@ -69,6 +91,12 @@ public class EarthquakeDatabase {
 
         }
 
+        /**
+         * Not implemented but would handle the database upgrade if app was more complex and changed structure etc.
+         * @param db
+         * @param oldVersion
+         * @param newVersion
+         */
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

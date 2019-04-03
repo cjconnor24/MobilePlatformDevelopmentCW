@@ -4,6 +4,13 @@ import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
+/**
+ * Earthquake DAO Interface
+ *
+ * @author Chris Connor
+ * S1715477
+ * cconno208@caledonian.ac.uk
+ */
 public interface IEarthquakeDAO {
 
     public Earthquake getEarthquakeById(int earthquakeId);

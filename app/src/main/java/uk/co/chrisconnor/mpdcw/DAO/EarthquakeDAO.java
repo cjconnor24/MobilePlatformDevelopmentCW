@@ -27,22 +27,19 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         super(db);
     }
 
+    /**
+     * Convert cursor data to Earthquake Entity
+     * @param cursor Curson containing Earthquake Data
+     * @return Earthquake Entity
+     */
     @Override
     protected Earthquake cursorToEntity(Cursor cursor) {
 
-
+        // CREATE NEW EARTHQUAKE AND GET COLUMN INDEXES
         Earthquake earthquake = new Earthquake();
+        int id, location, magnitude, depth, lat, lon, link, datetime;
 
-
-        int id;
-        int location;
-        int magnitude;
-        int depth;
-        int lat;
-        int lon;
-        int link;
-        int datetime;
-
+        // IF NOT BLANK, GET THE INDEXES
         if (cursor != null) {
 
             if (cursor.getColumnIndex(COLUMN_NAME_ID) != -1) {
@@ -70,7 +67,7 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
                 earthquake.setDate(new Date(cursor.getLong(datetime)));
             }
 
-//            earthquake.setLocation(new Location());
+            // CREATE NEW LOCATION TO BUILD OBJECT
             Location l = new Location();
 
             if (cursor.getColumnIndex(COLUMN_NAME_LOCATION) != -1) {
@@ -91,13 +88,18 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
                 l.setLon(cursor.getDouble(lon));
             }
 
+            // ADD THE LOCATION TO THE EARTHQUAKE
             earthquake.setLocation(l);
-
 
         }
         return earthquake;
     }
 
+    /**
+     * Return earthquake based on the ID
+     * @param earthquakeId Earthquake of ID to retrieve
+     * @return Earthquake
+     */
     @Override
     public Earthquake getEarthquakeById(int earthquakeId) {
 
@@ -114,41 +116,65 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         return e;
     }
 
+    /**
+     * Returns the strongest earthquake from the database
+     * @return Earthquake strongest
+     */
     public Earthquake getStrongestEarthquake() {
         return runSingleRawQuery("SELECT * FROM " + IEarthquakeTableSchema.TABLE_NAME + " ORDER BY " + COLUMN_NAME_MAGNITUDE + " DESC LIMIT 0,1");
     }
 
+    /**
+     * Returns the deepest earthquake from the database
+     * @return Earthquake deepest
+     */
     public Earthquake getDeepestEarthquake() {
         return runSingleRawQuery("SELECT * FROM " + IEarthquakeTableSchema.TABLE_NAME + " ORDER BY " + COLUMN_NAME_DEPTH + " DESC LIMIT 0,1");
     }
 
-    public Earthquake getFurtherstCardinalEarthquake(char x) {
+    /**
+     * Get the most extremely positioned Earthquake based on the supplied cardinality i.e. N, S, E, W
+     * @param d Direction from which to get most extreme earthquake
+     * @return
+     */
+    public Earthquake getFurtherstCardinalEarthquake(CardinalDirection d) {
 
         String field="";
-        String direction ="";
+        String sortDirection ="";
 
-        switch(x){
-            case 'n':
+        switch(d){
+            case NORTH:
                 field = COLUMN_NAME_LAT;
-                direction = "DESC";
+                sortDirection = "DESC";
                 break;
-            case 's':
+            case SOUTH:
                 field = COLUMN_NAME_LAT;
-                direction = "ASC";
+                sortDirection = "ASC";
                 break;
-            case 'e':
+            case EAST:
                 field = COLUMN_NAME_LONG;
-                direction = "DESC";
+                sortDirection = "DESC";
                 break;
-            case 'w':
+            case WEST:
                 field = COLUMN_NAME_LONG;
-                direction = "ASC";
+                sortDirection = "ASC";
                 break;
         }
 
-        return runSingleRawQuery("SELECT * FROM " + IEarthquakeTableSchema.TABLE_NAME + " ORDER BY " + field + " "+direction+" LIMIT 0,1");
+        return runSingleRawQuery("SELECT * FROM " + IEarthquakeTableSchema.TABLE_NAME + " ORDER BY " + field + " "+sortDirection+" LIMIT 0,1");
     }
 
+    /**
+     * Search earthquake based on the supplied arguments
+     * @param pStartDate Start date to search
+     * @param pEndDate End date to search
+     * @param pMagnitude Magnitude to search
+     * @param pDepth Depth to search
+     * @param pLocation Location string to search
+     * @param pSort Order in which to sort them
+     * @param pSortBy Order direction in which to sort them
+     * @return List of earthquakes mathching search
+     */
     public List<Earthquake> searchEarthquake(Date pStartDate, Date pEndDate, Integer pMagnitude, Integer pDepth, String pLocation, Integer pSort, String pSortBy) {
 
         String query = "SELECT * FROM " + TABLE_NAME;
@@ -213,29 +239,21 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-//                Earthquake earthquake = cursorToEntity(cursor);
                 earthquakes.add(cursorToEntity(cursor));
                 cursor.moveToNext();
             }
             cursor.close();
         }
-//        if (cursor != null) {
-//            if(cursor.moveToFirst()) {
-//
-//                do {
-//                    Earthquake earthquake = cursorToEntity(cursor);
-//                    earthquakes.add(earthquake);
-//                    cursor.moveToNext();
-//                } while (cursor.moveToNext());
-//
-//            }
-//            cursor.close();
-//        }
 
         return earthquakes;
 
     }
 
+    /**
+     * Run a raw query on the database with a single result
+     * @param query
+     * @return
+     */
     private Earthquake runSingleRawQuery(String query) {
 
         Earthquake e = null;
@@ -250,6 +268,10 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         return e;
     }
 
+    /**
+     * Fetch all Earthquakes from the data base.
+     * @return
+     */
     @Override
     public List<Earthquake> fetchAllEarthquakes() {
         List<Earthquake> earthquakes = new ArrayList<Earthquake>();
@@ -269,6 +291,11 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         return earthquakes;
     }
 
+    /**
+     * Add a single earthquake to the database
+     * @param earthquake Earthquake to add
+     * @return true or false if successful
+     */
     @Override
     public boolean addEarthquake(Earthquake earthquake) {
 
@@ -277,12 +304,16 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         } catch (SQLiteConstraintException ex) {
 
             // CATCH THE Contstraint Exception if the EQ already exists in the Database
-//            Log.w("Database", ex.getMessage());
             return false;
         }
     }
 
 
+    /**
+     * Add a list of earthquakes
+     * @param earthquakes Earthquakes to add
+     * @return Return true or false depending on result
+     */
     @Override
     public boolean addEarthquakes(List<Earthquake> earthquakes) {
 
@@ -297,10 +328,14 @@ public class EarthquakeDAO extends DbProvider implements IEarthquakeTableSchema,
         return result;
     }
 
+    /**
+     * Get the Earthquake properties as content values
+     * @param e Earthquake to extract details
+     * @return Content values for the Earthquake
+     */
     private ContentValues getContentValues(Earthquake e) {
 
         ContentValues cv = new ContentValues();
-//        cv.put(COLUMN_NAME_ID, UUID.randomUUID().toString());
         cv.put(COLUMN_NAME_ID, e.getId());
         cv.put(COLUMN_NAME_LOCATION, e.getLocation().getName());
         cv.put(COLUMN_NAME_MAGNITUDE, e.getMagnitude());

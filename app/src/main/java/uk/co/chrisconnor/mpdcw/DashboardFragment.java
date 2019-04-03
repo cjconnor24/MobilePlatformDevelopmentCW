@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import uk.co.chrisconnor.mpdcw.DAO.CardinalDirection;
 import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
@@ -123,25 +124,25 @@ public class DashboardFragment extends Fragment implements CardView.OnClickListe
                 i.putExtra(EARTHQUAKE_TRANSFER, e);
                 startActivity(i);                break;
             case R.id.dashboardNorth:
-                e = EarthquakeDatabase.mEarthquakeDao.getFurtherstCardinalEarthquake('n');
+                e = EarthquakeDatabase.mEarthquakeDao.getFurtherstCardinalEarthquake(CardinalDirection.NORTH);
                 i = new Intent(getContext(), EarthquakeDetailActivity.class);
                 i.putExtra(EARTHQUAKE_TRANSFER, e);
                 startActivity(i);
                 break;
             case R.id.dashboardEast:
-                e = EarthquakeDatabase.mEarthquakeDao.getFurtherstCardinalEarthquake('e');
+                e = EarthquakeDatabase.mEarthquakeDao.getFurtherstCardinalEarthquake(CardinalDirection.EAST);
                 i = new Intent(getContext(), EarthquakeDetailActivity.class);
                 i.putExtra(EARTHQUAKE_TRANSFER, e);
                 startActivity(i);
                 break;
             case R.id.dashboardWest:
-                e = EarthquakeDatabase.mEarthquakeDao.getFurtherstCardinalEarthquake('w');
+                e = EarthquakeDatabase.mEarthquakeDao.getFurtherstCardinalEarthquake(CardinalDirection.WEST);
                 i = new Intent(getContext(), EarthquakeDetailActivity.class);
                 i.putExtra(EARTHQUAKE_TRANSFER, e);
                 startActivity(i);
                 break;
             case R.id.dashboardSouth:
-                e = EarthquakeDatabase.mEarthquakeDao.getFurtherstCardinalEarthquake('s');
+                e = EarthquakeDatabase.mEarthquakeDao.getFurtherstCardinalEarthquake(CardinalDirection.SOUTH);
                 i = new Intent(getContext(), EarthquakeDetailActivity.class);
                 i.putExtra(EARTHQUAKE_TRANSFER, e);
                 startActivity(i);
