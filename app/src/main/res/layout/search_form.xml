@@ -106,12 +106,7 @@
             android:id="@+id/divider3"
             style="@style/formDivider" />
 
-        <TextView
-            android:id="@+id/lblSortOrder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/formLabel"
-            android:text=" Sort Order" />
+
 
         <TextView
             android:id="@+id/lblLocation"
@@ -145,6 +140,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/sort_options" />
+
+        <TextView
+            android:id="@+id/lblSortOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/formLabel"
+            android:text=" Sort Order" />
 
         <RadioGroup
             android:layout_width="match_parent"
