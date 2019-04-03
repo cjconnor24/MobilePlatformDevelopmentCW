@@ -31,9 +31,12 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     private static final String TAG = "MainActivity";
 
 
+    // ADDITIONAL API URLS FOR TESTING
     //private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
-    //private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
-    private String urlSource = "http://earthquake.chrisconnor.co.uk/data.xml";
+    // DUMMY DATA TO TEST PERIODIC REFRESH OF DATA
+    //private String urlSource = "http://earthquake.chrisconnor.co.uk/data.xml";
+    private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
+
 
     // FRAGMENT MANAGER AND DB PLACEHOLDERS
     private FragmentManager mFragmentManager = getSupportFragmentManager();
