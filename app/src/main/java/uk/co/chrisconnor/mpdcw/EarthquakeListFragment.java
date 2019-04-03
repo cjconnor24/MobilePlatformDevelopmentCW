@@ -3,7 +3,6 @@ package uk.co.chrisconnor.mpdcw;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
@@ -37,6 +35,11 @@ public class EarthquakeListFragment extends Fragment{
     public EarthquakeListFragment() {
     }
 
+    /**
+     * Create new instance of fragment
+     * @param earthquakes Earthquakes to list
+     * @return
+     */
     public static EarthquakeListFragment newInstance(ArrayList<Earthquake> earthquakes) {
 
         EarthquakeListFragment fragment = new EarthquakeListFragment();
@@ -51,8 +54,7 @@ public class EarthquakeListFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d(TAG, "onCreate: CREATE LIST FRAGMENT");
-
+        // GET EARTHQUAKES PASSED THROUGH
         if (getArguments() != null) {
             mEarthquakes = (ArrayList<Earthquake>) getArguments().getSerializable(EARTHQUAKES);
         }
@@ -63,9 +65,10 @@ public class EarthquakeListFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_earthquake_list, container, false);
 
+        // CREATE NEW RECYCLER VIEW AND INITIALISE WITH THE RECYCLER ADAPTER
         RecyclerView recyclerView = (RecyclerView) view;
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        recyclerView.setAdapter(new EarthquakeRecyclerViewAdapter(mEarthquakes, mListener));
+        recyclerView.setAdapter(new EarthquakeListRecyclerViewAdapter(mEarthquakes, mListener));
 
         return view;
     }
@@ -83,46 +86,17 @@ public class EarthquakeListFragment extends Fragment{
         }
     }
 
-//    BELOW IS EXPERIMENTING WITH FRAGMENT LIFECYCLE
-
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
-
-        Log.d(TAG, "onDetach: This was detached");
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "LIST FRAGMENT: This was destroyed");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "LIST FRAGMENT: This was paused");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "LIST FRAGMENT: This was resumed");
-    }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Interface to allow fragment to generate events which can be captured in the activity above
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListEarthquakeListItemClick(Earthquake item);
     }
 }

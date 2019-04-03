@@ -29,66 +29,41 @@ import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
 import uk.co.chrisconnor.mpdcw.DAO.IEarthquakeTableSchema;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
-
+/**
+ * Fragment handles searching the database
+ */
 public class SearchFrament extends Fragment implements View.OnFocusChangeListener {
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
 
     private static final String TAG = "SearchFrament";
 
+    // SETUP VARIABLES
     private EditText mDatePickerFrom, mDatePickerTo, mDepth, mLocation;
     private Spinner mMagnitude, mSortOrder;
     private Button mSubmitButton, mClearButton;
     private RadioGroup mSortBy;
 
-
-//    private EarthquakeListFragment.OnListFragmentInteractionListener mListener;
+    // HANDLE EARTHQUAKE CLICKED
     private OnSearchFragmentInteractionListener mCallback;
 
     public SearchFrament() {
         // Required empty public constructor
     }
 
+
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SearchFrament.
+     * Get new instance of fragments
+     * @return
      */
-    // TODO: Rename and change types and number of parameters
-    public static SearchFrament newInstance(String param1, String param2) {
+    public static SearchFrament newInstance() {
         SearchFrament fragment = new SearchFrament();
-        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
+        // GET THE VALUES FROM EACH OF THE FIELDS
         mDatePickerFrom = (EditText) view.findViewById(R.id.datePickerFrom);
         mDatePickerTo = (EditText) view.findViewById(R.id.datePickerTo);
         mMagnitude = (Spinner) view.findViewById(R.id.magnitude);
@@ -121,8 +96,6 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                 int sortOrder = mSortOrder.getSelectedItemPosition();
                 int sortById = mSortBy.getCheckedRadioButtonId();
 
-
-
                 // NEW Placeholders
                 Date sDate = null;
                 Date eDate = null;
@@ -139,9 +112,8 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
                     sortBy = "DESC";
                 }
 
+                // PLACE HOLDERS FOR EQS
                 List<Earthquake> eqs;
-
-
                 ArrayList<String> errors = new ArrayList<>();
 
                 // CHECK THE DATES
@@ -210,6 +182,9 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
 
     }
 
+    /**
+     * Clear the Form of values
+     */
     private void clearForm() {
 
         mDatePickerFrom.setText("");
@@ -225,7 +200,6 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search_frament, container, false);
     }
 
@@ -241,11 +215,11 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
+    /**
+     * Show the datedialogue when focused. Get the date 2 weeks ago
+     * @param v
+     * @param hasFocus
+     */
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
 
@@ -275,20 +249,9 @@ public class SearchFrament extends Fragment implements View.OnFocusChangeListene
 
     }
 
-    public void onSubmitForm() {
-
-
-    }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Interface to make sure event is handled when results are returned
      */
     public interface OnSearchFragmentInteractionListener {
         // TODO: Update argument type and name

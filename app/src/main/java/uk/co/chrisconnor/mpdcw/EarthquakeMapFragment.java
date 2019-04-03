@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,7 +21,6 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.MarkerManager;
-import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
@@ -30,18 +28,15 @@ import java.util.HashMap;
 
 import uk.co.chrisconnor.mpdcw.helpers.PrettyDate;
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
-import uk.co.chrisconnor.mpdcw.models.Location;
 
 import static uk.co.chrisconnor.mpdcw.BaseActivity.EARTHQUAKE_TRANSFER;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link XEarthquakeMap#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment to display earthquake(s) on a map
  */
-public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
+public class EarthquakeMapFragment extends Fragment implements OnMapReadyCallback {
 
-    private static final String TAG = "XEarthquakeMap";
+    private static final String TAG = "EarthquakeMapFragment";
     private static final String EARTHQUAKE = "earthquake";
     private static final String EARTHQUAKE_LIST = "earthquake_list";
 
@@ -59,22 +54,20 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
     private boolean multipleMarkers = false;
 
 
-    public XEarthquakeMap() {
+    public EarthquakeMapFragment() {
         // Required empty public constructor
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param earthquake Earthquake to display.
-     * @return A new instance of fragment XEarthquakeMap.
+     * Get new instance of the fragment
+     * @param earthquake
+     * @return
      */
-    public static XEarthquakeMap newInstance(Earthquake earthquake) {
+    public static EarthquakeMapFragment newInstance(Earthquake earthquake) {
 
         Log.d(TAG, "newInstance: THIS FIRES");
 
-        XEarthquakeMap fragment = new XEarthquakeMap();
+        EarthquakeMapFragment fragment = new EarthquakeMapFragment();
         Bundle args = new Bundle();
         args.putSerializable(EARTHQUAKE, earthquake);
         fragment.setArguments(args);
@@ -87,9 +80,9 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
      * @param earthquake_list
      * @return
      */
-    public static XEarthquakeMap newInstance(ArrayList<Earthquake> earthquake_list) {
+    public static EarthquakeMapFragment newInstance(ArrayList<Earthquake> earthquake_list) {
 
-        XEarthquakeMap fragment = new XEarthquakeMap();
+        EarthquakeMapFragment fragment = new EarthquakeMapFragment();
         Bundle args = new Bundle();
         args.putSerializable(EARTHQUAKE_LIST, earthquake_list);
         fragment.setArguments(args);
@@ -116,7 +109,6 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
 
             }
 
-
         }
     }
 
@@ -126,25 +118,23 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
         Log.d(TAG, "onCreateView: THIS FIRES ALSO");
         View view = inflater.inflate(R.layout.earthquake_map_fragment, container, false);
 
-//        view.findViewById(R.id.map);
         mMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-//        mMapFragment = (SupportMapFragment)getFragmentManager().findFragmentById(R.id.map);
-//        mMapFragment = (SupportMapFragment) getFragmentManager().find;
+
         if (mMapFragment != null) {
             Log.d(TAG, "onCreateView: IS THE MAP NOT NULL?");
+
+            // SETUP THE MAP FRAGMENT AND REPLACE THE FRAMELAYOUT
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             mMapFragment = SupportMapFragment.newInstance();
             fragmentTransaction.replace(R.id.map, mMapFragment).commit();
-//
         }
-//
+
         try {
             mMapFragment.getMapAsync(this);
         } catch (NullPointerException e) {
             Log.e(TAG, "onCreateView: uh oh...mMapFragment is null?");
         }
-
 
         return view;
     }
@@ -183,6 +173,7 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
                 i++;
             }
 
+            // ADD ALL EARTHQUAKES TO THE CLUSTER MANAGER (NOTE USES CUSTOM CLUSTER RENDERER)
             mEarthquakeClusterManager.addItems(earthquakes);
 
         }
@@ -221,22 +212,14 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
 
 
         mMap = googleMap;
-
         setUpClusterer(mEarthquakeList);
 
         // CHECK WHAT STATE THE FRAGMENT IS BEING USED IN
         if (!multipleMarkers) {
-
             plotEarthquake(mMap, mEarthquake);
-
         } else {
-
             plotEarthquakes(mMap, mEarthquakeList);
-
         }
-
-
-
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
@@ -269,10 +252,7 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
                     int pos = mHashMap.get(marker);
                     Log.d(TAG, "onMarkerClick: " + mEarthquakeList.get(pos).toString());
                 }
-
                 float markerZoom = 8.0f;
-
-
 
                 // ONLY ZOOM IF FURTHER OUT THAN MAX ZOOM
                 if(mMap.getCameraPosition().zoom < 8.0f) {
@@ -297,23 +277,12 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(51.503186, -0.126446), 10));
 
         // Initialize the manager with the context and the map.
-        // (Activity extends context, so we can pass 'this' in the constructor.)
         MarkerManager t = new MarkerManager(mMap);
-//        t.newCollection("Test");
+
 
         MarkerManager.Collection mMarkers = t.newCollection();
-
-//        for(Earthquake e : earthquakeList){
-//        mMarkers.addMarker(createMarker(e));
-//        }
-
-
-
         mEarthquakeClusterManager = new ClusterManager<Earthquake>(getContext(), mMap,t);
         mEarthquakeClusterManager.setRenderer(new EarthquakeClusterRenderer(getContext(),mMap, mEarthquakeClusterManager));
-
-
-
 
         // Point the map's listeners at the listeners implemented by the cluster
         // manager.
@@ -323,13 +292,10 @@ public class XEarthquakeMap extends Fragment implements OnMapReadyCallback {
         mEarthquakeClusterManager.cluster();
 
     }
-
-
-    private void addClusterItem(Earthquake e) {
-
-            mEarthquakeClusterManager.addItem(e);
-
-    }
-
+//    private void addClusterItem(Earthquake e) {
+//
+//            mEarthquakeClusterManager.addItem(e);
+//
+//    }
 
 }

@@ -1,15 +1,12 @@
 package uk.co.chrisconnor.mpdcw;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import uk.co.chrisconnor.mpdcw.DAO.CardinalDirection;
 import uk.co.chrisconnor.mpdcw.DAO.EarthquakeDatabase;
@@ -17,25 +14,13 @@ import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
 import static uk.co.chrisconnor.mpdcw.BaseActivity.EARTHQUAKE_TRANSFER;
 
-
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * <p>
- * to handle interaction events.
- * Use the {@link DashboardFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Dashboard Fragment to provide dashboard view and associated functionality
  */
 public class DashboardFragment extends Fragment implements CardView.OnClickListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
+    // DIFFERENT DASHBOARD CARD OPTIONS
     CardView mDashboardStrongest;
     CardView mDashboardDeepest;
     CardView mDashboardNorth;
@@ -43,39 +28,33 @@ public class DashboardFragment extends Fragment implements CardView.OnClickListe
     CardView mDashboardWest;
     CardView mDashboardSouth;
 
-//    private OnFragmentInteractionListener mListener;
 
     public DashboardFragment() {
         // Required empty public constructor
     }
 
+
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DashboardFragment.
+     * Create new instance of the fragments
+     * @return
      */
-    // TODO: Rename and change types and number of parameters
-    public static DashboardFragment newInstance(String param1, String param2) {
+    public static DashboardFragment newInstance() {
         DashboardFragment fragment = new DashboardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
+    /**
+     * Inflate the layout and initialise the card views
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -98,16 +77,20 @@ public class DashboardFragment extends Fragment implements CardView.OnClickListe
         mDashboardWest.setOnClickListener(this);
         mDashboardSouth.setOnClickListener(this);
 
-
         return v;
     }
 
+    /**
+     * Handle the click events
+     * @param v View which fired the events
+     */
     @Override
     public void onClick(View v) {
 
         Earthquake e;
         Intent i;
 
+        // CHECK WHICH BUTTON WAS PRESSEd
         switch (v.getId()) {
 
             case R.id.dashboardStrongest:
@@ -122,7 +105,8 @@ public class DashboardFragment extends Fragment implements CardView.OnClickListe
                 e = EarthquakeDatabase.mEarthquakeDao.getDeepestEarthquake();
                 i = new Intent(getContext(), EarthquakeDetailActivity.class);
                 i.putExtra(EARTHQUAKE_TRANSFER, e);
-                startActivity(i);                break;
+                startActivity(i);
+                break;
             case R.id.dashboardNorth:
                 e = EarthquakeDatabase.mEarthquakeDao.getFurtherstCardinalEarthquake(CardinalDirection.NORTH);
                 i = new Intent(getContext(), EarthquakeDetailActivity.class);
@@ -152,42 +136,4 @@ public class DashboardFragment extends Fragment implements CardView.OnClickListe
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-//        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
 }

@@ -16,12 +16,21 @@ public class Location implements Serializable {
     private double lat;
     private double lon;
 
+    /**
+     * Constructor
+     */
     public Location() {
         this.name = "";
         this.lat = 9999d;
         this.lon = 9999d;
     }
 
+    /**
+     * Overloaded constructor
+     * @param name Name of location
+     * @param lat Latitude of location
+     * @param lon Longitude of location
+     */
     public Location(String name, double lat, double lon) {
         this.setName(name);
         this.setLat(lat);
@@ -37,10 +46,10 @@ public class Location implements Serializable {
         this.parseLocation(name, latlon);
     }
 
+    // GETTERS AND SETTERS
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -48,7 +57,6 @@ public class Location implements Serializable {
     public double getLat() {
         return lat;
     }
-
     public void setLat(double lat) {
         this.lat = lat;
     }
@@ -56,7 +64,6 @@ public class Location implements Serializable {
     public double getLon() {
         return lon;
     }
-
     public void setLon(double lon) {
         this.lon = lon;
     }
@@ -80,10 +87,8 @@ public class Location implements Serializable {
         this.setName(name.replace(" ;", "").trim());
 
         try {
-//53.080,-2.112 ;
             this.setLat(Double.parseDouble(latlong.split(",")[0].replace(" ;", "").trim()));
             this.setLon(Double.parseDouble(latlong.split(",")[1].replace(" ;", "").trim()));
-
         } catch (Exception e) {
             Log.e("ERROR", e.toString());
         }

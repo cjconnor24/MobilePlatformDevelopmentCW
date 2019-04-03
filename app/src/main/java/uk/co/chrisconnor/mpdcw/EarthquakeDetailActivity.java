@@ -9,6 +9,9 @@ import android.view.MenuItem;
 
 import uk.co.chrisconnor.mpdcw.models.Earthquake;
 
+/**
+ * Earthquake detail activity creates view with details and map
+ */
 public class EarthquakeDetailActivity extends BaseActivity {
 
     private static final String TAG = "EarthquakeDetailActiv";
@@ -22,19 +25,22 @@ public class EarthquakeDetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        // GET THE PASSED EARTHQUAKE TO DISPLAY
         Earthquake e = (Earthquake) getIntent().getSerializableExtra(EARTHQUAKE_TRANSFER);
 
+        // IF ITS NULL
         if (savedInstanceState == null) {
 
+            // CREATE AND SETUP THE MAP AND DETAIL FRAGMENTS
             FragmentManager fragmentManager = getSupportFragmentManager();
 
-            XEarthquakeDetailFragment xEarthquakeDetailFragment = XEarthquakeDetailFragment.newInstance(e);
+            EarthquakeDetailFragment earthquakeDetailFragment = EarthquakeDetailFragment.newInstance(e);
             FragmentTransaction detailTransaction = fragmentManager.beginTransaction();
-            detailTransaction.replace(R.id.bottom, xEarthquakeDetailFragment).commit();
+            detailTransaction.replace(R.id.bottom, earthquakeDetailFragment).commit();
 
-            XEarthquakeMap xEarthquakeMap = XEarthquakeMap.newInstance(e);
+            EarthquakeMapFragment earthquakeMapFragment = EarthquakeMapFragment.newInstance(e);
             FragmentTransaction mapTransaction = fragmentManager.beginTransaction();
-            mapTransaction.replace(R.id.top, xEarthquakeMap).commit();
+            mapTransaction.replace(R.id.top, earthquakeMapFragment).commit();
 
         }
 
