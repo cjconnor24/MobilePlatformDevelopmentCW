@@ -33,11 +33,16 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
 
     private static final String TAG = "MainActivity";
-    private List<Earthquake> earthquakes;
-    //            private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
-    private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
+
+
+    //private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
+    //private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
+    private String urlSource = "http://earthquake.chrisconnor.co.uk/data.xml";
+
+    // FRAGMENT MANAGER AND DB PLACEHOLDERS
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private EarthquakeDatabase mdb;
+    private List<Earthquake> earthquakes;
 
     // LIST FRAGMENTS
     private Fragment dashboardFragment;
@@ -46,20 +51,15 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     private Fragment searchFragment;
     private Fragment mFragment;
 
-    // DETECT LANDSCAPE MODE
-    private boolean landscapeMode = false;
-
+    // CHANGE THE FRAGMENT ON SELECTION FROM THE BOTTOM MENU
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            Fragment previous = mFragment;
-
             switch (item.getItemId()) {
                 case R.id.navigation_dashboard:
-                    Toast.makeText(MainActivity.this, "You Clicked DASHBOARD", Toast.LENGTH_SHORT).show();
                     mFragment = dashboardFragment;
                     break;
                 case R.id.navigation_list:
@@ -87,17 +87,18 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // INITIALISE THE BOTTOM NAV AND SETUP THE LISTENERS
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        // INITIALISE THE DB
+        // INITIALISE THE DB AND FETCH RESULTS
         mdb = new EarthquakeDatabase(this);
         mdb.open();
-
         earthquakes = EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes();
 
         // INITIALISE THE FRAGMENTS
         initialiseFragments();
+
         // IF ITS BLANK, DISPLAY THE DASHBOARD
         if (mFragment == null) {
             mFragment = dashboardFragment;
@@ -106,40 +107,43 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
     }
 
+    /**
+     * Initialise the fragments contained within the activity
+     */
     private void initialiseFragments() {
         listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
         mapFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
         searchFragment = SearchFrament.newInstance("one", "two");
         dashboardFragment = DashboardFragment.newInstance("one", "two");
-
-        if (mFragment != null) {
-
-
-        }
-
     }
 
+    /**
+     * Inflate the menu
+     * @param menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    /**
+     * Handle toolbar option clicks including home button
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Log.d(TAG, "onOptionsItemSelected: " + item);
-
         switch (item.getItemId()) {
             case android.R.id.home:
-
                 // DISPLAY THE BACK BUTTON
                 onBackPressed();
                 upDateActionBar(false);
-
                 break;
             case R.id.menu_refresh:
+                // DOWNLOAD DATA FROM API
                 downloadData();
                 break;
         }
@@ -147,20 +151,22 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Triggers when activityResumes
+     */
     @Override
     protected void onResume() {
         super.onResume();
 
-
+        // IF NO EARTHQUAKES, DOWNLOAD FROM API
         if (earthquakes == null || earthquakes.size() == 0) {
-
             downloadData();
-
-        } else {
-            Log.d(TAG, "onResume: shouldnt have redownloaded?");
         }
     }
 
+    /**
+     * Download data from api
+     */
     private void downloadData() {
 
         DownloadData downloadData = new DownloadData(this);
@@ -185,6 +191,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
             t.show();
 
             // TODO: MAYBE MAKE THE PARSER ASYNC?
+            // PARSE EARTHQUAKES
             ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
             parseEarthquakes.parse(data);
             earthquakes = parseEarthquakes.getEarthquakes();
@@ -197,6 +204,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
         } else {
 
+            // IF NO EARTHQUAKES, INFORM USER AND QUIT GRACEFULLY
             if (earthquakes == null || earthquakes.size() == 0) {
 
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
@@ -232,18 +240,20 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     @Override
     public void onListEarthquakeListItemClick(Earthquake item) {
 
-        Toast.makeText(this, "Something clicked..." + item.getLocation().getName(), Toast.LENGTH_SHORT).show();
+        // CREATE NEW DETAIL INTENT AND LAUNCH
         Intent i = new Intent(getApplicationContext(), EarthquakeDetailActivity.class);
         i.putExtra(EARTHQUAKE_TRANSFER, item);
         startActivity(i);
 
     }
 
+    /**
+     * When back button pressed, pop fragment from back stack
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         mFragmentManager.popBackStack();
-        Toast.makeText(this, "BACK WAS PRESSED", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -279,11 +289,11 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
             // DISPLAY THE BACK BUTTON
             upDateActionBar(true);
-
+            t.addToBackStack(null);
 
             // DISPLAY THE RESULTS
             if (findViewById(R.id.searchResultsLandscape) == null) {
-                t.addToBackStack(null);
+
                 t.add(R.id.fragment_frame, mFragment, SEARCH_RESULTS).commit();
             } else {
                 t.replace(R.id.searchResultsLandscape, searchResults, SEARCH_RESULTS).commit();
