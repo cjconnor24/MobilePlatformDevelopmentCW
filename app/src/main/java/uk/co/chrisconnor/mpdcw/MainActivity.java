@@ -97,15 +97,24 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         earthquakes = EarthquakeDatabase.mEarthquakeDao.fetchAllEarthquakes();
 
         // INITIALISE THE FRAGMENTS
+        initialiseFragments();
+        // IF ITS BLANK, DISPLAY THE DASHBOARD
+        if (mFragment == null) {
+            mFragment = dashboardFragment;
+            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+        }
+
+    }
+
+    private void initialiseFragments() {
         listFragment = EarthquakeListFragment.newInstance((ArrayList<Earthquake>) earthquakes);
         mapFragment = XEarthquakeMap.newInstance((ArrayList<Earthquake>) earthquakes);
         searchFragment = SearchFrament.newInstance("one", "two");
         dashboardFragment = DashboardFragment.newInstance("one", "two");
 
-        // IF ITS BLANK, DISPLAY THE DASHBOARD
-        if (mFragment == null) {
-            mFragment = dashboardFragment;
-            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+        if (mFragment != null) {
+
+
         }
 
     }
@@ -129,7 +138,10 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
                 onBackPressed();
                 upDateActionBar(false);
 
-                return true;
+                break;
+            case R.id.menu_refresh:
+                downloadData();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -142,12 +154,18 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
         if (earthquakes == null || earthquakes.size() == 0) {
 
-            DownloadData downloadData = new DownloadData(this);
-            downloadData.execute(urlSource);
+            downloadData();
 
         } else {
             Log.d(TAG, "onResume: shouldnt have redownloaded?");
         }
+    }
+
+    private void downloadData() {
+
+        DownloadData downloadData = new DownloadData(this);
+        downloadData.execute(urlSource);
+
     }
 
 
@@ -162,14 +180,20 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
         if (status == DownloadStatus.OK) {
 
-            Log.d(TAG, "onDownloadComplete: STATUS IS " + status.toString());
+            Toast t = Toast.makeText(this, "Earthquake data was refreshed", Toast.LENGTH_LONG);
+            t.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+            t.show();
 
             // TODO: MAYBE MAKE THE PARSER ASYNC?
             ParseEarthquakes parseEarthquakes = new ParseEarthquakes();
             parseEarthquakes.parse(data);
             earthquakes = parseEarthquakes.getEarthquakes();
 
+            // STORE THE DATA IN THE DB
             EarthquakeDatabase.mEarthquakeDao.addEarthquakes(earthquakes);
+
+            // REINITIALISE THE FRAGMENT
+            initialiseFragments();
 
         } else {
 
@@ -272,11 +296,12 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
     /**
      * Update action bar to show / hide the back button
+     *
      * @param show
      */
     private void upDateActionBar(boolean show) {
 
-        if(show){
+        if (show) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Search Results");
         } else {
@@ -285,8 +310,6 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         }
 
     }
-
-
 
 
     /**
