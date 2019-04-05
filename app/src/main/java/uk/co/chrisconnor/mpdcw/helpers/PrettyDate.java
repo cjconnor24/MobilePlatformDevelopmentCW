@@ -26,7 +26,7 @@ public class PrettyDate {
     public static String getTimeAgo(Date date) {
 
         long now = new Date().getTime();
-        long then = date.getTime() - (HOURS * 17);
+        long then = date.getTime();
 
         if (then > now || then <= 0) {
             return "in the future";
