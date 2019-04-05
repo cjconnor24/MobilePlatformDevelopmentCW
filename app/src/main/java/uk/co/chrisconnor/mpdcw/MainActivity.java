@@ -34,6 +34,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
 
     private static final String TAG = "MainActivity";
+    private static final String ACTIVE_FRAGMENT = "active_fragment";
 
 
     // ADDITIONAL API URLS FOR TESTING
@@ -47,6 +48,9 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private EarthquakeDatabase mdb;
     private List<Earthquake> earthquakes;
+
+    // NAVIGATION VIEW
+    private BottomNavigationView mBottomNavigationView;
 
     // LIST FRAGMENTS
     private Fragment dashboardFragment;
@@ -62,27 +66,11 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            switch (item.getItemId()) {
-                case R.id.navigation_dashboard:
-                    mFragment = dashboardFragment;
-                    break;
-                case R.id.navigation_list:
-                    mFragment = listFragment;
-                    break;
-                case R.id.navigation_map:
-                    mFragment = mapFragment;
-                    break;
-                case R.id.navigation_search:
-                    mFragment = searchFragment;
-                    break;
-                default:
-                    mFragment = listFragment;
-                    break;
-            }
-            mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
+            updateFragment(item.getItemId());
             return true;
         }
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +80,8 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         setSupportActionBar(toolbar);
 
         // INITIALISE THE BOTTOM NAV AND SETUP THE LISTENERS
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // INITIALISE THE DB AND FETCH RESULTS
         mdb = new EarthquakeDatabase(this);
@@ -153,6 +141,27 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Save current fragment location based on position in the bottom navigation
+     * @param outState
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // SAVE THE CURRENT FRAGMENT POSITION
+        outState.putInt(ACTIVE_FRAGMENT, mBottomNavigationView.getSelectedItemId());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        int selectedItemId = (int)savedInstanceState.get(ACTIVE_FRAGMENT);
+
+        updateFragment(selectedItemId);
+        
     }
 
     /**
@@ -308,6 +317,33 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
 
         }
 
+
+    }
+
+    /**
+     * This will update the fragment being used in the main frame based on the bottom navigation menu ID being supplied
+     * @param menuId Menu ID of fragment to be replaced.
+     */
+    private void updateFragment(int menuId){
+
+        switch (menuId) {
+            case R.id.navigation_dashboard:
+                mFragment = dashboardFragment;
+                break;
+            case R.id.navigation_list:
+                mFragment = listFragment;
+                break;
+            case R.id.navigation_map:
+                mFragment = mapFragment;
+                break;
+            case R.id.navigation_search:
+                mFragment = searchFragment;
+                break;
+            default:
+                mFragment = listFragment;
+                break;
+        }
+        mFragmentManager.beginTransaction().replace(R.id.fragment_frame, mFragment).commit();
 
     }
 
