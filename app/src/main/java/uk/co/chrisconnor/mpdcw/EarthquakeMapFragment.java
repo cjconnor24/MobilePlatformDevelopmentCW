@@ -8,6 +8,7 @@ package uk.co.chrisconnor.mpdcw;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -97,6 +98,11 @@ public class EarthquakeMapFragment extends Fragment implements OnMapReadyCallbac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // CHECK BUNDLE FOR EARTHQUAKES
+//        if(savedInstanceState != null){
+//
+//        }
 
         // MAKE SURE THERE ARE PASSED DATA
         if (getArguments() != null) {
@@ -211,6 +217,24 @@ public class EarthquakeMapFragment extends Fragment implements OnMapReadyCallbac
                 .snippet(PrettyDate.getTimeAgo(e.getDate()))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.location_marker));
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // IF LIST HAS EARTHQUAKES SAVE
+        if(mEarthquakeList != null && mEarthquakeList.size() > 0){
+            outState.putSerializable(EARTHQUAKE_LIST, mEarthquakeList);
+        }
+
+        // IF SINGLE EARTHQUAKE SAVE IT
+        if(mEarthquake != null){
+            outState.putSerializable(EARTHQUAKE, mEarthquake);
+        }
+
+    }
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
