@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity implements DownloadData.OnDownloa
     // ADDITIONAL API URLS FOR TESTING
     //private String urlSource = "http://quakes.bgs.ac.uk/feeds/WorldSeismology.xml";
     // DUMMY DATA TO TEST PERIODIC REFRESH OF DATA
-    //private String urlSource = "http://earthquake.chrisconnor.co.uk/data.xml";
+//    private String urlSource = "http://earthquake.chrisconnor.co.uk/data.xml";
     private String urlSource = "http://quakes.bgs.ac.uk/feeds/MhSeismology.xml";
 
 
