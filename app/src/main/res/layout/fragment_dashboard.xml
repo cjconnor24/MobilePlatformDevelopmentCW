@@ -16,12 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_condensed_bold"
-        android:text="QuakeTrackr Dashboard" />
+        android:text="@string/dashboard_heading" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="You can select from the options below." />
+        android:text="@string/dashboard_text" />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -46,14 +46,15 @@
                 <ImageView
                     android:src="@drawable/ic_magnitude_dashboard"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/strongest_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="Strongest Earthquake" />
+                    android:text="@string/strongest_earthquake" />
 
 
             </LinearLayout>
@@ -76,14 +77,15 @@
                 <ImageView
                     android:src="@drawable/ic_strength_dashboard"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/deepest_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="Deepest Earthquake" />
+                    android:text="@string/deepest_earthquake" />
 
 
             </LinearLayout>
@@ -106,14 +108,15 @@
                 <ImageView
                     android:src="@drawable/ic_north_dash"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/north_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="Most Northerly" />
+                    android:text="@string/most_northerly" />
 
 
             </LinearLayout>
@@ -136,14 +139,15 @@
                 <ImageView
                     android:src="@drawable/ic_east_dashboard"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/easterly_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="Most Easterly" />
+                    android:text="@string/most_easterly" />
 
 
             </LinearLayout>
@@ -166,14 +170,15 @@
                 <ImageView
                     android:src="@drawable/ic_west_dashboard"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/westerly_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="Most Westerly" />
+                    android:text="@string/most_westerly" />
 
 
             </LinearLayout>
@@ -196,14 +201,15 @@
                 <ImageView
                     android:src="@drawable/ic_south_dashboard"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/southerly_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
                     android:fontFamily="@font/roboto_condensed_bold"
-                    android:text="Most Southernly" />
+                    android:text="@string/most_southerly" />
 
 
             </LinearLayout>

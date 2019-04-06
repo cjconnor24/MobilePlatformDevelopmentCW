@@ -6,6 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_refresh"
-        android:title="Refresh Feed" />
+        android:title="@string/refresh_menu_text" />
 
 </menu>

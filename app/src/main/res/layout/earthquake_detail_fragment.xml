@@ -102,7 +102,7 @@
 
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
-                            android:text="Position"
+                            android:text="@string/position"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toEndOf="@+id/imageView4"
@@ -116,7 +116,8 @@
                             android:src="@drawable/ic_location_24dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/marker_icon" />
 
                         <TextView
                             android:id="@+id/detail_lat"
@@ -156,7 +157,8 @@
                             android:src="@drawable/ic_date_24dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/date_icon" />
 
                         <TextView
                             android:id="@+id/lblDate"
@@ -165,7 +167,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
-                            android:text="Date"
+                            android:text="@string/date"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -178,7 +180,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
-                            android:text="Time"
+                            android:text="@string/time"
                             app:layout_constraintBaseline_toBaselineOf="@+id/lblDate"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
@@ -210,7 +212,8 @@
                             android:layout_marginStart="16dp"
                             android:src="@drawable/ic_access_time_24dp"
                             app:layout_constraintStart_toEndOf="@+id/detail_date"
-                            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                            app:layout_constraintTop_toTopOf="@+id/imageView2"
+                            android:contentDescription="@string/time_icon" />
 
                     </android.support.constraint.ConstraintLayout>
 
@@ -233,7 +236,8 @@
                             android:src="@drawable/ic_distance_24dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:contentDescription="@string/distance_icon" />
 
                         <TextView
                             android:id="@+id/lblLocation"
@@ -242,7 +246,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
-                            android:text="Distance"
+                            android:text="@string/distance"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toEndOf="@+id/imageView3"
@@ -252,7 +256,7 @@
                             android:id="@+id/detail_distance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="541 Miles away"
+                            android:text="@string/miles_away"
                             app:layout_constraintStart_toStartOf="@+id/lblLocation"
                             app:layout_constraintTop_toBottomOf="@+id/lblLocation" />
 
@@ -264,7 +268,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
-                            android:text="Depth"
+                            android:text="@string/depth"
                             app:layout_constraintBaseline_toBaselineOf="@+id/lblLocation"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
@@ -277,7 +281,8 @@
                             android:layout_marginStart="24dp"
                             android:src="@drawable/ic_depth_24dp"
                             app:layout_constraintStart_toEndOf="@+id/detail_distance"
-                            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+                            app:layout_constraintTop_toTopOf="@+id/imageView3"
+                            android:contentDescription="@string/depth_icon" />
 
                         <TextView
                             android:id="@+id/detail_depth"

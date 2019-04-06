@@ -24,14 +24,14 @@
             android:layout_width="match_parent"
             android:fontFamily="@font/roboto_condensed_bold"
             android:layout_height="wrap_content"
-            android:text="Earthquake Search" />
+            android:text="@string/search_heading" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="30dp"
-            android:text="You can search for Earthquakes using the form below"
+            android:text="@string/search_subheading"
             />
 
         <TextView
@@ -40,14 +40,14 @@
             android:layout_height="wrap_content"
             style="@style/formLabel"
             android:drawableStart="@drawable/ic_date_24dp"
-            android:text=" Start Date" />
+            android:text="@string/start_date_lbl" />
 
         <EditText
             android:id="@+id/datePickerFrom"
             style="@style/editTextFormField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="e.g. 21/05/2018"
+            android:hint="@string/start_hint"
             android:inputType="date" />
 
         <TextView
@@ -56,14 +56,14 @@
             android:layout_height="wrap_content"
             style="@style/formLabel"
             android:drawableStart="@drawable/ic_date_24dp"
-            android:text=" End Date" />
+            android:text="@string/end_date_lbl" />
 
         <EditText
             android:id="@+id/datePickerTo"
             style="@style/editTextFormField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="e.g. 21/05/2018"
+            android:hint="@string/end_hint"
             android:inputType="date" />
 
         <View
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             style="@style/formLabel"
             android:drawableStart="@drawable/ic_richter_24dp"
-            android:text=" Magnitude" />
+            android:text="@string/magnitude_lbl" />
 
         <Spinner
             android:id="@+id/magnitude"
@@ -95,14 +95,14 @@
             android:layout_height="wrap_content"
             style="@style/formLabel"
             android:drawableStart="@drawable/ic_depth_24dp"
-            android:text=" Depth Greater Than" />
+            android:text="@string/depth_lbl" />
 
         <EditText
             android:id="@+id/depth"
             style="@style/editTextFormField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Depth (KM)"
+            android:hint="@string/depth_hint"
             android:inputType="number" />
 
         <View
@@ -117,14 +117,14 @@
             android:layout_height="wrap_content"
             style="@style/formLabel"
             android:drawableStart="@drawable/ic_location_24dp"
-            android:text=" Earthquake Location" />
+            android:text="@string/earthquake_location_lbl" />
 
         <EditText
             android:id="@+id/location"
             style="@style/editTextFormField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="e.g. Salsbury" />
+            android:hint="@string/location_hint" />
 
         <View
             android:id="@+id/divider4"
@@ -135,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/formLabel"
-            android:text=" Sort By" />
+            android:text="@string/sort_by_lbl" />
 
         <Spinner
             android:id="@+id/sortBy"
@@ -149,7 +149,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/formLabel"
-            android:text=" Sort Order" />
+            android:text="@string/sort_lbl" />
 
         <RadioGroup
             android:layout_width="match_parent"
@@ -165,14 +165,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:checked="true"
-                android:text="Ascending" />
+                android:text="@string/ascending_radio" />
 
             <RadioButton
                 android:id="@+id/sortDESC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Descending" />
+                android:text="@string/descending_radio" />
 
         </RadioGroup>
 
@@ -188,7 +188,7 @@
             style="@style/button_primary"
             android:background="@drawable/button_primary"
             android:drawableStart="@drawable/ic_search_white_24dp"
-            android:text="Search" />
+            android:text="@string/search_button_lbl" />
 
         <Button
             android:id="@+id/btnClear"
@@ -197,7 +197,7 @@
             android:drawableStart="@drawable/ic_clear_black_24dp"
             android:background="@drawable/button_secondary"
             style="@style/button_secondary"
-            android:text="Clear Form" />
+            android:text="@string/clear_button_lbl" />
 
         </LinearLayout>
 
