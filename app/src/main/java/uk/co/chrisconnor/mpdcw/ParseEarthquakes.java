@@ -33,8 +33,6 @@ public class ParseEarthquakes {
     }
 
     public List<Earthquake> getEarthquakes() {
-
-
         return earthquakes;
     }
 
@@ -104,17 +102,20 @@ public class ParseEarthquakes {
 
                         // 0 BLANK
                         // 1 DATE
+
+                        // PARSE THE DATE INTO A DATE OJBECT
                         String pattern = "EEE, dd MMM yyyy kk:mm:ss";
                         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                         String dateString = elements[1].replace(" ;", "").trim();
                         currentEarthquake.setDate(simpleDateFormat.parse(dateString));
 
+                        // GET THE LOCATION NAME
                         String locname = elements[2].replace(",",", ");
                         // 2 LOCATION
                         Location loc = new Location(locname, elements[3]);
                         currentEarthquake.setLocation(loc);
 
-                        // 4 DEPTH
+                        // 4 DEPTH - STRIP OUT ANY ADDITIONAL STRINGS e.g. km ;
                         currentEarthquake.setDepth(Integer.parseInt(elements[4].replace(" km ;", "").trim()));
                         // 5 Magnitude
                         currentEarthquake.setMagnitude(Double.parseDouble(elements[5].trim()));
