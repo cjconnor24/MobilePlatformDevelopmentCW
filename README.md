@@ -11,6 +11,8 @@ The brief was to create a mobile application which consumed a data feed on UK Ea
 You can [view a walkthrough][1] of the application on YouTube by clicking the link below.
 [![YouTube Walkthrough](Documents/YouTubeIcon.jpg)][1]
 
+A _low-resolution_ MP4 can be downloaded from the GitHub repo [here](https://github.com/cjconnor24/MobilePlatformDevelopmentCW/raw/master/Documents/QuakeTrackr_Git.mp4).
+
 ### Contents
 Below is a break down of the walkthrough. Click on the time marker to access directly.
 
