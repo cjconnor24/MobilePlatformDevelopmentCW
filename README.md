@@ -1,4 +1,4 @@
-[YouTube Walkthrough](Documents/quaketrackr_logo.jpg)
+![Quake Trackr Logo](Documents/quaketrackr_logo.jpg)
 # Quake Trackr
 
 This application was designed and developed as part of the Mobile Platform Development module at Glasgow Caledonian University.
