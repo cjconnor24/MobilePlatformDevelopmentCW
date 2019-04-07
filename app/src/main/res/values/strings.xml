@@ -7,7 +7,7 @@
     <string name="title_activity_earthquake_map">Map</string>
     <string name="title_activity_remove">Map</string>
     <string name="title_activity_main_navigation">Quake Trackr</string>
-    <string name="title_home">Home</string>
+    <string name="title_home" translatable="false">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_list">List</string>
     <string name="title_map">Map</string>
@@ -68,10 +68,10 @@
     <string name="search_form_text">Please search using the form</string>
     <string name="refresh_menu_text">Refresh Feed</string>
     <string name="search_heading">Earthquake Search</string>
-    <string name="search_subheading">You can search for Earthquakes using the form below</string>
+    <string name="search_subheading" translatable="false">You can search for Earthquakes using the form below</string>
     <string name="start_date_lbl">Start Date</string>
     <string name="start_hint">e.g. 21/05/2018</string>
-    <string name="end_date_lbl">End Date</string>
+    <string name="end_date_lbl" translatable="false">End Date</string>
     <string name="end_hint">e.g. 21/05/2018</string>
     <string name="magnitude_lbl">Magnitude</string>
     <string name="depth_lbl">Depth Greater Than</string>
