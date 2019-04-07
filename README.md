@@ -1,9 +1,8 @@
 # Earthquake Application
 
-This is the base readme for the Earthquake application.
+This application was designed and developed as part of the Mobile Platform Development module at Glasgow Caledonian University.
 
-## Description
-Description will go here
+The brief was to create a mobile application which consumed a data feed on UK Earthquakes from the [British Geological Survey][1]. The earthquakes should then be displayed to the user in a meaningful way.
 
 ### YouTube Walkthrough
 
@@ -26,13 +25,15 @@ Below is a break down of the walkthrough. Click on the time marker to access dir
 10. [5:00](https://youtu.be/woTzVRbaMSI?t=300) Refreshing data from feed
 
 ## Run / Clone Instructions
-Installation / cloning instruction will go here.
+To run this application, you will need Android Studio _(Version 3.3 or higher)_.
 
+Clone the repository to your machine
 ```
-// TODO: ADD FULL DESCRIPTION
-// TODO: ADD SOME IMAGES
-// TODO: ADD YOUTUBE URL AND SCREEN GRAB FOR WALKTHROUGH
+git clone https://github.com/cjconnor24/MobilePlatformDevelopmentCW.git
 ```
+Open as an existing project in Android Studio.
 
 # Copyright Notice
-Please note, all data displayed in the use of this app belongs to the [British Geological Survey](https://www.bgs.ac.uk). Further information can be found on their website.
+Please note, all data displayed in the use of this app belongs to the [British Geological Survey][1]. Further information can be found on their website.
+
+[1]: https://www.bgs.ac.uk
