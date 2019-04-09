@@ -1,7 +1,7 @@
 ![Quake Trackr Logo](Documents/quaketrackr_logo.jpg)
 # Quake Trackr
 
-This application was designed and developed as part of the Mobile Platform Development module at Glasgow Caledonian University.
+This application was designed and developed as part of the [Mobile Platform Development module][2] at [Glasgow Caledonian University][3].
 
 The brief was to create a mobile application which consumed a data feed on UK Earthquakes from the [British Geological Survey][1]. The earthquakes should then be displayed to the user in a meaningful way.
 
@@ -40,3 +40,5 @@ Open as an existing project in Android Studio.
 Please note, all data displayed in the use of this app belongs to the [British Geological Survey][1]. Further information can be found on their website.
 
 [1]: https://www.bgs.ac.uk
+[2]: https://www.gcu.ac.uk//study/modules/info/?Module=MHI322959
+[3]: https://www.gcu.ac.uk/
