@@ -45,6 +45,8 @@ Open as an existing project in Android Studio.
 You can download the APK installer by clicking [here][5] or clicking the icon above.
 
 # Copyright Notice
+[![BGS Logo](Documents/bgs_logo.jpg)][1]
+
 Please note, all data displayed in the use of this app belongs to the [British Geological Survey][1]. Further information can be found on their website.
 
 [1]: https://www.bgs.ac.uk
