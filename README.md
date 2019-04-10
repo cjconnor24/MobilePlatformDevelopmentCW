@@ -13,6 +13,7 @@ You can [view a walkthrough][1] of the application on YouTube by clicking the li
 
 ### Low-res Video Download
 [![Low Resolution Download](Documents/mp4icon.jpg)][4]
+
 A _low-resolution_ MP4 can be downloaded from the GitHub repo [here][4].
 
 ### Contents
@@ -40,7 +41,10 @@ Open as an existing project in Android Studio.
 
 ## APK Download
 [![APK Download](Documents/apkicon.jpg)][5]
+<<<<<<< HEAD
 
+=======
+>>>>>>> 844b2bbab5d14f5cd6c1299e93de750b4a4730e7
 You can download the APK installer by clicking [here][5] or clicking the icon above.
 
 # Copyright Notice
