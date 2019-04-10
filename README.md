@@ -11,7 +11,9 @@ The brief was to create a mobile application which consumed a data feed on UK Ea
 You can [view a walkthrough][1] of the application on YouTube by clicking the link below.
 [![YouTube Walkthrough](Documents/YouTubeIcon.jpg)][1]
 
-A _low-resolution_ MP4 can be downloaded from the GitHub repo [here](https://github.com/cjconnor24/MobilePlatformDevelopmentCW/raw/master/Documents/QuakeTrackr_Git.mp4).
+### Low-res Video Download
+[![Low Resolution Download](Documents/mp3icon.jpg)][4]
+A _low-resolution_ MP4 can be downloaded from the GitHub repo [here][4].
 
 ### Contents
 Below is a break down of the walkthrough. Click on the time marker to access directly.
@@ -36,9 +38,15 @@ git clone https://github.com/cjconnor24/MobilePlatformDevelopmentCW.git
 ```
 Open as an existing project in Android Studio.
 
+## APK Download
+[![APK Download](Documents/apkicon.jpg)][5]
+You can download the APK installer by clicking [here][5] or clicking the icon above.
+
 # Copyright Notice
 Please note, all data displayed in the use of this app belongs to the [British Geological Survey][1]. Further information can be found on their website.
 
 [1]: https://www.bgs.ac.uk
 [2]: https://www.gcu.ac.uk//study/modules/info/?Module=MHI322959
 [3]: https://www.gcu.ac.uk/
+[4]: https://github.com/cjconnor24/MobilePlatformDevelopmentCW/raw/master/Documents/QuakeTrackr_Git.mp4
+[5]: https://github.com/cjconnor24/MobilePlatformDevelopmentCW/raw/master/Documents/QuakeTrackr.apk
