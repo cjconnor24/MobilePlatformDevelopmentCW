@@ -41,10 +41,7 @@ Open as an existing project in Android Studio.
 
 ## APK Download
 [![APK Download](Documents/apkicon.jpg)][5]
-<<<<<<< HEAD
 
-=======
->>>>>>> 844b2bbab5d14f5cd6c1299e93de750b4a4730e7
 You can download the APK installer by clicking [here][5] or clicking the icon above.
 
 # Copyright Notice
