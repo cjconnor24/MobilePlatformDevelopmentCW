@@ -30,6 +30,10 @@ Below is a break down of the walkthrough. Click on the time marker to access dir
 9. [4:20](https://youtu.be/woTzVRbaMSI?t=260) Lanscape views
 10. [5:00](https://youtu.be/woTzVRbaMSI?t=300) Refreshing data from feed
 
+# Code Links
+Main Java Logic - [Java Code](https://github.com/cjconnor24/MobilePlatformDevelopmentCW/tree/master/app/src/main/java/uk/co/chrisconnor/mpdcw)
+Main XML Layout - [XML Layouts](https://github.com/cjconnor24/MobilePlatformDevelopmentCW/tree/master/app/src/main/res)
+
 ## Run / Clone Instructions
 To run this application, you will need Android Studio _(Version 3.3 or higher)_.
 
